@@ -1,6 +1,7 @@
 ﻿using CreateTournament.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.ObjectModel;
 
 namespace CreateTournament.Models
 {
@@ -15,5 +16,6 @@ namespace CreateTournament.Models
         public string? Phones { get; set; } 
         public string Password { get; set; }
         public int Role { get; set; } = 1;
+        public Collection<Tournament> Tournaments { get; set; }
     }
 }
