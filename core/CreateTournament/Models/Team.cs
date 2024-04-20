@@ -7,6 +7,7 @@ namespace CreateTournament.Models
     {
         public string Name { get; set; }
         public string? ImageTeam { get; set; }
+        public int? Point { get; set; }
         public Collection<Player> Players { get; set; }
         public int TournamentId { get; set; }
         [ForeignKey("TournamentId")]

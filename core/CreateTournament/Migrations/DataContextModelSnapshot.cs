@@ -214,6 +214,9 @@ namespace CreateTournament.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Point")
+                        .HasColumnType("int");
+
                     b.Property<int>("TournamentId")
                         .HasColumnType("int");
 

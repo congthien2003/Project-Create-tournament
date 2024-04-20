@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CreateTournament.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240420123249_UpdateDbContext")]
+    [Migration("20240420152848_UpdateDbContext")]
     partial class UpdateDbContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,6 +215,9 @@ namespace CreateTournament.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Point")
+                        .HasColumnType("int");
 
                     b.Property<int>("TournamentId")
                         .HasColumnType("int");
