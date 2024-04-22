@@ -31,10 +31,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<IJwtManager, JwtManager>();
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<ITeamService, TeamService>();
 
 
 // add scoped repository
 builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
+builder.Services.AddScoped<ITeamRepository<Team>, TeamRepository>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(opt =>

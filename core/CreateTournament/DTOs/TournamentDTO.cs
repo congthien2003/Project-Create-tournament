@@ -2,7 +2,7 @@
 
 namespace CreateTournament.DTOs
 {
-    public class TouramentDTO
+    public class TournamentDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

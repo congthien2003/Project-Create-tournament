@@ -10,7 +10,7 @@ namespace CreateTournament.DTOs
         public DateTime Created {  get; set; }
         public DateTime StartAt { get; set; }
         public int TouramentId { get; set; }
-        public TouramentDTO Tourament { get; set; }
+        public TournamentDTO Tourament { get; set; }
         public Collection<TeamDTO> Teams { get; set; }
     }
 }
