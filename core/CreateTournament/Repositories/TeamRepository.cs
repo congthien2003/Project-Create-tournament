@@ -32,6 +32,16 @@ namespace CreateTournament.Repositories
             return teams;
         }
 
+        public async Task<Team> GetTeamByIdAsync(int Id, bool includeDeleted = false)
+        {
+            var exits = await _context.Teams.FirstOrDefaultAsync(t => t.Id == Id);
+            if(exits == null)
+            {
+                return null;
+            }
+            return exits;
+        }
+
         public async Task<Team> UpdateAsync(int id, string name, bool includeDeleted = false)
         {
             var exits = await _context.Teams.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == includeDeleted);

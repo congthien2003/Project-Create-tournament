@@ -18,6 +18,7 @@ namespace CreateTournament.Helper
             CreateMap<SportType, SportTypeDTO>().ReverseMap();
             CreateMap<Tournament, TournamentDTO>().ReverseMap();
             CreateMap<Team, TeamDTO>().ReverseMap();
+            CreateMap<Player, PlayerDTO>().ReverseMap();
         }
     }
 }
