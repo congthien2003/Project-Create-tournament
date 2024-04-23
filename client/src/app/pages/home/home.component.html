@@ -1,19 +1,29 @@
+<app-spinner></app-spinner>
 <app-header></app-header>
 
-<div class="home--wrapper container">
-	<div class="home--video">
-		<iframe
-			width="763"
-			height="430"
-			src="https://www.youtube.com/embed/spNOT-7HyM4"
-			title="Score7 - Tournament Generator - Tutorial"
-			frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-			referrerpolicy="strict-origin-when-cross-origin"
-			allowfullscreen></iframe>
+<div class="home--wrapper">
+	<div class="home--introduce">
+		<h3>Tạo và quản lý giải đấu của bạn một cách đơn giản!</h3>
+		<p>
+			create-tour.com giúp bạn quản lý giải đấu của mình một cách đơn giản
+			và tiết kiệm thời gian.
+		</p>
+		<p>Hãy tham gia với chúng tôi ngày bây giờ.</p>
+		<div class="search">
+			<div class="input-focus-effect">
+				<input
+					for="search"
+					name="search"
+					id="search"
+					type="text"
+					placeholder=" " />
+				<label for="search">Find Tour</label>
+			</div>
+			<span class="search-btn"><i class="bx bx-search-alt-2"></i></span>
+		</div>
 	</div>
 
-	<div class="home--info">
+	<div class="home--info container">
 		<h2>Giới thiệu</h2>
 		<div class="list--card">
 			<div class="row">
@@ -27,6 +37,57 @@
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div class="home--guide container">
+		<h2>Hướng dẫn</h2>
+		<div class="list--card">
+			<div class="row mt-4">
+				<div class="col-1"></div>
+				<div class="col-2">
+					<div class="guide--card">
+						<span>1</span>
+						<p>Chọn loại môn và thể thức thi đấu</p>
+					</div>
+				</div>
+				<div class="col-2"></div>
+				<div class="col-2">
+					<div class="guide--card">
+						<span>3</span>
+						<p>Tùy chỉnh tên đội, thành viên trong đội</p>
+					</div>
+				</div>
+				<div class="col-2"></div>
+				<div class="col-2">
+					<div class="guide--card">
+						<span>5</span>
+						<p>Chia sẻ thông tin giải đấu với bạn bè</p>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-4">
+				<div class="col-1"></div>
+
+				<div class="col-2"></div>
+				<div class="col-2">
+					<div class="guide--card">
+						<span>2</span>
+						<p>Chọn số lượng đội tham gia giải</p>
+					</div>
+				</div>
+				<div class="col-2"></div>
+				<div class="col-2">
+					<div class="guide--card">
+						<span>4</span>
+						<p>Lên lịch thi đấu cho các trận</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="home--tour-list container">
+		<h2>Giải đấu đang diễn ra</h2>
 	</div>
 </div>
 <app-footer></app-footer>

@@ -1,13 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { NgxSpinnerService } from "ngx-spinner";
+import { AfterContentInit, Component, OnInit } from "@angular/core";
+import { LoaderService } from "src/app/shared/services/loader.service";
 
 @Component({
 	selector: "app-home",
 	templateUrl: "./home.component.html",
 	styleUrls: ["./home.component.scss"],
 })
-export class HomeComponent {
-	constructor() {}
+export class HomeComponent implements OnInit {
+	constructor(private loaderService: LoaderService) {}
+
+	ngOnInit(): void {
+		setTimeout(() => {
+			this.loaderService.setLoading(false);
+		}, 1000);
+	}
 
 	ListCardInfo = [
 		{
