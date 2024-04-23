@@ -9,6 +9,7 @@ namespace CreateTournament.Helper
     {
         public ApplicationMapper() {
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<RegisterDTO, User>().ReverseMap();
             /*.ForMember(u => u.Role, opt => opt.MapFrom(src => src.Role))
             .ForMember(u => u.Username, opt => opt.MapFrom(src => src.Username))
             .ForMember(u => u.Email, opt => opt.MapFrom(src => src.Email))

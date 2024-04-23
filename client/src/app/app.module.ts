@@ -9,8 +9,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { ToastrModule } from "ngx-toastr";
 import { CommonModule } from "@angular/common";
 import { TokenInterceptor } from "./core/interceptors/token.interceptor";
-import { LoadingInterceptor } from "./core/interceptors/loading.interceptor";
-import { CardInfoComponent } from "./shared/components/card-info/card-info.component";
+import { SharedModule } from "./shared/shared.module";
+
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
@@ -19,6 +19,7 @@ import { CardInfoComponent } from "./shared/components/card-info/card-info.compo
 		CommonModule,
 		BrowserAnimationsModule,
 		HttpClientModule,
+		SharedModule,
 		ToastrModule.forRoot({
 			timeOut: 3000,
 			positionClass: "toast-top-right",
@@ -29,11 +30,6 @@ import { CardInfoComponent } from "./shared/components/card-info/card-info.compo
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: TokenInterceptor,
-			multi: true,
-		},
-		{
-			provide: HTTP_INTERCEPTORS,
-			useClass: LoadingInterceptor,
 			multi: true,
 		},
 	],
