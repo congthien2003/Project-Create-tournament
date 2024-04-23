@@ -5,19 +5,16 @@ import { RegisterComponent } from "./components/register/register.component";
 import { ChangePasswordComponent } from "./components/change-password/change-password.component";
 import { AuthRoutingModule } from "./auth-routing.module";
 import { FormsModule } from "@angular/forms";
-import { ToastrModule } from "ngx-toastr";
-import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
+import { RestorePasswordComponent } from "./components/restore-password/restore-password.component";
+
+import { SharedModule } from "../shared/shared.module";
 @NgModule({
-	declarations: [LoginComponent, RegisterComponent, ChangePasswordComponent, RestorePasswordComponent],
-	imports: [
-		CommonModule,
-		AuthRoutingModule,
-		FormsModule,
-		ToastrModule.forRoot({
-			timeOut: 10000,
-			positionClass: "toast-bottom-right",
-			preventDuplicates: true,
-		}),
+	declarations: [
+		LoginComponent,
+		RegisterComponent,
+		ChangePasswordComponent,
+		RestorePasswordComponent,
 	],
+	imports: [CommonModule, SharedModule, AuthRoutingModule, FormsModule],
 })
 export class AuthModule {}

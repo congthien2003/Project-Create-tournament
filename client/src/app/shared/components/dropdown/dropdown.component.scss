@@ -1,0 +1,30 @@
+@import "../../variable.scss";
+.dropdown {
+	background-color: $primary-medium;
+	color: white;
+
+	&--select {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 8px 16px;
+		overflow: hidden;
+		position: relative;
+	}
+
+	&--list {
+		position: absolute;
+		z-index: 5;
+		animation: showToptoBot 0.3s;
+		width: 100%;
+		background-color: $primary-light;
+		.item {
+			padding: 8px 16px;
+			cursor: pointer;
+			transition: 0.2s ease-in;
+			&:hover {
+				background-color: $primary;
+			}
+		}
+	}
+}

@@ -1,1 +1,59 @@
-<p>create-tournament works!</p>
+<app-spinner></app-spinner>
+<app-header></app-header>
+
+<div
+	class="create--wrapper container d-flex align-items-center justify-content-center">
+	<div class="create--form">
+		<div class="create--header">
+			<h4>Tạo giải đấu cho bạn</h4>
+			<p>Miễn phí và dễ dàng quản lý</p>
+		</div>
+		<div class="create--info mt-4">
+			<div class="create--input-name">
+				<div class="text-field">
+					<label for="tourName">Tên giải đấu</label>
+					<input
+						autocomplete="off"
+						type="text"
+						id="tourName"
+						placeholder="Nhập tên giải đấu" />
+				</div>
+			</div>
+			<div class="create--select mt-3">
+				<div class="select--sport">
+					<app-dropdown
+						[title]="titleSportSelect"
+						[listItem]="sportTypeNameList"
+						(outputValue)="
+							onReceiveValueSportType($event)
+						"></app-dropdown>
+				</div>
+				<div class="select--format mt-3">
+					<p>Chọn thể thức thi đấu</p>
+					<div
+						class="form-check mt-2"
+						*ngFor="let item of formatTypeNameList">
+						<input
+							class="form-check-input"
+							type="radio"
+							name="format"
+							id="format" />
+						<label class="form-check-label" for="format">
+							{{ item }}
+						</label>
+					</div>
+				</div>
+				<div class="select--quantity mt-3">
+					<app-dropdown
+						[title]="titleQuantityTeams"
+						[listItem]="quantityTeams"
+						(outputValue)="
+							onReceiveValueQuantityTeams($event)
+						"></app-dropdown>
+				</div>
+			</div>
+		</div>
+
+		<div class="create--submit mt-4">Tạo giải đấu</div>
+	</div>
+</div>

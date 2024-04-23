@@ -40,6 +40,12 @@ builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
 builder.Services.AddScoped<IFormatTypeRepository<FormatType>, FormatTypeRepository>();
 builder.Services.AddScoped<ISportTypeRepository<SportType>, SportTypeRepository>();
 builder.Services.AddScoped<ITournamentRepository<Tournament>, TournamentRepository>();
+builder.Services.AddTransient<ITeamService, TeamService>();
+
+
+// add scoped repository
+builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
+builder.Services.AddScoped<ITeamRepository<Team>, TeamRepository>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(opt =>

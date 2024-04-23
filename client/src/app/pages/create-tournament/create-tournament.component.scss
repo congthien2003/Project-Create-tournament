@@ -1,0 +1,80 @@
+@import "../../shared/variable.scss";
+.create {
+	&--wrapper {
+		// padding-top: 76px;
+		height: 100%;
+		background-color: $primary-medium;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+	}
+
+	&--form {
+		padding: 36px;
+		color: white;
+		background-color: $primary-dark;
+	}
+
+	&--info {
+	}
+
+	&--input-name {
+		.text-field {
+			position: relative;
+		}
+
+		.text-field label {
+			display: inline-block;
+			font-weight: 600;
+			cursor: pointer;
+			position: absolute;
+			top: 0;
+			left: 10px;
+			background-color: $primary-dark;
+			padding: 1px 5px;
+			font-size: 16px;
+			transform: translateY(-50%);
+			color: $primary;
+		}
+
+		.text-field input {
+			padding: 15px;
+			display: block;
+			width: 100%;
+			font-size: 14px;
+			border: 1px solid $primary;
+			border-radius: 4px;
+			background-color: transparent;
+			color: white;
+			outline: none;
+		}
+	}
+
+	&--header {
+		text-align: center;
+		text-transform: uppercase;
+	}
+
+	&--select {
+		width: 500px;
+	}
+
+	&--submit {
+		width: 100%;
+		text-align: center;
+		padding: 8px 16px;
+		font-weight: 500;
+		border-radius: 8px;
+		cursor: pointer;
+		border: 1px solid $primary;
+		color: white;
+
+		background-color: $primary;
+
+		overflow: hidden;
+
+		&:hover {
+			opacity: 0.9;
+		}
+	}
+}
