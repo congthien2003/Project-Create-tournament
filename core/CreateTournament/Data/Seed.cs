@@ -46,6 +46,10 @@ namespace CreateTournament.Data
                         new SportType()
                         {
                             Name = "Football"
+                        },
+                        new SportType()
+                        {
+                            Name = "TFT"
                         }
                     });
                     context.SaveChanges();

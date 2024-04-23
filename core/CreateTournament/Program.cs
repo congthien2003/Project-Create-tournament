@@ -31,10 +31,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<IJwtManager, JwtManager>();
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddTransient<IUserService, UserService>();
-
+builder.Services.AddTransient<IFormatTypeService, FormatTypeService>();
+builder.Services.AddTransient<ISportTypeService, SportTypeService>();
+builder.Services.AddTransient<ITournamentService, TournamentService>();
 
 // add scoped repository
 builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
+builder.Services.AddScoped<IFormatTypeRepository<FormatType>, FormatTypeRepository>();
+builder.Services.AddScoped<ISportTypeRepository<SportType>, SportTypeRepository>();
+builder.Services.AddScoped<ITournamentRepository<Tournament>, TournamentRepository>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(opt =>
