@@ -14,6 +14,9 @@ namespace CreateTournament.Helper
             .ForMember(u => u.Username, opt => opt.MapFrom(src => src.Username))
             .ForMember(u => u.Email, opt => opt.MapFrom(src => src.Email))
             .ForMember(u => u.Phones, opt => opt.MapFrom(src => src.Phones))*/
+            CreateMap<FormatType, FormatTypeDTO>().ReverseMap();
+            CreateMap<SportType, SportTypeDTO>().ReverseMap();
+            CreateMap<Tournament, TournamentDTO>().ReverseMap();
             CreateMap<Team, TeamDTO>().ReverseMap();
         }
     }
