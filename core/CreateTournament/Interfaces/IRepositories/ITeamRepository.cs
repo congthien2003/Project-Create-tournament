@@ -8,5 +8,6 @@ namespace CreateTournament.Interfaces.IRepositories
         Task<TTeam> UpdateAsync(int id, string name, bool includeDeleted = false);
         Task<List<TTeam>> GetAllByIdTournamentAsync(int IdTournament, bool includeDeleted = false);
         Task<TTeam> GetTeamByIdAsync (int Id, bool includeDeleted = false);
+        Task<TTeam> FindByIdAsync(int Id, bool includeDeleted = false);
     }
 }

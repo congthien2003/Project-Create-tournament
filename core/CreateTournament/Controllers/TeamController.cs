@@ -23,7 +23,7 @@ namespace CreateTournament.Controllers
         {
             if (number <= 0)
             {
-                return BadRequest("Invalid number of teams. Number must be greater than 0.");
+                return BadRequest("Số team truyền vô không hợp lệ");
             }
             for (int i = 1; i <= number; i++)
             {
@@ -43,7 +43,7 @@ namespace CreateTournament.Controllers
             var teams = await _teamService.GetAllByIdTournamentAsync(idTornament);
             if(teams.Count == 0)
             {
-                return BadRequest();
+                return BadRequest("Các trận đấu không tồn tại");
             }
             return Ok(teams);
         }
@@ -54,7 +54,7 @@ namespace CreateTournament.Controllers
             var team = await _teamService.UpdateAsync(id,name );
             if (team == null)
             {
-                return BadRequest();
+                return BadRequest("Trận đấu không tồn tại");
             }
             return Ok(team);
         }
