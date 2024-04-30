@@ -37,6 +37,7 @@ builder.Services.AddTransient<ITournamentService, TournamentService>();
 builder.Services.AddTransient<ITeamService, TeamService>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
 builder.Services.AddTransient<IMatchService, MatchService>();
+builder.Services.AddTransient<IMatchResultService, MatchResultService>();
 
 // add scoped repository
 builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
@@ -47,6 +48,7 @@ builder.Services.AddScoped<IMatchRepository<Match>, MatchRepository>();
 builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
 builder.Services.AddScoped<ITeamRepository<Team>, TeamRepository>();
 builder.Services.AddScoped<IPlayerRepository<Player>, PlayerRepository>();
+builder.Services.AddScoped<IMatchResultRepository<MatchResult>, MatchResultRepository>();
 
 
 builder.Services.AddHttpContextAccessor();
