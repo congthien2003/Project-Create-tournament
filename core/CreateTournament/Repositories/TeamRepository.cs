@@ -20,6 +20,16 @@ namespace CreateTournament.Repositories
             return team;
         }
 
+        public async Task<Team> FindByIdAsync(int Id, bool includeDeleted = false)
+        {
+            var team = await _context.Teams.FirstOrDefaultAsync(t => t.Id == Id && t.IsDeleted == includeDeleted);
+            if (team == null)
+            {
+                return null;
+            }
+            return team;
+        }
+
         public async Task<List<Team>> GetAllByIdTournamentAsync(int IdTournament,bool includeDeleted = false)
         {
             IQueryable<Team> teamsQuery = _context.Teams
