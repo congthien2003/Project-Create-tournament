@@ -1,0 +1,33 @@
+<div class="form-edit">
+	<div class="form-edit__header">
+		<h4>Chỉnh sửa thông tin giải đấu</h4>
+		<button
+			type="button"
+			class="btn-close btn-white"
+			data-bs-dismiss="modal"
+			aria-label="Close"></button>
+	</div>
+	<div class="form-edit__main">
+		<div class="team" *ngFor="let team of listTeams">
+			<input type="number" hidden [value]="team.id" />
+			<input type="text" [value]="team.name" [(ngModel)]="team.name" />
+			<button type="button" class="btn btn-primary-custom">Save</button>
+			<button type="button" class="btn btn-warning">Delete</button>
+		</div>
+	</div>
+	<div class="form-edit__actions">
+		<button
+			type="button"
+			class="btn btn-secondary-custom"
+			data-bs-dismiss="modal">
+			Hủy
+		</button>
+		<button
+			type="button"
+			class="btn btn-primary-custom"
+			(click)="handleSave()"
+			data-bs-dismiss="modal">
+			Lưu
+		</button>
+	</div>
+</div>

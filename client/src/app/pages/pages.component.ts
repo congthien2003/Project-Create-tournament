@@ -1,9 +1,8 @@
 import { Component } from "@angular/core";
-import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
 	selector: "app-pages",
-	templateUrl: "./pages.component.html",
+	template: ` <router-outlet></router-outlet> `,
 	styleUrls: ["./pages.component.scss"],
 })
 export class PagesComponent {}

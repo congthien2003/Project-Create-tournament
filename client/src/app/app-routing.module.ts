@@ -12,6 +12,13 @@ const routes: Routes = [
 		loadChildren: () =>
 			import("./pages/pages.module").then((m) => m.PagesModule),
 	},
+	{
+		path: "tournament",
+		loadChildren: () =>
+			import("./pages/tournament/tournament.module").then(
+				(m) => m.TournamentModule
+			),
+	},
 	{ path: "", redirectTo: "pages", pathMatch: "full" },
 	{ path: "**", redirectTo: "pages" },
 ];

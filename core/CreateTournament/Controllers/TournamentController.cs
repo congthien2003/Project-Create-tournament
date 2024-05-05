@@ -24,6 +24,7 @@ namespace CreateTournament.Controllers
         }
 
         [HttpGet("getall")]
+        [AllowAnonymous]
         public async Task<ActionResult> GetAll()
         {
             var tournament = await _tournamentService.GetAll();
@@ -32,6 +33,7 @@ namespace CreateTournament.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
+        [AllowAnonymous]
         public async Task<ActionResult> GetByIdTournament(int id)
         {
             var tournament = await _tournamentService.GetByIdTournament(id);

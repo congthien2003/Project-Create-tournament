@@ -1,9 +1,10 @@
-import { RouterModule, Routes, RouterOutlet } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { HomeComponent } from "./home/home.component";
 import { CreateTournamentComponent } from "./create-tournament/create-tournament.component";
 import { authGuard } from "../@auth/guards/auth.guard";
 import { UserComponent } from "./user/user.component";
+import { FindTournamentComponent } from "./find-tournament/find-tournament.component";
 
 const routes: Routes = [
 	{
@@ -14,9 +15,6 @@ const routes: Routes = [
 		path: "create",
 		component: CreateTournamentComponent,
 		canActivate: [authGuard],
-		data: {
-			role: "admin",
-		},
 	},
 	{
 		path: "user",
@@ -25,7 +23,7 @@ const routes: Routes = [
 	},
 	{
 		path: "find",
-		component: HomeComponent,
+		component: FindTournamentComponent,
 	},
 ];
 

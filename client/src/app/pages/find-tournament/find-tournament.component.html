@@ -1,0 +1,80 @@
+<app-spinner></app-spinner>
+<app-header></app-header>
+<div class="find-tour--wrapper container">
+	<div class="d-flex flex-column">
+		<div class="find--actions">
+			<div class="find--input">
+				<div class="text-field">
+					<label for="tourName">Tên giải đấu</label>
+					<input
+						autocomplete="off"
+						type="text"
+						id="tourname"
+						placeholder="Nhập tên giải đấu" />
+				</div>
+
+				<div class="find-btn">
+					<i class="bx bx-search-alt-2"></i>
+				</div>
+			</div>
+			<div class="find--filter">
+				<div class="filter--sport">
+					<app-dropdown
+						[title]="titleSportSelect"
+						[listItem]="sportTypeNameList"
+						(outputValue)="
+							onReceiveValueSportType($event)
+						"></app-dropdown>
+				</div>
+
+				<div class="filter--status"></div>
+			</div>
+		</div>
+		<div class="list--tour container">
+			<h3 class="list--tour__header text-white text-center fs-4 fw-bold">
+				Danh sách các giải đấu
+			</h3>
+			<div class="list--tour__container">
+				<div class="row">
+					<div
+						class="col-lg-4 col-md-12 mt-4"
+						*ngFor="let tour of listTour"
+						(click)="onViewDetail(tour.id)">
+						<tour-card
+							[tourName]="tour.name"
+							[quantity]="tour.quantityTeam"
+							[location]="tour.location"></tour-card>
+					</div>
+				</div>
+			</div>
+			<div class="list--tour__pagi mt-4 px-2">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li class="page-item disabled">
+							<a
+								class="page-link"
+								href="#"
+								tabindex="-1"
+								aria-disabled="true"
+								>Previous</a
+							>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">1</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">2</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">3</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">Next</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

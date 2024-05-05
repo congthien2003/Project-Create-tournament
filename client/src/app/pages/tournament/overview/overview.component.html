@@ -1,0 +1,172 @@
+<app-header></app-header>
+
+<div class="overview--wrapper container g-0">
+	<div class="overview--header text-white">
+		<div
+			class="w-50 mx-auto d-flex align-items-center justify-content-center gap-2">
+			<div class="tour--img">
+				<img
+					src="https://givetour-prod.s3.amazonaws.com/UploadFiles/AvatarPhoto/303e02e1-97c5-4ff5-ae78-22b17bb958ec.png"
+					alt="logo" />
+			</div>
+			<div class="tour--name">
+				<h3 class="tour--name">
+					{{ Tour.name }}
+				</h3>
+			</div>
+		</div>
+	</div>
+	<div class="overview--content">
+		<div class="row">
+			<div class="col-4">
+				<div class="detail--tour mx-auto">
+					<div class="detail__header">
+						Chi tiết giải đấu
+
+						<!-- Button trigger modal -->
+						<div
+							*ngIf="canEdit"
+							type="button"
+							class="btn btn-edit d-inline-flex align-items-center justify-content-center"
+							data-bs-toggle="modal"
+							data-bs-target="#modalEdit">
+							<i class="bx bx-edit"></i>
+						</div>
+
+						<!-- Modal -->
+						<div
+							class="modal fade"
+							id="modalEdit"
+							tabindex="-1"
+							aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<form-edit-tour
+										[idTour]="this.idTour"
+										(save)="
+											saveTourData($event)
+										"></form-edit-tour>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="detail__content">
+						<div class="info">
+							<div class="row">
+								<div class="col-6">Môn thi đấu</div>
+								<div class="col-6">
+									{{ Tour.sportTypeId | sportName }}
+								</div>
+							</div>
+						</div>
+						<div class="info">
+							<div class="row">
+								<div class="col-6">Hình thức thi đấu</div>
+								<div class="col-6">
+									{{ Tour.formatTypeId | formatName }}
+								</div>
+							</div>
+						</div>
+						<div class="info">
+							<div class="row">
+								<div class="col-6">Địa chỉ</div>
+								<div class="col-6">
+									{{ Tour.location || "" }}
+								</div>
+							</div>
+						</div>
+						<div class="info">
+							<div class="row">
+								<div class="col-6">Số lượng đội:</div>
+								<div class="col-6">
+									{{ Tour.quantityTeam }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="detail--tour mx-auto">
+					<div class="detail__header">
+						Thông tin đội thi đấu
+						<!-- Button trigger modal -->
+						<div
+							*ngIf="canEdit"
+							type="button"
+							class="btn btn-edit d-inline-flex align-items-center justify-content-center"
+							data-bs-toggle="modal"
+							data-bs-target="#modalEditTeam">
+							<i class="bx bx-edit"></i>
+						</div>
+
+						<!-- Modal -->
+						<div
+							class="modal fade"
+							id="modalEditTeam"
+							tabindex="-1"
+							aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<form-edit-team
+										[idTour]="this.idTour"
+										[listTeams]="
+											this.listTeams
+										"></form-edit-team>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="detail__content">
+						<div class="team" *ngFor="let team of listTeams">
+							<div class="row">
+								<div class="col-2">
+									<div class="team--img">
+										<img
+											src="https://givetour-prod.s3.amazonaws.com/UploadFiles/AvatarPhoto/303e02e1-97c5-4ff5-ae78-22b17bb958ec.png"
+											alt="logo"
+											width="100%" />
+									</div>
+								</div>
+								<div class="col-10">
+									<h5 class="team--name">
+										{{ team.name }}
+									</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-4">
+			<div class="col-8 mx-auto">
+				<div class="detail--tour mx-auto">
+					<div class="detail__header">Lịch sử đấu</div>
+					<div class="detail__content">
+						<div class="match" *ngFor="let team of listTeams">
+							<div class="row">
+								<div class="col-5 overflow-hidden">
+									<h5 class="team--name">
+										{{ team.name }}
+									</h5>
+								</div>
+								<div class="col-2">
+									<p class="text-center">VS</p>
+								</div>
+								<div class="col-5">
+									<h5 class="team--name">
+										{{ team.name }}
+									</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

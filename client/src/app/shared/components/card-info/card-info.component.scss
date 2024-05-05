@@ -11,6 +11,13 @@
 		flex-direction: column;
 	}
 
+	&--title {
+		font-size: 18px;
+		font-weight: 500;
+		line-height: 1;
+		margin-bottom: 0;
+	}
+
 	&--header {
 		width: 100%;
 		text-align: center;
@@ -28,6 +35,6 @@
 
 	&--content {
 		font-size: 18px;
-		padding: 4px 8px;
+		padding: 8px 16px;
 	}
 }

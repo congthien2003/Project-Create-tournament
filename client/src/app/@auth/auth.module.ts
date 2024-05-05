@@ -4,7 +4,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { ChangePasswordComponent } from "./components/change-password/change-password.component";
 import { AuthRoutingModule } from "./auth-routing.module";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RestorePasswordComponent } from "./components/restore-password/restore-password.component";
 
 import { SharedModule } from "../shared/shared.module";
@@ -15,6 +15,12 @@ import { SharedModule } from "../shared/shared.module";
 		ChangePasswordComponent,
 		RestorePasswordComponent,
 	],
-	imports: [CommonModule, SharedModule, AuthRoutingModule, FormsModule],
+	imports: [
+		CommonModule,
+		SharedModule,
+		AuthRoutingModule,
+		FormsModule,
+		ReactiveFormsModule,
+	],
 })
 export class AuthModule {}

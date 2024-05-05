@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 	isUserMenu: boolean = false;
 	isLogin: boolean = false;
 	username: string = "";
+	id: number = 0;
 	constructor(
 		private router: Router,
 		private authService: AuthenticationService
@@ -28,6 +29,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 	ngOnInit(): void {
 		this.isLogin = this.authService.isAuthenticated();
 		this.username = this.authService.getUsernameFromToken();
+		this.id = this.authService.getUserIdFromToken();
 	}
 	ngOnChanges(changes: SimpleChanges): void {
 		this.isLogin = this.authService.isAuthenticated();
@@ -82,6 +84,10 @@ export class HeaderComponent implements OnInit, OnChanges {
 
 	detailUser() {
 		this.router.navigate(["/pages/user"]);
+	}
+
+	myTour() {
+		this.router.navigate([`tournament/mytour/${this.id}`]);
 	}
 
 	logOut(): void {

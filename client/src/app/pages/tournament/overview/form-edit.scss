@@ -1,0 +1,97 @@
+@import "../../../shared/variable.scss";
+
+.form-edit {
+	width: 400px;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	gap: 12px;
+
+	&__header {
+		background-color: $primary;
+		padding: 8px 12px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		h4 {
+			font-size: 20px;
+			font-weight: bold;
+			color: white;
+			margin-bottom: 0;
+		}
+	}
+
+	&__main {
+		padding: 12px 24px;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+		.text-field {
+			position: relative;
+		}
+
+		.text-field label {
+			display: inline-block;
+			font-weight: 600;
+			cursor: pointer;
+			position: absolute;
+			top: 0;
+			left: 10px;
+			background-color: white;
+			padding: 1px 5px;
+			font-size: 18px;
+			transform: translateY(-50%);
+			color: $primary;
+		}
+
+		.text-field input {
+			padding: 15px;
+			display: block;
+			width: 100%;
+			font-size: 16px;
+			border: 1px solid $primary-medium;
+			border-radius: 4px;
+			background-color: transparent;
+			color: black;
+			outline: none;
+		}
+	}
+
+	&__actions {
+		padding-bottom: 12px;
+		padding-right: 24px;
+		width: 30%;
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+}
+
+.btn-primary-custom {
+	background-color: white;
+	outline: none;
+	transition: 0.2s ease-in;
+	color: $primary;
+	border: 1px solid $primary;
+	font-weight: 450;
+	&:hover {
+		background-color: $primary;
+		color: white;
+	}
+}
+
+.btn-secondary-custom {
+	background-color: white;
+	outline: none;
+	transition: 0.2s ease-in;
+	color: $primary-medium;
+	border: 1px solid $primary-medium;
+	font-weight: 450;
+
+	&:hover {
+		background-color: $primary-medium;
+		color: white;
+	}
+}

@@ -14,11 +14,11 @@ export class MasterService {
 		return this.http.get(`${this.apiUrl}/${endpoint}`, options);
 	}
 
-	post(endpoint: string, data: any, options?: any): Observable<any> {
+	post(endpoint: string, data?: any, options?: any): Observable<any> {
 		return this.http.post(`${this.apiUrl}/${endpoint}`, data, options);
 	}
 
-	put(endpoint: string, data: any, options?: any): Observable<any> {
+	put(endpoint: string, data?: any, options?: any): Observable<any> {
 		return this.http.put(`${this.apiUrl}/${endpoint}`, data, options);
 	}
 

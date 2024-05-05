@@ -5,6 +5,7 @@ export class FormatType implements IFormatType {
 	name: string;
 
 	constructor() {
-		(this.id = 0), (this.name = "");
+		this.id = 0;
+		this.name = "";
 	}
 }

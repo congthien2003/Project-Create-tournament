@@ -3,24 +3,24 @@
 <div class="auth--wrapper">
 	<div class="login">
 		<h4 class="text-center">Đăng nhập</h4>
-		<form #form="ngForm">
+		<form [formGroup]="loginForm">
 			<div class="form-group">
 				<!-- Email input -->
 				<div class="form-outline mb-4">
 					<label class="form-label" for="email">Email</label>
 					<input
-						[(ngModel)]="user.email"
 						name="email"
 						type="email"
 						id="email"
-						class="form-control" />
+						class="form-control"
+						[formControl]="loginForm.controls.username" />
 				</div>
 
 				<!-- Password input -->
 				<div class="form-outline mb-4">
 					<label class="form-label" for="password">Mật khẩu</label>
 					<input
-						[(ngModel)]="user.password"
+						[formControl]="loginForm.controls.password"
 						name="password"
 						type="password"
 						id="password"

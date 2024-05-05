@@ -2,7 +2,7 @@
 .dropdown {
 	background-color: $primary-medium;
 	color: white;
-
+	min-width: 200px;
 	&--select {
 		display: flex;
 		align-items: center;

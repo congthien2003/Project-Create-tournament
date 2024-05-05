@@ -1,0 +1,17 @@
+<div class="tour-card">
+	<div class="tour--img">
+		<img src="{{ imgUrl }}" alt="" />
+	</div>
+	<div class="tour--des">
+		<h5 class="tour--name">{{ tourName }}</h5>
+		<p class="tour--info">
+			{{ format | formatName }} | {{ sport | sportName }} | {{ location }}
+		</p>
+		<div class="tour--footer">
+			<div class="tour--quantity">
+				<i class="bx bxs-user"></i> {{ quantity }}
+			</div>
+			<div class="tour--view"><i class="bx bx-ghost"></i> {{ view }}</div>
+		</div>
+	</div>
+</div>

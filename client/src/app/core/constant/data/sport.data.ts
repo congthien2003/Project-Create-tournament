@@ -2,11 +2,11 @@ export const SportTypeData = {
 	listSport: [
 		{
 			id: 1,
-			name: "FootBall",
+			name: "Bóng đá",
 		},
 		{
 			id: 2,
-			name: "TFT",
+			name: "Đấu trường chân lý",
 		},
 	],
 };

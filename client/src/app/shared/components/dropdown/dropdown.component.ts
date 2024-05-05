@@ -19,7 +19,6 @@ export class DropdownComponent {
 	}
 
 	chooseItem(event: any) {
-		console.log(event);
 		this.value = this.listItem[event];
 		this.toggleListItem();
 

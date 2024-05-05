@@ -1,18 +1,38 @@
-import { AfterContentInit, Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { LoaderService } from "src/app/shared/services/loader.service";
-
+import { MatTableDataSource } from "@angular/material/table";
+import { Tournament } from "src/app/core/models/classes/Tournament";
+import { TournamentService } from "src/app/core/services/tournament.service";
+import { FormatTypeData } from "src/app/core/constant/data/format.data";
+import { SportTypeData } from "src/app/core/constant/data/sport.data";
 @Component({
 	selector: "app-home",
 	templateUrl: "./home.component.html",
 	styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-	constructor(private loaderService: LoaderService) {}
+	formatData = FormatTypeData;
+	sportData = SportTypeData;
+	constructor(
+		private loaderService: LoaderService,
+		private tournamentService: TournamentService
+	) {}
 
 	ngOnInit(): void {
 		setTimeout(() => {
 			this.loaderService.setLoading(false);
 		}, 1000);
+
+		// Get Tour
+		this.tournamentService.getAll().subscribe({
+			next: (data) => {
+				this.data = data;
+				this.dataSource.data = data.slice(0, 4);
+			},
+			error(err) {
+				console.log(err);
+			},
+		});
 	}
 
 	ListCardInfo = [
@@ -33,4 +53,17 @@ export class HomeComponent implements OnInit {
 			classIcon: "bxs-message-dots",
 		},
 	];
+
+	// Show Tournament
+
+	displayedColumns: string[] = [
+		"name",
+		"sportType",
+		"formatType",
+		"location",
+	];
+
+	data: Tournament[] = [];
+
+	dataSource = new MatTableDataSource<Tournament>(this.data);
 }

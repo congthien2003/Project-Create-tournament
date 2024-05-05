@@ -19,13 +19,13 @@ namespace CreateTournament.Controllers
             _teamService = teamService;
         }
         [HttpPost("create")]
-        public async Task<ActionResult> CreateAsync(int number, int idTournament)
+        public async Task<ActionResult> CreateAsync(int quantity, int idTournament)
         {
-            if (number <= 0)
+            if (quantity <= 0)
             {
                 return BadRequest("Invalid number of teams. Number must be greater than 0.");
             }
-            for (int i = 1; i <= number; i++)
+            for (int i = 1; i <= quantity; i++)
             {
                 var team = new TeamDTO
                 {
@@ -38,9 +38,9 @@ namespace CreateTournament.Controllers
             
         }
         [HttpGet("all")]
-        public async Task<ActionResult> GetAllByIdTournament(int idTornament)
+        public async Task<ActionResult> GetAllByIdTournament(int idTournament)
         {
-            var teams = await _teamService.GetAllByIdTournamentAsync(idTornament);
+            var teams = await _teamService.GetAllByIdTournamentAsync(idTournament);
             if(teams.Count == 0)
             {
                 return BadRequest();
