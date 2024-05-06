@@ -21,6 +21,7 @@ namespace CreateTournament.Helper
             CreateMap<Player, PlayerDTO>().ReverseMap();
             CreateMap<Match, MatchDTO>().ReverseMap();
             CreateMap<MatchResult, MatchResultDTO>().ReverseMap();
+            CreateMap<PlayerStats, PlayerStatsDTO>().ReverseMap();
         }
     }
 }
