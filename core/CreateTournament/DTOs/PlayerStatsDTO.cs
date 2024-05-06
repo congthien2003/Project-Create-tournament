@@ -3,9 +3,11 @@
     public class PlayerStatsDTO
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string ImagePlayer { get; set; }
-        public int IdTeam { get; set; }
-        public TeamDTO Team { get; set; }
+        public int? YellowCard { get; set; }
+        public int? RedCard { get; set; }
+        public int? Score { get; set; }
+        public int? Assits { get; set; }
+        public int PlayerId { get; set; }
+        public int MatchResultId { get; set; }
     }
 }
