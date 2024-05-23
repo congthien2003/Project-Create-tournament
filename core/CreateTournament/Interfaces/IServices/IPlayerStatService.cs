@@ -12,7 +12,7 @@ namespace CreateTournament.Interfaces.IServices
         Task<List<PlayerStatsDTO>> GetAllByIdPlayerAsync(int id);
         Task<PlayerStatsDTO> GetByIdMatchAndIdPlayerAsync(int idMatch, int idPlayer);
         Task<List<PlayerStatsDTO>> GetAllByIdTournamentAsync(int id);
-
+        Task<List<PlayerStatsDTO>> GetAllByIdPlayerScoreAsync(int id);
 
     }
 

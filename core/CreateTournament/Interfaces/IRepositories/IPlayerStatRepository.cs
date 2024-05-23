@@ -11,7 +11,7 @@ namespace CreateTournament.Interfaces.IRepositories
         Task<List<TPlayerStat>> GetAllByIdPlayerAsync(int id, bool includeDeleted = false);
         Task<TPlayerStat> GetByIdMatchAndIdPlayerAsync(int idPlayer, int idMatch, bool inculdeDeleted = false);
         Task<List<TPlayerStat>> GetAllByIdTournamentAsync(int id, bool includeDeleted = false);
-
+        Task<List<TPlayerStat>> GetAllByIdPlayerScoreAsynsc(int id, bool includeDeleted = false);
 
     }
 }

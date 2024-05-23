@@ -10,12 +10,15 @@ namespace CreateTournament.Services
     {
         private readonly IPlayerStatRepository<PlayerStats> _playerStatRepo;
         private readonly IMapper _mapper;
+        private readonly ITournamentRepository<Tournament> _tournamentRepository;
 
         public PlayerStatService(IPlayerStatRepository<PlayerStats> playerStatRepository,
-                                 IMapper mapper)
+                                 IMapper mapper,
+                                 ITournamentRepository<Tournament> tournamentRepository)
         {
             _playerStatRepo = playerStatRepository;
             _mapper = mapper;
+            _tournamentRepository = tournamentRepository;
         }
         public async Task<PlayerStatsDTO> CreateAsync(PlayerStatsDTO playerStatsDTO)
         {
@@ -33,6 +36,12 @@ namespace CreateTournament.Services
         public async Task<List<PlayerStatsDTO>> GetAllByIdPlayerAsync(int id)
         {
             var playerStats = await _playerStatRepo.GetAllByIdPlayerAsync(id);
+            return _mapper.Map<List<PlayerStatsDTO>>(playerStats);
+        }
+
+        public async Task<List<PlayerStatsDTO>> GetAllByIdPlayerScoreAsync(int id)
+        {
+            var playerStats = await _playerStatRepo.GetAllByIdPlayerScoreAsynsc(id);
             return _mapper.Map<List<PlayerStatsDTO>>(playerStats);
         }
 

@@ -41,6 +41,36 @@ namespace CreateTournament.Repositories
             return playerStats;
         }
 
+        public async Task<List<PlayerStats>> GetAllByIdPlayerScoreAsynsc(int id, bool includeDeleted = false)
+        {
+            var tour = await _context.Tournaments.FirstOrDefaultAsync(obj => obj.Id == id && obj.IsDeleted == includeDeleted);
+            if (tour == null)
+            {
+                return null;
+            }
+
+            var matchs = await _context.Matches.Where(obj => obj.TouramentId == tour.Id).ToListAsync();
+
+            List<MatchResult> matchResults = new List<MatchResult>();
+            for (int i = 0; i < matchs.Count; i++)
+            {
+                var matchResult = await _context.MatchResults.Where(obj => obj.MatchId == matchs[i].Id).ToListAsync();
+                matchResults.AddRange(matchResult);
+            }
+
+            // Filter PlayerStats with Score > 0 before adding to the list
+            List<PlayerStats> playerStats = new List<PlayerStats>();
+            foreach (var matchResult in matchResults)
+            {
+                var playerStat = await _context.PlayerStats
+                  .Where(obj => obj.MatchResultId == matchResult.Id && obj.Score > 0)
+                  .ToListAsync();
+                playerStats.AddRange(playerStat);
+            }
+
+            return playerStats;
+        }
+
         public async Task<List<PlayerStats>> GetAllByIdTournamentAsync(int id, bool includeDeleted = false)
         {
             var tour = await _context.Tournaments.FirstOrDefaultAsync(obj => obj.Id == id && obj.IsDeleted == includeDeleted);

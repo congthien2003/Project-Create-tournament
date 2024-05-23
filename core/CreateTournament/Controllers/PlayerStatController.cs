@@ -1,5 +1,7 @@
 ﻿using CreateTournament.DTOs;
 using CreateTournament.Interfaces.IServices;
+using CreateTournament.Models;
+using CreateTournament.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,18 +16,21 @@ namespace CreateTournament.Controllers
         private readonly IPlayerService _playerService;
         private readonly ITeamService _teamService;
         private readonly IMatchService _matchService;
+        private readonly ITournamentService _tournamentService;
 
         public PlayerStatController(IPlayerStatService playerStatService,
                                     IMatchResultService matchResultService,
                                     IPlayerService playerService,
                                     ITeamService teamService,
-                                    IMatchService matchService)
+                                    IMatchService matchService,
+                                    ITournamentService tournamentService)
         {
             _playerStatService = playerStatService;
             _matchResultService = matchResultService;
             _playerService = playerService;
             _teamService = teamService;
             _matchService = matchService;
+            _tournamentService = tournamentService;
         }
         [HttpPost]
         public async Task<ActionResult> CreateAsync(PlayerStatsDTO playerStatsDTO)
@@ -193,6 +198,24 @@ namespace CreateTournament.Controllers
                 return BadRequest("Giải đấu chưa diễn ra");
             }
             return Ok(playerStats);
+        }
+
+        [HttpGet("{idtour:int}")]
+        public async Task<ActionResult> GetAllByIdPlayerScore(int idtour)
+        {
+            var tour = await _tournamentService.GetByIdTournament(idtour);
+            if (tour == null)
+            {
+                return BadRequest("khong tim thay giai đấu");
+
+            }
+            var playerstats = await _playerStatService.GetAllByIdPlayerScoreAsync(idtour);
+            var result = new
+            {
+                tour,
+                playerstats,
+            };
+            return Ok(result);
         }
     }
 }
