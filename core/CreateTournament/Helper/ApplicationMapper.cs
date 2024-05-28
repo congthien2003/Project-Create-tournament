@@ -22,6 +22,12 @@ namespace CreateTournament.Helper
             CreateMap<Match, MatchDTO>().ReverseMap();
             CreateMap<MatchResult, MatchResultDTO>().ReverseMap();
             CreateMap<PlayerStats, PlayerStatsDTO>().ReverseMap();
+            CreateMap<PlayerStats, PlayerDTO>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Player.Id))
+               .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Player.Name))
+               .ForMember(dest => dest.TeamId, opt => opt.MapFrom(src => src.Player.TeamId))
+               .ForMember(dest => dest.ImagePlayer, opt => opt.MapFrom(src => src.Player.ImagePlayer))
+            .ReverseMap();
         }
     }
 }

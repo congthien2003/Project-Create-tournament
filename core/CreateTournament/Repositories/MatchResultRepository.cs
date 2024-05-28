@@ -20,6 +20,14 @@ namespace CreateTournament.Repositories
             return matchResult;
         }
 
+        public async Task<List<MatchResult>> GetAllMatchResultsScore(bool includeDeleted = false)
+        {
+            return await _context.MatchResults
+            .Where(obj => includeDeleted || !obj.IsDeleted && obj.ScoreT1 > 0 && obj.ScoreT2 > 0)
+            .OrderByDescending(p => p.ScoreT1).Include("PlayerStats")
+            .ToListAsync();
+        }
+
         public async Task<MatchResult> GetMatchResultById(int id, bool includeDeleted = false)
         {
             var matchResult = await _context.MatchResults.FirstOrDefaultAsync(obj => obj.Id == id && obj.IsDeleted == includeDeleted);
