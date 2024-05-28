@@ -217,5 +217,29 @@ namespace CreateTournament.Controllers
             };
             return Ok(result);
         }
+
+        [HttpGet("toplist")]
+        public async Task<IActionResult> GetAllPlayStats(int idtour, string pageNumber = "1", string pageSize = "10", string? sortColumn= "", string ascendingOrder = "false")
+        {
+            var tour = await _tournamentService.GetByIdTournament(idtour);
+            if (tour == null)
+            {
+                return BadRequest("khong tim thay giai đấu");
+
+            }
+            int _currentPage = int.Parse(pageNumber);
+            int _pageSize = int.Parse(pageSize);
+            bool _ascendingOrder = ascendingOrder == "true";
+            var playstats = await _playerStatService.GetAllPlayStats(false,_currentPage, _pageSize, sortColumn, _ascendingOrder);
+            var result = new
+            {
+                tour,
+                playstats,
+                _currentPage,
+                _pageSize,
+                _ascendingOrder,
+            };
+            return Ok(result);
+        }
     }
 }

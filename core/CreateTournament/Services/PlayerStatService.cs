@@ -3,6 +3,7 @@ using CreateTournament.DTOs;
 using CreateTournament.Interfaces.IRepositories;
 using CreateTournament.Interfaces.IServices;
 using CreateTournament.Models;
+using CreateTournament.Repositories;
 
 namespace CreateTournament.Services
 {
@@ -51,6 +52,12 @@ namespace CreateTournament.Services
             return _mapper.Map<List<PlayerStatsDTO>>(playerStats);
         }
 
+        public async Task<List<PlayerStatsDTO>> GetAllPlayStats(bool includeDeleted = false, int currentPage = 1, int pageSize = 10, string sortColumn = "", bool ascendingOrder = false)
+        {
+            var playerStatsList = await _playerStatRepo.Getlist(includeDeleted, currentPage, pageSize, sortColumn, ascendingOrder);
+            return _mapper.Map<List<PlayerStatsDTO>>(playerStatsList);
+        }
+
         public async Task<PlayerStatsDTO> GetByIdAsync(int id)
         {
             var playerStat = await _playerStatRepo.GetByIdAsync(id);
@@ -69,5 +76,7 @@ namespace CreateTournament.Services
             await _playerStatRepo.UpdateByIdAsync(id, playerStat);
             return _mapper.Map<PlayerStatsDTO>(playerStat);
         }
+
+
     }
 }

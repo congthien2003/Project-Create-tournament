@@ -2,6 +2,9 @@
 using CreateTournament.Interfaces.IRepositories;
 using CreateTournament.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CreateTournament.Repositories
 {
@@ -131,5 +134,46 @@ namespace CreateTournament.Repositories
             await _context.SaveChangesAsync();
             return exits;
         }
+        public Expression<Func<PlayerStats, object>> GetSortColumnExpression(string? sortColumn)
+        {
+            switch (sortColumn)
+            {
+                case "score":
+                    return x => x.Score;
+                case "assits":
+                    return x => x.Assits;
+                case null:
+                    return x => x.Id; 
+                default:
+                    return x => x.Id;
+            }
+        }
+        public async Task<List<PlayerStats>> Getlist(bool includeDeleted = false, int currentPage = 1, int pageSize = 10, string sortColumn = "", bool ascendingOrder = false)
+        {
+            var listPlayerStats = _context.PlayerStats.AsQueryable();
+
+            if (!includeDeleted)
+            {
+                listPlayerStats = listPlayerStats.Where(obj => !obj.IsDeleted);
+            }
+
+            if (!string.IsNullOrEmpty(sortColumn))
+            {
+                if(ascendingOrder)
+                {
+                    listPlayerStats = listPlayerStats.OrderByDescending(GetSortColumnExpression(sortColumn));
+                }
+                else
+                {
+                    listPlayerStats = listPlayerStats.OrderBy(GetSortColumnExpression(sortColumn));
+                }
+            }
+            else
+            {
+                listPlayerStats = listPlayerStats.OrderBy(x => x.Id);
+            }
+            return await listPlayerStats.Skip(pageSize * currentPage - pageSize).Take(pageSize).ToListAsync();
+        }
     }
 }
+
