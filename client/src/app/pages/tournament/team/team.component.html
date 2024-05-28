@@ -1,0 +1,6 @@
+<div class="overview-team--wrapper">
+	<team-card
+		*ngFor="let team of listTeam"
+		[team]="team"
+		[canEdit]="this.canEdit"></team-card>
+</div>

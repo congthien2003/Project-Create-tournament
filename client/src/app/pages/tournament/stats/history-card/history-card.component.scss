@@ -1,0 +1,42 @@
+@import "../../../../shared/variable.scss";
+
+.match--result {
+	border-bottom: 1px solid #cecece;
+	display: grid;
+	align-items: center;
+	grid-template-columns: 40% 20% 40%;
+	padding: 8px 16px;
+	background-color: #cecece;
+	.team {
+		padding: 4px 8px;
+		border-bottom: 1px solid #cecece;
+		display: grid;
+		align-items: center;
+		grid-template-columns: 20% 80%;
+		height: 50px;
+		&--img {
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			overflow: hidden;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			img {
+				width: 100%;
+				display: block;
+			}
+		}
+
+		&--name {
+			margin-bottom: 0;
+			line-height: 1.9;
+			font-size: 16px;
+			font-weight: 450;
+			text-align: center;
+			text-overflow: clip;
+			text-overflow: ellipsis ellipsis;
+			text-overflow: ellipsis " [..]";
+		}
+	}
+}

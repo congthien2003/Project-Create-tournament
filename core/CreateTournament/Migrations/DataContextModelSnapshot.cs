@@ -66,12 +66,15 @@ namespace CreateTournament.Migrations
                     b.Property<DateTime>("StartAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TouramentId")
+                    b.Property<int>("TournamentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("round")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TouramentId");
+                    b.HasIndex("TournamentId");
 
                     b.ToTable("Matches");
                 });
@@ -262,6 +265,9 @@ namespace CreateTournament.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("View")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FormatTypeId");
@@ -311,7 +317,7 @@ namespace CreateTournament.Migrations
                 {
                     b.HasOne("CreateTournament.Models.Tournament", "Tournament")
                         .WithMany()
-                        .HasForeignKey("TouramentId")
+                        .HasForeignKey("TournamentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

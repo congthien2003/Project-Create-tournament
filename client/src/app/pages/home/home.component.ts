@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { LoaderService } from "src/app/shared/services/loader.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { Tournament } from "src/app/core/models/classes/Tournament";
@@ -13,20 +13,14 @@ import { SportTypeData } from "src/app/core/constant/data/sport.data";
 export class HomeComponent implements OnInit {
 	formatData = FormatTypeData;
 	sportData = SportTypeData;
-	constructor(
-		private loaderService: LoaderService,
-		private tournamentService: TournamentService
-	) {}
+	constructor(private tournamentService: TournamentService) {}
 
 	ngOnInit(): void {
-		setTimeout(() => {
-			this.loaderService.setLoading(false);
-		}, 1000);
-
 		// Get Tour
 		this.tournamentService.getAll().subscribe({
 			next: (data) => {
 				this.data = data;
+
 				this.dataSource.data = data.slice(0, 4);
 			},
 			error(err) {
@@ -60,10 +54,16 @@ export class HomeComponent implements OnInit {
 		"name",
 		"sportType",
 		"formatType",
+		"quantity",
 		"location",
 	];
 
 	data: Tournament[] = [];
 
 	dataSource = new MatTableDataSource<Tournament>(this.data);
+
+	@ViewChild("searchTour") search: ElementRef<HTMLInputElement>;
+	onSearch(): void {
+		const search = this.search.nativeElement.value;
+	}
 }

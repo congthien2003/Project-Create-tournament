@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators,
-} from "@angular/forms";
+	AfterViewInit,
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+} from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Tournament } from "src/app/core/models/classes/Tournament";
 import { TournamentService } from "src/app/core/services/tournament.service";
 
@@ -13,7 +14,7 @@ import { TournamentService } from "src/app/core/services/tournament.service";
 	templateUrl: "./form-edit-tour.component.html",
 	styleUrls: ["./form-edit-tour.component.scss"],
 })
-export class FormEditTourComponent implements OnInit {
+export class FormEditTourComponent implements AfterViewInit {
 	currentTour = new Tournament();
 	editTour = new FormGroup({
 		name: new FormControl<string>("", [
@@ -28,7 +29,7 @@ export class FormEditTourComponent implements OnInit {
 
 	constructor(private tourService: TournamentService) {}
 
-	ngOnInit(): void {
+	ngAfterViewInit(): void {
 		this.loadTour();
 	}
 

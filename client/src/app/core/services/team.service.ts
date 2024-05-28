@@ -17,6 +17,10 @@ export class TeamService {
 		return this.master.get(`${this.endpoints.getAll}`, { params });
 	}
 
+	getById(idTeam: number): Observable<Team> {
+		return this.master.get(`${this.endpoints.getById}/${idTeam}`);
+	}
+
 	create(quantity: number, idTournament: number): Observable<Team[]> {
 		const params = new HttpParams()
 			.set("quantity", quantity)
@@ -25,10 +29,15 @@ export class TeamService {
 		return this.master.post(`${this.endpoints.create}`, null, { params });
 	}
 
-	update(id: number, name: string): Observable<Team[]> {
+	update(id: number, name: string): Observable<Team> {
 		const params = new HttpParams()
 			.set("id", id)
 			.set("name", name.toString());
 		return this.master.put(`${this.endpoints.update}`, null, { params });
+	}
+
+	updateImage(id: number, path: string): Observable<Team> {
+		const params = new HttpParams().set("id", id).set("path", path);
+		return this.master.put(`${this.endpoints.updateImg}`, null, { params });
 	}
 }

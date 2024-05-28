@@ -3,8 +3,8 @@ import { NgModule } from "@angular/core";
 import { HomeComponent } from "./home/home.component";
 import { CreateTournamentComponent } from "./create-tournament/create-tournament.component";
 import { authGuard } from "../@auth/guards/auth.guard";
-import { UserComponent } from "./user/user.component";
 import { FindTournamentComponent } from "./find-tournament/find-tournament.component";
+import { roleGuard } from "../@auth/guards/role.guard";
 
 const routes: Routes = [
 	{
@@ -14,11 +14,6 @@ const routes: Routes = [
 	{
 		path: "create",
 		component: CreateTournamentComponent,
-		canActivate: [authGuard],
-	},
-	{
-		path: "user",
-		component: UserComponent,
 		canActivate: [authGuard],
 	},
 	{

@@ -4,5 +4,5 @@ export interface IMatchResult {
 	scoreT2: number;
 	idTeamWin: number;
 	finish: Date;
-	MatchId: number;
+	matchId: number;
 }

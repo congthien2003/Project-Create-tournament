@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Team } from "src/app/core/models/classes/Team";
 import { Tournament } from "src/app/core/models/classes/Tournament";
@@ -13,33 +13,49 @@ import {
 } from "@angular/material/dialog";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
+import { IdloaderService } from "src/app/shared/services/idloader.service";
+import { Subscription, map } from "rxjs";
+import { Match } from "src/app/core/models/classes/Match";
+import { MatchService } from "src/app/core/services/match.service";
+import { MatchResultService } from "src/app/core/services/match-result.service";
 
 @Component({
 	selector: "app-overview",
 	templateUrl: "./overview.component.html",
 	styleUrls: ["./overview.component.scss"],
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnDestroy {
+	links = ["team"];
+	activeLink = this.links[0];
+
 	idTour: number = 0;
 	Tour: Tournament = new Tournament();
 	listTeams: Team[] = [];
+	listMatchResult: any[] = [];
 
 	isAuthenticated: boolean = false;
 	canEdit: boolean = false;
 
+	private subscription!: Subscription;
+
 	constructor(
-		private route: ActivatedRoute,
 		private tourService: TournamentService,
+		private matchService: MatchService,
+		private matchResultService: MatchResultService,
 		private teamService: TeamService,
 		private authService: AuthenticationService,
 		public dialog: MatDialog,
-		private toastr: ToastrService
+		private toastr: ToastrService,
+		private idloaderService: IdloaderService
 	) {}
+	ngOnDestroy(): void {
+		this.subscription.unsubscribe();
+	}
 
 	ngOnInit(): void {
-		const id = this.route.snapshot.paramMap.get("id");
-
-		this.idTour = id ? Number.parseInt(id) : 0;
+		this.subscription = this.idloaderService.currentId$.subscribe({
+			next: (id) => (this.idTour = id ?? 0),
+		});
 
 		this.tourService.getById(this.idTour).subscribe({
 			next: (tour) => {
@@ -61,8 +77,30 @@ export class OverviewComponent implements OnInit {
 			next: (data) => {
 				this.listTeams = data;
 			},
-			error: (error) => {
-				console.log(error);
+			error: (error) => {},
+		});
+
+		this.matchService.list(this.idTour).subscribe({
+			next: (value) => {
+				value.forEach((match, index) => {
+					this.matchResultService.getByIdMatch(match.id).subscribe({
+						next: (value) => {
+							this.listMatchResult[index] = {
+								__team1: this.listTeams.find((team) => {
+									return team.id === match.idTeam1;
+								}),
+								__team2: this.listTeams.find((team) => {
+									return team.id === match.idTeam2;
+								}),
+								__scoreT1: value.scoreT1,
+								__scoreT2: value.scoreT2,
+								__idTeamWin: value.idTeamWin,
+							};
+						},
+					});
+				});
+
+				this.listMatchResult = this.listMatchResult.slice(0, 6);
 			},
 		});
 	}
@@ -85,6 +123,17 @@ export class OverviewComponent implements OnInit {
 				this.toastr.error("", "Cập nhật không thành công", {
 					timeOut: 3000,
 				});
+			},
+		});
+	}
+
+	reloadTeamData(event: any): void {
+		this.teamService.getAll(this.idTour).subscribe({
+			next: (data) => {
+				this.listTeams = data;
+			},
+			error: (error) => {
+				console.log(error);
 			},
 		});
 	}

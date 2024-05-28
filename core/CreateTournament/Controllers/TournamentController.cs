@@ -86,14 +86,14 @@ namespace CreateTournament.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult> SearchTournaments(string searchTerm)
+        public async Task<ActionResult> SearchTournaments(string searchTerm = "", int idSportType = 0)
         {
             // Kiểm tra từ khóa tìm kiếm
             if (string.IsNullOrEmpty(searchTerm))
             {
                 return BadRequest("Search term is required");
             }
-            var tournaments = await _tournamentService.SearchTournaments(searchTerm);
+            var tournaments = await _tournamentService.SearchTournaments(searchTerm, idSportType);
             return Ok(tournaments);
         }
     }

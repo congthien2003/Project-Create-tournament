@@ -37,7 +37,7 @@ namespace CreateTournament.Controllers
             var result = await _playerService.CreateAsync(player);
             return Ok(result);
         }
-        [HttpDelete("id")]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
             var exits = await _playerService.GetPlayerById(id);
@@ -62,7 +62,7 @@ namespace CreateTournament.Controllers
             }
             return Ok(players);
         }
-        [HttpPut("id")]
+        [HttpPut("{id:int}")]
         public async Task<ActionResult> UpdateAsync(int id, string name)
         {
             var player = await _playerService.UpdateAsync(id, name);
@@ -82,7 +82,7 @@ namespace CreateTournament.Controllers
             }
             return Ok(players);
         }
-        [HttpGet("id")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult> GetPlayerById(int id)
         {
             var player = await _playerService.GetPlayerById(id);

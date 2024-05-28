@@ -1,0 +1,41 @@
+<div class="bracket--wrapper">
+	<div class="row h-100">
+		<div class="col-4" *ngIf="quarterfinals.matchs.length > 0">
+			<h4 class="bracket--header">TỨ KẾT</h4>
+			<div class="bracket--content">
+				<div
+					class="match w-100"
+					*ngFor="let match of quarterfinals.matchs">
+					<bracket-card
+						(saveMatch)="handleUpdateMatch($event)"
+						[match]="match"
+						[canEdit]="canEdit"></bracket-card>
+				</div>
+			</div>
+		</div>
+		<div class="col-4" *ngIf="semifinals.matchs.length > 0">
+			<h4 class="bracket--header">BÁN KẾT</h4>
+			<div class="bracket--content">
+				<div
+					class="match w-100"
+					*ngFor="let match of semifinals.matchs">
+					<bracket-card
+						(saveMatch)="handleUpdateMatch($event)"
+						[match]="match"
+						[canEdit]="canEdit"></bracket-card>
+				</div>
+			</div>
+		</div>
+		<div class="col-4" *ngIf="final.matchs.length > 0">
+			<h4 class="bracket--header">CHUNG KẾT</h4>
+			<div class="bracket--content">
+				<div class="match w-100" *ngFor="let match of final.matchs">
+					<bracket-card
+						(saveMatch)="handleUpdateMatch($event)"
+						[match]="match"
+						[canEdit]="canEdit"></bracket-card>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

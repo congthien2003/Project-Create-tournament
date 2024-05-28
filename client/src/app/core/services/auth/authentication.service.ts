@@ -35,6 +35,19 @@ export class AuthenticationService {
 		}
 	}
 
+	getUserRoleFromToken(): any {
+		const token = localStorage.getItem("token"); // Lấy token từ local storage hoặc nơi lưu trữ khác
+		if (!token) {
+			return null;
+		}
+		const tokenPayload = jwtdecode.jwtDecode(token);
+		if ("Role" in tokenPayload) {
+			return tokenPayload["Role"];
+		} else {
+			return null;
+		}
+	}
+
 	getUserIdFromToken(): any {
 		const token = localStorage.getItem("token"); // Lấy token từ local storage hoặc nơi lưu trữ khác
 		if (!token) {

@@ -44,7 +44,13 @@ namespace CreateTournament.Services
 
         public async Task<TeamDTO> UpdateAsync(int id, string name)
         {
-            var team = await _teamRepo.UpdateAsync(id,name);
+            var team = await _teamRepo.UpdateAsync(id, name);
+            return _mapper.Map<TeamDTO>(team);
+        }
+
+        public async Task<TeamDTO> UpdateImage(int id, string path)
+        {
+            var team = await _teamRepo.UpdateImage(id, path);
             return _mapper.Map<TeamDTO>(team);
         }
     }

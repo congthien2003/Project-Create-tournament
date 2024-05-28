@@ -1,0 +1,38 @@
+<div class="team--card">
+	<div class="team--card--header">
+		<div class="team--img">
+			<img
+				*ngIf="team.imageTeam"
+				src="{{ team.imageTeam }}"
+				alt="logo"
+				width="100%" />
+			<img
+				*ngIf="!team.imageTeam"
+				src="https://givetour-prod.s3.amazonaws.com/UploadFiles/AvatarPhoto/303e02e1-97c5-4ff5-ae78-22b17bb958ec.png"
+				alt="logo"
+				width="100%" />
+		</div>
+		<div class="team--name">
+			{{ team.name }}
+		</div>
+	</div>
+	<div class="team--card--content">
+		<player-card
+			*ngFor="let player of listPlayer"
+			[player]="player"
+			(delete)="handleDeletePlayer($event)"
+			[canEdit]="canEdit"></player-card>
+	</div>
+	<div class="team--card--footer" *ngIf="canEdit">
+		<input
+			type="text"
+			placeholder="Ng Van A"
+			#myInput
+			[(ngModel)]="playerName"
+			value="" />
+
+		<button type="button" mat-raised-button (click)="addPlayer(myInput)">
+			Thêm
+		</button>
+	</div>
+</div>

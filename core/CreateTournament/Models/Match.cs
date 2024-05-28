@@ -9,8 +9,9 @@ namespace CreateTournament.Models
         public int IdTeam2 { get; set; }
         public DateTime Created {  get; set; } = DateTime.UtcNow ;
         public DateTime StartAt { get; set; } = DateTime.UtcNow;
-        public int TouramentId { get; set; }
-        [ForeignKey("TouramentId")]
+        public int round { get; set; }
+        public int TournamentId { get; set; }
+        [ForeignKey("TournamentId")]
         public Tournament Tournament { get; set; }
     }
 }

@@ -6,7 +6,6 @@ import {
 	Validators,
 } from "@angular/forms";
 import { Route, Router } from "@angular/router";
-import { json } from "express";
 import { Toast, ToastrService } from "ngx-toastr";
 import { EMAIL_PATTERN, NUMBERS_PATTERN } from "src/app/@auth/constants";
 import { User } from "src/app/core/models/classes/User";

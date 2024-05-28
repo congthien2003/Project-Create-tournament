@@ -2,13 +2,13 @@
 
 .tour {
 	&-card {
-		background-color: white;
+		background-color: $primary-light;
 		padding: 24px;
 		border-radius: 8px;
 		transition: 0.2s ease-in;
 		cursor: pointer;
 		&:hover {
-			background-color: rgb(206, 206, 206);
+			background-color: #f9b3ab;
 			transform: scale(102%);
 		}
 	}
@@ -32,11 +32,13 @@
 	&--name {
 		font-size: 22px;
 		font-weight: bold;
+		color: white;
 	}
 
 	&--info {
 		font-size: 14px;
 		font-weight: 450;
+		color: white;
 	}
 	&--footer {
 		margin-top: 12px;
@@ -44,5 +46,6 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: 24px;
+		color: white;
 	}
 }

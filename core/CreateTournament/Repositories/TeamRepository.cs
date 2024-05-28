@@ -62,6 +62,25 @@ namespace CreateTournament.Repositories
             else
             {
                 exits.Name = name;
+                
+            }
+            await _context.SaveChangesAsync();
+            return exits;
+        }
+
+        public async Task<Team> UpdateImage(int id, string pathImg, bool includeDeleted = false)
+        {
+            var exits = await _context.Teams.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == includeDeleted);
+            if (exits == null)
+            {
+                return null;
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(pathImg))
+                {
+                    exits.ImageTeam = pathImg;
+                }
             }
             await _context.SaveChangesAsync();
             return exits;

@@ -26,14 +26,14 @@ namespace CreateTournament.Repositories
                 {
                     IdTeam1 = list[i].Id,
                     IdTeam2 = list[i+1].Id,
-                    TouramentId = idTournament,
+                    TournamentId = idTournament,
                     StartAt = DateTime.Now,
                     Created = DateTime.Now,
                 };
                 await _context.AddAsync(match);
                 await _context.SaveChangesAsync();
             }
-            var matchs = await _context.Matches.Where(o=> o.TouramentId == idTournament).ToListAsync();
+            var matchs = await _context.Matches.Where(o=> o.TournamentId == idTournament).ToListAsync();
             return matchs;
         }
 
@@ -49,7 +49,7 @@ namespace CreateTournament.Repositories
 
         public async Task<List<Match>> GetAllMatchesByIdTournamentAsync(int idTournament, bool includeDeleted = false)
         {
-            var matches = await _context.Matches.Where(o => o.TouramentId == idTournament && o.IsDeleted == includeDeleted).ToListAsync();
+            var matches = await _context.Matches.Where(o => o.TournamentId == idTournament && o.IsDeleted == includeDeleted).ToListAsync();
             if(matches == null)
             {
                 return null;

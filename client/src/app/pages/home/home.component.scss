@@ -1,9 +1,9 @@
 @import "../../shared/variable.scss";
 
 h2 {
-	font-size: 40px;
+	font-size: 36px;
 	text-align: center;
-	color: white;
+	color: $primary;
 	text-transform: uppercase;
 }
 
@@ -14,6 +14,7 @@ h2 {
 		padding-left: 0;
 		padding-right: 0;
 		font-size: 16px;
+		background-color: whitesmoke;
 	}
 
 	&--introduce {
@@ -25,7 +26,6 @@ h2 {
 		background-color: $primary-dark;
 		color: white;
 		text-align: center;
-
 		h3 {
 			font-size: 32px;
 			font-weight: 600;
@@ -56,28 +56,33 @@ h2 {
 			justify-content: center;
 			border-top-right-radius: 8px;
 			border-bottom-right-radius: 8px;
-
+			border: none;
+			outline: none;
 			i {
 				transition: 0.2s ease-in-out;
 			}
-			&:hover i {
-				transform: scale(120%);
+			&:hover {
+				opacity: 0.9;
+				i {
+					transform: scale(120%);
+				}
 			}
 		}
 	}
 
 	&--info {
+		background-color: whitesmoke;
 		margin-top: 24px;
-		min-height: 300px;
-		background-color: $primary-medium;
-		padding: 24px;
+		padding: 48px 24px;
+		border-bottom: 1px solid #cecece;
 	}
 
 	&--guide {
 		margin-top: 24px;
-		min-height: 400px;
-		background-color: $primary-medium;
+		min-height: 48px 24px;
 		padding: 24px;
+		border-bottom: 1px solid #cecece;
+		background-color: whitesmoke;
 
 		.list--card {
 			padding: 12px 0;
@@ -90,7 +95,7 @@ h2 {
 			position: relative;
 			box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 			border: 2px solid white;
-
+			border-radius: 8px;
 			span {
 				position: absolute;
 				content: "";
@@ -116,7 +121,8 @@ h2 {
 	&--tour-list {
 		margin-top: 24px;
 		min-height: 400px;
-		background-color: $primary-medium;
+		background-color: whitesmoke;
 		padding: 24px;
+		border-bottom: 1px solid #cecece;
 	}
 }

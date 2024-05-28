@@ -9,7 +9,7 @@ export class Team implements ITeam {
 
 	constructor() {
 		this.id = 0;
-		this.name = "";
+		this.name = "Team";
 		this.imageTeam = "";
 		this.point = 0;
 		this.tournamentId = 0;

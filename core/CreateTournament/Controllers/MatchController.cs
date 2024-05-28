@@ -24,22 +24,22 @@ namespace CreateTournament.Controllers
         [HttpPost("start")]
         public async Task<ActionResult> CreateStartAsync(int idTournament)
         {
-            if(idTournament <= 0)
+            if (idTournament <= 0)
             {
                 return BadRequest("Id truyền vô không hợp lệ");
             }
             var matches = await _matchService.CreateListMatchAsync(idTournament);
-            if(matches.Count <= 0)
+            if (matches.Count <= 0)
             {
                 return BadRequest("Không tạo được trận đấu");
             }
             return Ok(matches);
         }
-        [HttpGet("id")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult> GetByIdAsync(int id)
         {
             var match = await _matchService.GetMatchByIdAsync(id);
-            if(match == null)
+            if (match == null)
             {
                 return BadRequest("Trận đấu không tồn tại");
             }
@@ -55,17 +55,17 @@ namespace CreateTournament.Controllers
             }
             return Ok(matches);
         }
-        [HttpPut("id")]
+        [HttpPut("{id:int}")]
         public async Task<ActionResult> UpdateById(int id, MatchDTO matchDTO)
         {
-            if(id <= 0)
+            if (id <= 0)
             {
                 return BadRequest("ID truyền vô không hợp lệ");
             }
             var team1 = await _teamService.FindTeamByIdAsync(matchDTO.IdTeam1);
             var team2 = await _teamService.FindTeamByIdAsync(matchDTO.IdTeam2);
             if (team1 == null || team2 == null || team1 == team2) { return BadRequest("Team 1, Team 2 không tồn tại hoặc 2 team trùng nhau"); }
-            var match = await _matchService.UpdateMatchAsync(id,matchDTO);
+            var match = await _matchService.UpdateMatchAsync(id, matchDTO);
             if (match == null)
             {
                 return BadRequest("Trận đấu không tồn tại");
@@ -76,16 +76,18 @@ namespace CreateTournament.Controllers
         [HttpPost("create")]
         public async Task<ActionResult> CreateMatch(MatchDTO matchDTO)
         {
-            var tour = await _tourService.GetByIdTournament(matchDTO.TouramentId);
+            var tour = await _tourService.GetByIdTournament(matchDTO.TournamentId);
             if (tour == null)
             {
                 return BadRequest("Giải đấu không tồn tại ");
             }
             var team1 = await _teamService.FindTeamByIdAsync(matchDTO.IdTeam1);
             var team2 = await _teamService.FindTeamByIdAsync(matchDTO.IdTeam2);
-            if(team1 == null || team2 == null || team1 == team2) { return BadRequest("Team 1, Team 2 không tồn tại hoặc 2 team trùng nhau"); }
+            if (team1 == null || team2 == null || team1 == team2) { 
+                return BadRequest("Team 1, Team 2 không tồn tại hoặc 2 team trùng nhau"); 
+            }
             var match = await _matchService.CreateAsync(matchDTO);
-            if(match == null)
+            if (match == null)
             {
                 return BadRequest("Trận đấu không tồn tại");
             }

@@ -9,11 +9,10 @@ export class TourCardComponent {
 	@Input() imgUrl: string =
 		"https://givetour-prod.s3.amazonaws.com/UploadFiles/AvatarPhoto/303e02e1-97c5-4ff5-ae78-22b17bb958ec.png";
 
-	@Input() tourName: string = "Pool Master Open";
+	@Input() tourName: string = "Tour Name Temp ";
 	@Input() format: number = 1;
 	@Input() sport: number = 1;
-	@Input() location: string =
-		"Thanh Miện, Thanh Miện District, Hai Duong, Vietnam";
+	@Input() location: string = "Vietnam";
 
 	@Input() quantity: number = 8;
 	@Input() view: number = 10;

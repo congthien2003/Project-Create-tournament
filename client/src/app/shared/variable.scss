@@ -2,7 +2,14 @@ $primary-dark: #1b2733;
 $primary: #e74c3c;
 $primary-medium: #2c3f52;
 $primary-light: #43515e;
+$white-smoke: rgb(244, 244, 244);
 $text-size: 16px;
+
+// $primary-dark: #8a6d2f;
+// $primary: #fac960;
+// $primary-medium: #8a6d2f;
+// $primary-light: white;
+
 * {
 	text-decoration: none;
 }
@@ -15,7 +22,7 @@ ol {
 }
 
 body {
-	background-color: $primary-light;
+	background-color: white;
 }
 
 // Animation search input

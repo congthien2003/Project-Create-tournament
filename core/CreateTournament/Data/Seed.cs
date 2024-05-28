@@ -45,12 +45,24 @@ namespace CreateTournament.Data
                     {
                         new SportType()
                         {
-                            Name = "Football"
+                            Name = "FootBall"
                         },
                         new SportType()
                         {
-                            Name = "TFT"
-                        }
+                            Name = "Basketball"
+                        },
+                        new SportType()
+                        {
+                            Name = "FC Online"
+                        },
+                        new SportType()
+                        {
+                            Name = "Volleyball"
+                        },
+                        new SportType()
+                        {
+                            Name = "Billards"
+                        },
                     });
                     context.SaveChanges();
                 }
@@ -73,7 +85,7 @@ namespace CreateTournament.Data
                     });
                     context.SaveChanges();
                 }
-                var touramentId = context.Tournaments.Where(obj => obj.Name.Equals("Champion League")).Select(obj =>obj.Id).FirstOrDefault();
+                var tournamentId = context.Tournaments.Where(obj => obj.Name.Equals("Champion League")).Select(obj =>obj.Id).FirstOrDefault();
                 if (!context.Teams.Any())
                 {
                     context.Teams.AddRange(new List<Team>
@@ -81,25 +93,25 @@ namespace CreateTournament.Data
                         new Team()
                         {
                             Name = "Real Madrid",
-                            TournamentId = touramentId,
+                            TournamentId = tournamentId,
                             IsDeleted =false
                         },
                         new Team()
                         {
                             Name = "PSG",
-                            TournamentId = touramentId,
+                            TournamentId = tournamentId,
                             IsDeleted =false
                         },
                         new Team()
                         {
                             Name = "Bayern Munich",
-                            TournamentId = touramentId,
+                            TournamentId = tournamentId,
                             IsDeleted =false
                         },
                         new Team()
                         {
                             Name = "DortMund",
-                            TournamentId = touramentId,
+                            TournamentId = tournamentId,
                             IsDeleted =false
                         }
                     });
@@ -172,7 +184,7 @@ namespace CreateTournament.Data
                         {
                             IdTeam1 = IdTeam1,
                             IdTeam2 = IdTeam3,
-                            TouramentId = touramentId,
+                            TournamentId = tournamentId,
                             StartAt = DateTime.Now,
                             Created = DateTime.Now,
                             IsDeleted = false
@@ -182,7 +194,7 @@ namespace CreateTournament.Data
                         {
                             IdTeam1 = IdTeam2,
                             IdTeam2 = IdTeam4,
-                            TouramentId = touramentId,
+                            TournamentId = tournamentId,
                             StartAt = DateTime.Now,
                             Created = DateTime.Now,
                             IsDeleted = false
@@ -191,7 +203,7 @@ namespace CreateTournament.Data
                         {
                             IdTeam1 = IdTeam1,
                             IdTeam2 = IdTeam4,
-                            TouramentId = touramentId,
+                            TournamentId = tournamentId,
                             StartAt = DateTime.Now,
                             Created = DateTime.Now,
                             IsDeleted = false

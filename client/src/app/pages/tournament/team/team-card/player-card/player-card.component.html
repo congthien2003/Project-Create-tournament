@@ -1,0 +1,14 @@
+<div class="player--card">
+	<div class="player--info">
+		<p class="name">{{ player.name }}</p>
+	</div>
+	<div class="player--actions" *ngIf="canEdit">
+		<button
+			mat-stroked-button
+			color="warn"
+			aria-label="Delete"
+			(click)="deletePlayer()">
+			Xóa
+		</button>
+	</div>
+</div>

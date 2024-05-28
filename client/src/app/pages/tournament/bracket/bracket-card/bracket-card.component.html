@@ -1,0 +1,42 @@
+<div class="match">
+	<div class="match--header">
+		<div class="match--date">
+			{{ match.startAt ? (match.startAt | date) : "" }}
+		</div>
+		<div class="match--action" *ngIf="this.canEdit">
+			<i
+				(click)="openEditMatch()"
+				class="bx bx-detail fs-4 action--icon"
+				matTooltip="Chỉnh sửa"></i>
+
+			<i
+				(click)="openEditResult()"
+				class="bx bxs-edit fs-4 action--icon"
+				matTooltip="Thêm kết quả"></i>
+		</div>
+	</div>
+	<div class="match--content">
+		<div class="match--info">
+			<div
+				class="team--left team"
+				[class.win]="this.team1?.id == this.matchResult?.idTeamWin">
+				<p class="team--name">
+					{{ this.team1?.name }}
+				</p>
+				<p class="team--result">
+					{{ this.matchResult?.scoreT1 ?? 0 }}
+				</p>
+			</div>
+			<div
+				class="team--right team"
+				[class.win]="this.team2?.id == this.matchResult?.idTeamWin">
+				<p class="team--name">
+					{{ this.team2?.name }}
+				</p>
+				<p class="team--result">
+					{{ this.matchResult?.scoreT2 ?? 0 }}
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

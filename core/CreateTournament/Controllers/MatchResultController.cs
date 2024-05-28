@@ -58,7 +58,7 @@ namespace CreateTournament.Controllers
             }
             return Ok(matchResult);
         }
-        [HttpGet("id")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult> GetByIdMatchResult(int id)
         {
             var matchResult = await _matchResult.GetMatchResultById(id);
@@ -68,17 +68,17 @@ namespace CreateTournament.Controllers
             }
             return Ok(matchResult);
         }
-        [HttpGet("idmatch")]
-        public async Task<ActionResult> GetByIdMatch(int id)
+        [HttpGet("/api/MatchResult/idMatch/{idMatch:int}")]
+        public async Task<ActionResult> GetByIdMatch(int idMatch)
         {
-            var matchResult = await _matchResult.GetMatchResultByIdMatch(id);
+            var matchResult = await _matchResult.GetMatchResultByIdMatch(idMatch);
             if (matchResult == null)
             {
                 return BadRequest("Trận đấu chưa có kết quả");
             }
             return Ok(matchResult);
         }
-        [HttpPut("id")]
+        [HttpPut("{id:int}")]
         public async Task<ActionResult> UpdateById(int id, MatchResultDTO matchResultDTO)
         {
             var matchResult = await _matchResult.GetMatchResultById(id);
@@ -102,7 +102,7 @@ namespace CreateTournament.Controllers
             {
                 return BadRequest("Đội thắng không tồn tại trong trận đấu này");
             }
-            if (matchResult.ScoreT1 == matchResult.ScoreT2 || matchResult.ScoreT2 < 0 || matchResult.ScoreT1 < 0)
+            if (matchResult.ScoreT2 < 0 || matchResult.ScoreT1 < 0)
             {
                 return BadRequest("Kết quả trận đấu không hợp lệ");
             }

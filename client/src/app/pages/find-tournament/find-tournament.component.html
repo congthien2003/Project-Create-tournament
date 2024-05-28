@@ -10,10 +10,11 @@
 						autocomplete="off"
 						type="text"
 						id="tourname"
-						placeholder="Nhập tên giải đấu" />
+						placeholder="Nhập tên giải đấu"
+						#searchInput />
 				</div>
 
-				<div class="find-btn">
+				<div class="find-btn" (click)="onSearch()">
 					<i class="bx bx-search-alt-2"></i>
 				</div>
 			</div>
@@ -31,7 +32,7 @@
 			</div>
 		</div>
 		<div class="list--tour container">
-			<h3 class="list--tour__header text-white text-center fs-4 fw-bold">
+			<h3 class="list--tour__header text-center fs-4 fw-bold">
 				Danh sách các giải đấu
 			</h3>
 			<div class="list--tour__container">

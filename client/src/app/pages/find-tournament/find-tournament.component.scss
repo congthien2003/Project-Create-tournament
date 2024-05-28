@@ -7,12 +7,14 @@
 		padding-left: 0;
 		padding-right: 0;
 		font-size: 16px;
+		background-color: $white-smoke;
 
 		.find--actions {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			background-color: $primary-dark;
+			background-color: whitesmoke;
+
 			padding: 12px 24px;
 			height: 80px;
 		}
@@ -35,12 +37,12 @@
 				position: absolute;
 				top: 0;
 				left: 10px;
-				background-color: $primary-dark;
+				background-color: whitesmoke;
 
 				padding: 1px 5px;
 				font-size: 12px;
 				transform: translateY(-50%);
-				color: white;
+				color: $primary-dark;
 			}
 
 			.text-field input {
@@ -55,7 +57,7 @@
 				height: 40px;
 
 				background-color: transparent;
-				color: white;
+				color: $primary-dark;
 				outline: none;
 			}
 			.find-btn {
@@ -81,13 +83,14 @@
 		.list--tour {
 			padding: 24px 12px;
 			height: 1000px;
-			background-color: $primary-dark;
+			background-color: whitesmoke;
+
 			display: flex;
-			align-items: center;
 			justify-content: space-between;
 			flex-direction: column;
 
 			&__header {
+				color: $primary-dark;
 			}
 
 			&__container {

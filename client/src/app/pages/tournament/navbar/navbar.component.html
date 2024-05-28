@@ -1,0 +1,15 @@
+<div class="tour--navbar--wrapper">
+	<nav class="tour--navbar">
+		<ul class="nav--list">
+			<li class="nav--item" *ngFor="let link of links">
+				<a
+					routerLink="/tournament/{{ idTour }}/{{ link.href }}"
+					class="nav--link"
+					(click)="activeLink = link.href"
+					[class.nav-active]="activeLink == link.href"
+					>{{ link.name }}</a
+				>
+			</li>
+		</ul>
+	</nav>
+</div>

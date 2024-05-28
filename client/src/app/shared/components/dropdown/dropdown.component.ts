@@ -13,7 +13,6 @@ export class DropdownComponent {
 
 	value: string = "";
 	showItem: boolean = false;
-
 	toggleListItem() {
 		this.showItem = !this.showItem;
 	}

@@ -1,0 +1,60 @@
+<form [formGroup]="editResult" class="form-edit">
+	<div class="form-edit__header">
+		<h4>Chỉnh sửa kết quả trận đấu</h4>
+		<button
+			type="button"
+			class="btn-close"
+			aria-label="Close"
+			mat-dialog-close></button>
+	</div>
+	<div class="form-edit__main">
+		<div class="form-group">
+			<p>
+				{{ this.team1!.name ? this.team1!.name : "" }}
+			</p>
+			<div class="text-field">
+				<input
+					autocomplete="off"
+					type="number"
+					id="scoreT1"
+					[formControl]="this.editResult.controls.scoreTeam1" />
+			</div>
+		</div>
+		<div class="form-group">
+			<p class="flex-1">{{ this.team2!.name }}</p>
+			<div class="text-field">
+				<input
+					autocomplete="off"
+					type="number"
+					id="scoreT2"
+					[formControl]="this.editResult.controls.scoreTeam2" />
+			</div>
+		</div>
+	</div>
+	<div class="form-choose">
+		<div
+			class="team--choose"
+			(click)="chooseTeamWin(team1!.id ? team1!.id : 0)"
+			[class.active]="this.teamChoosed === team1!.id">
+			{{ team1!.name }}
+		</div>
+		<div
+			class="team--choose"
+			(click)="chooseTeamWin(team2!.id)"
+			[class.active]="this.teamChoosed === team2!.id">
+			{{ team2!.name }}
+		</div>
+	</div>
+	<div class="form-edit__actions">
+		<button type="button" class="btn btn-secondary-custom" mat-dialog-close>
+			Hủy
+		</button>
+		<button
+			type="button"
+			class="btn btn-primary-custom"
+			(click)="handleSave()"
+			[disabled]="!editResult.valid">
+			Lưu
+		</button>
+	</div>
+</form>

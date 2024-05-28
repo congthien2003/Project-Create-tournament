@@ -1,11 +1,17 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	Validators,
+} from "@angular/forms";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { FormatTypeData } from "src/app/core/constant/data/format.data";
 import { SportTypeData } from "src/app/core/constant/data/sport.data";
 import { Tournament } from "src/app/core/models/classes/Tournament";
 import { AuthenticationService } from "src/app/core/services/auth/authentication.service";
+import { MatchService } from "src/app/core/services/match.service";
 import { TeamService } from "src/app/core/services/team.service";
 import { TournamentService } from "src/app/core/services/tournament.service";
 import { LoaderService } from "src/app/shared/services/loader.service";
@@ -17,18 +23,19 @@ import { LoaderService } from "src/app/shared/services/loader.service";
 })
 export class CreateTournamentComponent implements OnInit {
 	newTour = new Tournament();
-	createTour!: FormGroup;
+	createTour: FormGroup;
+
 	selectedName = "";
 
 	formatTypeList = FormatTypeData.listFormat;
-	formatTypeNameList = FormatTypeData.listFormat.map((item) => item.name);
+	formatTypeNameList = FormatTypeData.listFormat.map((item) => item.nameVie);
 
 	titleSportSelect = "Chọn môn thi đấu";
 	sportTypeList = SportTypeData.listSport;
-	sportTypeNameList = SportTypeData.listSport.map((item) => item.name);
+	sportTypeNameList = SportTypeData.listSport.map((item) => item.nameVie);
 
 	titleQuantityTeams = "Số lượng đội thi đấu";
-	quantityTeams = ["2", "4", "8", "12"];
+	quantityTeams = ["2", "4", "8", "16", "32"];
 
 	constructor(
 		private loaderService: LoaderService,
@@ -36,6 +43,7 @@ export class CreateTournamentComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private toastr: ToastrService,
 		private teamService: TeamService,
+		private mathService: MatchService,
 		private authService: AuthenticationService,
 		private route: Router
 	) {}
@@ -46,9 +54,15 @@ export class CreateTournamentComponent implements OnInit {
 		}, 500);
 
 		this.createTour = this.formBuilder.group({
-			tourName: this.formBuilder.control(""),
-			format: this.formBuilder.control(""),
+			tourName: this.formBuilder.control("", [
+				Validators.required,
+				Validators.minLength(5),
+				Validators.maxLength(30),
+			]),
+			format: this.formBuilder.control("", Validators.required),
 		});
+
+		console.log(this.createTour.get("tourName"));
 	}
 
 	onChange(event: any): void {
@@ -76,6 +90,12 @@ export class CreateTournamentComponent implements OnInit {
 					.subscribe({
 						next: (value) => {
 							console.log("Tạo team thành công");
+
+							this.mathService.createStart(id).subscribe({
+								next: (value) => {
+									console.log("Tạo giải thành công");
+								},
+							});
 						},
 						error: (errors) => {
 							console.log(errors);
@@ -85,7 +105,9 @@ export class CreateTournamentComponent implements OnInit {
 				this.toastr.success("", "Tạo giải đấu thành công !", {
 					timeOut: 3000,
 				});
-				this.route.navigate([`/tournament/${id}/overview`]);
+				setTimeout(() => {
+					this.route.navigate([`/tournament/${id}/overview`]);
+				}, 1000);
 			},
 			error: (err) => {
 				this.toastr.error("", "Có lỗi xảy ra", {

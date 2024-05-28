@@ -2,15 +2,23 @@ export const FormatTypeData = {
 	listFormat: [
 		{
 			id: 1,
-			name: "Loại trực tiếp",
+			nameVie: "Loại trực tiếp",
+			nameEng: "Knock Out",
 		},
 		{
 			id: 2,
-			name: "Đua đường dài",
+			nameVie: "Đua đường dài",
+			nameEng: "Round Robin",
 		},
 		{
-			id: 1,
-			name: "Vòng bảng kết hợp loại trực tiếp",
+			id: 3,
+			nameVie: "Vòng bảng kết hợp loại trực tiếp",
+			nameEng: "Two stages",
+		},
+		{
+			id: 4,
+			nameVie: "Thụy sĩ",
+			nameEng: "Swiss System",
 		},
 	],
 };

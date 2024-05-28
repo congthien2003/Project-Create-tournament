@@ -8,6 +8,6 @@ export class FormatTypePipe implements PipeTransform {
 	formatTypeData = FormatTypeData;
 	transform(formatId: number) {
 		return this.formatTypeData.listFormat.find((x) => x.id === formatId)
-			?.name;
+			?.nameVie;
 	}
 }

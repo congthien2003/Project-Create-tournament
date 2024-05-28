@@ -9,6 +9,7 @@ namespace CreateTournament.DTOs
         public DateTime Created { get; set; }
         public int QuantityTeam { get; set; }
         public string Location { get; set; }
+        public int view { get; set; }
         public int FormatTypeId { get; set; }
         public int SportTypeId { get; set; }
         public int UserId {  get; set; }

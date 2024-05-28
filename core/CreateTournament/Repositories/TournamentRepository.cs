@@ -44,8 +44,11 @@ namespace CreateTournament.Repositories
 
         public async Task<Tournament> GetByIdTournament(int id, bool incluDeleted = false)
         {
-            return await _dataContext.Tournaments
+            var exists = await _dataContext.Tournaments
                 .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
+            exists!.View++;
+
+            return exists;
         }
 
         public async Task<List<Tournament>> GetTourByUserId(int userId, bool incluDeleted = false)
@@ -76,13 +79,17 @@ namespace CreateTournament.Repositories
             return exists;
         }
 
-        public async Task<List<Tournament>> SearchTournaments(string searchTerm, bool incluDeleted = false)
+        public async Task<List<Tournament>> SearchTournaments(string searchTerm = "", int idSportType = -1, bool incluDeleted = false)
         {
             var tournament = _dataContext.Tournaments
                 .Where(t => t.Name.Contains(searchTerm));
             if (!incluDeleted)
             {
-                tournament = tournament.Where(x=>x.IsDeleted == incluDeleted);
+                tournament = tournament.Where(t => t.IsDeleted == incluDeleted);
+            }
+            if (idSportType != -1)
+            {
+                tournament = tournament.Where(t => t.SportTypeId == idSportType);
             }
             var searchTour = await tournament.ToListAsync();
             return searchTour;

@@ -1,4 +1,5 @@
 ﻿using CreateTournament.DTOs;
+using CreateTournament.Models;
 
 namespace CreateTournament.Interfaces.IServices
 {
@@ -10,6 +11,6 @@ namespace CreateTournament.Interfaces.IServices
         Task<TournamentDTO> Create(TournamentDTO tournamentDTO);
         Task<TournamentDTO> Update(TournamentDTO tournamentDTO, bool incluDeleted = false);
         Task<bool> Delete(int id);
-        Task<List<TournamentDTO>> SearchTournaments(string searchTerm, bool incluDeleted = false);
+        Task<List<TournamentDTO>> SearchTournaments(string searchTerm = "", int idSportType = -1, bool incluDeleted = false);
     }
 }

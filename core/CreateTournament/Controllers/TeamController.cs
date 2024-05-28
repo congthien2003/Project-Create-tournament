@@ -47,11 +47,36 @@ namespace CreateTournament.Controllers
             }
             return Ok(teams);
         }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult> UpdateTeam(int id)
+        {
+
+            var team = await _teamService.GetTeamByIdAsync(id);
+            if (team == null)
+            {
+                return BadRequest("Trận đấu không tồn tại");
+            }
+            return Ok(team);
+        }
+
         [HttpPut("update")]
         public async Task<ActionResult> UpdateTeam(int id, string name)
         {
 
-            var team = await _teamService.UpdateAsync(id,name );
+            var team = await _teamService.UpdateAsync(id, name);
+            if (team == null)
+            {
+                return BadRequest("Trận đấu không tồn tại");
+            }
+            return Ok(team);
+        }
+
+        [HttpPut("updateImage")]
+        public async Task<ActionResult> UpdateImage(int id, string path)
+        {
+
+            var team = await _teamService.UpdateImage(id, path);
             if (team == null)
             {
                 return BadRequest("Trận đấu không tồn tại");

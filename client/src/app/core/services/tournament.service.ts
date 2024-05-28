@@ -3,6 +3,8 @@ import { MasterService } from "./master/master.service";
 import { TournamentApi } from "../constant/api/tournament.api";
 import { Observable } from "rxjs";
 import { Tournament } from "../models/classes/Tournament";
+import { HttpParams } from "@angular/common/http";
+import { SportType } from "../models/classes/SportType";
 
 @Injectable({
 	providedIn: "root",
@@ -17,8 +19,9 @@ export class TournamentService {
 	}
 
 	// Get list by userId
-	getList(id: number): Observable<Tournament> {
-		return this.master.get(`${this.endpoints.getList}/${id}`);
+	getList(id: number): Observable<Tournament[]> {
+		const params = new HttpParams().set("userId", id);
+		return this.master.get(`${this.endpoints.getList}`, { params });
 	}
 
 	getById(id: number): Observable<Tournament> {
@@ -37,7 +40,13 @@ export class TournamentService {
 		return this.master.delete(`${this.endpoints.deleteById}/${id}`);
 	}
 
-	searchByName(name: string): Observable<Tournament> {
-		return this.master.get(`${this.endpoints.search}`, name);
+	searchByName(
+		searchTerm: string,
+		sportTypeId: number = 0
+	): Observable<Tournament[]> {
+		const params = new HttpParams()
+			.set("searchTerm", searchTerm)
+			.set("sportType", sportTypeId);
+		return this.master.get(`${this.endpoints.search}`, { params });
 	}
 }

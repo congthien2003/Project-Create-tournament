@@ -57,7 +57,13 @@ export class LoginComponent implements OnInit {
 						this.loaderService.setLoading(false);
 
 						localStorage.setItem("token", data.token);
-						this.route.navigate(["/pages"]);
+						console.log(this.service.getUserRoleFromToken());
+
+						if (this.service.getUserRoleFromToken() === 1) {
+							this.route.navigate(["/pages"]);
+						} else {
+							this.route.navigate(["/admin"]);
+						}
 					},
 					error: (error) => {
 						this.toastr.error("", "Đăng nhập không thành công !", {

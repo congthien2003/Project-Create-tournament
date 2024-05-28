@@ -10,6 +10,6 @@ namespace CreateTournament.Interfaces.IRepositories
         Task<TTournament> Create(TTournament tournament);
         Task<TTournament> Update(TTournament tournament,bool incluDeleted = false);
         Task<TTournament> Delete(int id);
-        Task<List<TTournament>> SearchTournaments(string searchTerm, bool incluDeleted = false);
+        Task<List<TTournament>> SearchTournaments(string searchTerm = "", int idSportType = -1 , bool incluDeleted = false);
     }
 }

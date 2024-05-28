@@ -7,6 +7,6 @@ import { SportTypeData } from "../constant/data/sport.data";
 export class SportTypePipe implements PipeTransform {
 	formatTypeData = SportTypeData;
 	transform(id: number) {
-		return this.formatTypeData.listSport.find((x) => x.id === id)?.name;
+		return this.formatTypeData.listSport.find((x) => x.id === id)?.nameVie;
 	}
 }

@@ -9,6 +9,7 @@
 		display: flex;
 		align-items: center;
 		flex-direction: column;
+		border: 1px solid $primary;
 	}
 
 	&--title {
@@ -35,6 +36,6 @@
 
 	&--content {
 		font-size: 18px;
-		padding: 8px 16px;
+		padding: 16px 16px;
 	}
 }

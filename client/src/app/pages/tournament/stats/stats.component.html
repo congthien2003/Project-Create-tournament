@@ -1,0 +1,9 @@
+<div class="stats--wrapper">
+	<div class="history--table">
+		<div *ngFor="let matchResult of this.listMatchResult">
+			<history-card [matchResult]="matchResult"></history-card>
+		</div>
+	</div>
+
+	<div class="stats-player">Stats Player</div>
+</div>

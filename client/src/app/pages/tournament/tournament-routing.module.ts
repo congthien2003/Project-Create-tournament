@@ -3,18 +3,33 @@ import { NgModule } from "@angular/core";
 import { TournamentComponent } from "./tournament.component";
 import { OverviewComponent } from "./overview/overview.component";
 import { MytourComponent } from "./mytour/mytour.component";
+import { TeamComponent } from "./team/team.component";
+import { BracketComponent } from "./bracket/bracket.component";
+import { StatsComponent } from "./stats/stats.component";
 
 const routes: Routes = [
 	{
-		path: "",
+		path: ":id",
 		component: TournamentComponent,
 		children: [
 			{
-				path: ":id/overview",
+				path: "overview",
 				component: OverviewComponent,
 			},
 			{
-				path: "mytour/:id",
+				path: "team",
+				component: TeamComponent,
+			},
+			{
+				path: "bracket",
+				component: BracketComponent,
+			},
+			{
+				path: "stats",
+				component: StatsComponent,
+			},
+			{
+				path: "mytour",
 				component: MytourComponent,
 			},
 		],

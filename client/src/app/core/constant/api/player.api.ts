@@ -1,5 +1,5 @@
 export const PlayerApi = {
 	getAll: "Player/all",
-	ById: "Player/",
+	ById: "Player",
 	create: "Player/create",
 };

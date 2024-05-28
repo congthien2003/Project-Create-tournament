@@ -10,8 +10,9 @@ import { ToastrModule } from "ngx-toastr";
 import { CommonModule } from "@angular/common";
 import { TokenInterceptor } from "./core/interceptors/token.interceptor";
 import { SharedModule } from "./shared/shared.module";
-import { HeaderComponent } from "./pages/layout/header/header.component";
-import { FooterComponent } from "./pages/layout/footer/footer.component";
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireStorageModule } from "@angular/fire/compat/storage";
+import { environment } from "src/environments/environment.development";
 
 @NgModule({
 	declarations: [AppComponent],
@@ -27,6 +28,8 @@ import { FooterComponent } from "./pages/layout/footer/footer.component";
 			positionClass: "toast-top-right",
 			preventDuplicates: true,
 		}),
+		AngularFireModule.initializeApp(environment.firebaseConfig),
+		AngularFireStorageModule,
 	],
 	providers: [
 		{

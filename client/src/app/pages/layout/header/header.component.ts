@@ -87,7 +87,9 @@ export class HeaderComponent implements OnInit, OnChanges {
 	}
 
 	myTour() {
-		this.router.navigate([`tournament/mytour/${this.id}`]);
+		console.log(`tournament/${this.id}/mytour/`);
+
+		this.router.navigate([`tournament/${this.id}/mytour/`]);
 	}
 
 	logOut(): void {
@@ -95,7 +97,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 		setTimeout(() => {
 			this.router.navigate(["/auth/login"]).then(() => {
 				// Sau khi chuyển hướng, chuyển hướng lại đến '/pages', sẽ gây ra reload trang
-				this.router.navigate(["/pages/home"]);
+				this.router.navigate(["/pages"]);
 			});
 		}, 1000);
 	}

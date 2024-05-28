@@ -1,11 +1,10 @@
 <app-spinner></app-spinner>
 <app-header></app-header>
 
-<div
-	class="create--wrapper container d-flex align-items-center justify-content-center">
+<div class="create--wrapper container">
 	<div class="create--form">
 		<div class="create--header">
-			<h4>Tạo giải đấu cho bạn</h4>
+			<h3>Tạo giải đấu cho bạn</h3>
 			<p>Miễn phí và dễ dàng quản lý</p>
 		</div>
 		<form [formGroup]="createTour" class="create--info mt-4">
@@ -17,7 +16,13 @@
 						autocomplete="off"
 						type="text"
 						id="tourName"
-						placeholder="Nhập tên giải đấu" />
+						placeholder="Nhập tên giải đấu"
+						required />
+					<small
+						class="validator-message-error"
+						*ngIf="this.createTour.get('tourName')?.errors"
+						>Vui lòng nhập tên giải đấu</small
+					>
 				</div>
 			</div>
 			<div class="create--select mt-3">
@@ -45,6 +50,11 @@
 							{{ item }}
 						</label>
 					</div>
+					<small
+						class="validator-message-error"
+						*ngIf="this.createTour.get('format')?.errors"
+						>Vui lòng chọn thể thức cho giải đấu</small
+					>
 				</div>
 				<div class="select--quantity mt-3">
 					<app-dropdown
@@ -53,10 +63,20 @@
 						(outputValue)="
 							onReceiveValueQuantityTeams($event)
 						"></app-dropdown>
+					<small
+						class="validator-message-error"
+						*ngIf="this.createTour.get('quantity')?.errors"
+						>Vui lòng chọn số lượng đội</small
+					>
 				</div>
 			</div>
+			<button
+				type="button"
+				class="create--submit mt-4"
+				[disabled]="!createTour.valid"
+				(click)="create()">
+				Tạo giải đấu
+			</button>
 		</form>
-
-		<div class="create--submit mt-4" (click)="create()">Tạo giải đấu</div>
 	</div>
 </div>

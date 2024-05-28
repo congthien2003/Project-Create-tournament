@@ -1,4 +1,3 @@
-<app-spinner></app-spinner>
 <app-header></app-header>
 
 <div class="home--wrapper">
@@ -16,10 +15,17 @@
 					name="search"
 					id="search"
 					type="text"
-					placeholder=" " />
+					placeholder=" "
+					#searchTour />
 				<label for="search">Find Tour</label>
 			</div>
-			<span class="search-btn"><i class="bx bx-search-alt-2"></i></span>
+			<button
+				type="button"
+				class="search-btn"
+				aria-label="search"
+				(click)="onSearch()">
+				<i class="bx bx-search-alt-2"></i>
+			</button>
 		</div>
 	</div>
 
@@ -114,11 +120,18 @@
 					</td>
 				</ng-container>
 
+				<ng-container matColumnDef="quantity">
+					<th mat-header-cell *matHeaderCellDef>Số đội thi đấu</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.quantityTeam }}
+					</td>
+				</ng-container>
+
 				<!-- Symbol Column -->
 				<ng-container matColumnDef="location">
 					<th mat-header-cell *matHeaderCellDef>Địa chỉ</th>
 					<td mat-cell *matCellDef="let element">
-						{{ element.created | date }}
+						{{ element.location }}
 					</td>
 				</ng-container>
 
@@ -128,7 +141,7 @@
 					*matRowDef="let row; columns: displayedColumns"></tr>
 			</table>
 		</div>
-		<h4 class="text-center text-white" *ngIf="data.length == 0">
+		<h4 class="text-center text-black" *ngIf="data.length == 0">
 			Không có giải đấu nào ở hiện tại
 		</h4>
 	</div>

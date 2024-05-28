@@ -1,11 +1,18 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AdminRoutingModule } from "./pages/admin/admin-routing.module";
+import { PagesRoutingModule } from "./pages/pages-routing.module";
 
 const routes: Routes = [
 	{
 		path: "auth",
 		loadChildren: () =>
 			import("./@auth/auth.module").then((m) => m.AuthModule),
+	},
+	{
+		path: "admin",
+		loadChildren: () =>
+			import("./pages/admin/admin.module").then((m) => m.AdminModule),
 	},
 	{
 		path: "pages",
@@ -19,12 +26,17 @@ const routes: Routes = [
 				(m) => m.TournamentModule
 			),
 	},
+
 	{ path: "", redirectTo: "pages", pathMatch: "full" },
 	{ path: "**", redirectTo: "pages" },
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
+	imports: [
+		RouterModule.forRoot(routes),
+		AdminRoutingModule,
+		PagesRoutingModule,
+	],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormatTypeData } from "src/app/core/constant/data/format.data";
 import { SportTypeData } from "src/app/core/constant/data/sport.data";
@@ -14,11 +14,13 @@ import { LoaderService } from "src/app/shared/services/loader.service";
 })
 export class FindTournamentComponent implements OnInit {
 	formatTypeList = FormatTypeData.listFormat;
-	formatTypeNameList = FormatTypeData.listFormat.map((item) => item.name);
+	formatTypeNameList = FormatTypeData.listFormat.map((item) => item.nameVie);
 
 	titleSportSelect = "Chọn môn thi đấu";
 	sportTypeList = SportTypeData.listSport;
-	sportTypeNameList = SportTypeData.listSport.map((item) => item.name);
+	sportTypeNameList = SportTypeData.listSport.map((item) => item.nameVie);
+
+	filterSportType = 0;
 
 	constructor(
 		private loaderService: LoaderService,
@@ -40,9 +42,27 @@ export class FindTournamentComponent implements OnInit {
 
 	onReceiveValueSportType(index: any) {
 		console.log(this.sportTypeList[index].id);
+		this.filterSportType = this.sportTypeList[index].id;
 	}
 
 	onViewDetail(id: number) {
 		this.route.navigateByUrl(`/tournament/${id}/overview`);
+	}
+
+	@ViewChild("searchInput") searchInput: ElementRef<HTMLInputElement>;
+	onSearch() {
+		const searchValue = this.searchInput.nativeElement.value;
+		console.log(searchValue);
+
+		this.tourService
+			.searchByName(searchValue, this.filterSportType)
+			.subscribe({
+				next: (value) => {
+					this.listTour = value;
+				},
+				error: (error) => {
+					console.log("Search error");
+				},
+			});
 	}
 }

@@ -58,9 +58,9 @@ namespace CreateTournament.Services
             return mapper.Map<TournamentDTO>(editTournament);
             
         }
-        public async Task<List<TournamentDTO>> SearchTournaments(string searchTerm, bool incluDeleted = false)
+        public async Task<List<TournamentDTO>> SearchTournaments(string searchTerm = "", int idSportType = -1, bool incluDeleted = false)
         {
-            var tournaments = await _tournamentRepository.SearchTournaments(searchTerm, incluDeleted);
+            var tournaments = await _tournamentRepository.SearchTournaments(searchTerm, idSportType, incluDeleted);
             return mapper.Map<List<TournamentDTO>>(tournaments);
         }
 

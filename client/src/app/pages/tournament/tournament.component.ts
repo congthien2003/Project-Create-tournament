@@ -1,7 +1,36 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Tournament } from "src/app/core/models/classes/Tournament";
+import { TournamentService } from "src/app/core/services/tournament.service";
+import { IdloaderService } from "src/app/shared/services/idloader.service";
 
 @Component({
 	selector: "app-tournament",
-	template: `<router-outlet></router-outlet>`,
+	templateUrl: "./tournament.component.html",
+	styleUrls: ["./tournament.component.scss"],
 })
-export class TournamentComponent {}
+export class TournamentComponent implements OnInit {
+	idTour: number = 0;
+
+	tour: Tournament | undefined;
+
+	constructor(
+		private route: ActivatedRoute,
+		private shared: IdloaderService,
+		private tourService: TournamentService
+	) {}
+
+	ngOnInit(): void {
+		const id = this.route.snapshot.paramMap.get("id");
+
+		this.idTour = id ? Number.parseInt(id) : 0;
+
+		this.shared.setCurrentId(this.idTour);
+
+		this.tourService.getById(this.idTour).subscribe({
+			next: (value) => {
+				this.tour = value;
+			},
+		});
+	}
+}

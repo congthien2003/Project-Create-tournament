@@ -1,0 +1,70 @@
+@import "../../../../shared/variable.scss";
+
+.team--card {
+	padding: 2rem 3rem;
+	border-radius: 8px;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 24px;
+	border: 0.5px solid #cecece;
+	&--header {
+		text-align: center;
+		font-weight: bold;
+		font-size: 30px;
+		color: $primary;
+		display: flex;
+		align-items: center;
+		gap: 24px;
+		.team--img {
+			width: 80px;
+			height: 80px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			border: 1px solid #cece;
+			overflow: hidden;
+			img {
+				width: 100%;
+				display: block;
+			}
+		}
+
+		.team--name {
+			margin-bottom: 0;
+			line-height: 1.9;
+			font-size: 19px;
+			font-weight: 450;
+			text-align: center;
+			text-overflow: clip;
+			text-overflow: ellipsis ellipsis;
+			text-overflow: ellipsis " [..]";
+		}
+	}
+
+	&--content {
+		width: 100%;
+	}
+
+	&--footer {
+		display: flex;
+		gap: 1rem;
+
+		input {
+			border-radius: 4px;
+			outline-color: rgb(195, 28, 28);
+			outline-width: 1px;
+			border: 1px solid $primary-medium;
+			padding: 4px 8px;
+
+			&:active {
+			}
+		}
+		button {
+			background-color: $primary;
+			color: white;
+		}
+	}
+}
