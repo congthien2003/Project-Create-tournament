@@ -4,7 +4,6 @@ import { TournamentApi } from "../constant/api/tournament.api";
 import { Observable } from "rxjs";
 import { Tournament } from "../models/classes/Tournament";
 import { HttpParams } from "@angular/common/http";
-import { SportType } from "../models/classes/SportType";
 
 @Injectable({
 	providedIn: "root",

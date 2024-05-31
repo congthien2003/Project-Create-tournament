@@ -48,7 +48,7 @@
 					</td>
 				</ng-container>
 
-				<!-- <ng-container matColumnDef="expand">
+				<ng-container matColumnDef="expand">
 					<th
 						mat-header-cell
 						*matHeaderCellDef
@@ -56,17 +56,22 @@
 						-
 					</th>
 					<td mat-cell *matCellDef="let element">
-						<button mat-button aria-label="Edit" matTooltip="Edit">
+						<button
+							mat-stroked-button
+							aria-label="Edit"
+							matTooltip="Edit"
+							class="mx-1">
 							<i class="fa fa-edit" aria-hidden="true"></i>
 						</button>
 						<button
-							mat-button
+							mat-stroked-button
+							color="warn"
 							aria-label="Delete"
 							matTooltip="Delete">
 							<i class="fa fa-close" aria-hidden="true"></i>
 						</button>
 					</td>
-				</ng-container> -->
+				</ng-container>
 
 				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 				<tr

@@ -7,12 +7,20 @@ import { CreateTournamentComponent } from "./create-tournament/create-tournament
 import { ReactiveFormsModule } from "@angular/forms";
 import { CardInfoComponent } from "../shared/components/card-info/card-info.component";
 import { SharedModule } from "../shared/shared.module";
+import { MatCommonModule } from "@angular/material/core";
+
+import { MatTableModule } from "@angular/material/table";
+import { MatPaginatorModule } from "@angular/material/paginator";
 import { FindTournamentComponent } from "./find-tournament/find-tournament.component";
 import { TournamentModule } from "./tournament/tournament.module";
-import { MatCommonModule } from "@angular/material/core";
-import { MatPaginatorModule } from "@angular/material/paginator";
-import { MatTableModule } from "@angular/material/table";
-const MatModule = [MatCommonModule, MatTableModule, MatPaginatorModule];
+import { MatMenuModule } from "@angular/material/menu";
+const MatModule = [
+	MatCommonModule,
+	MatTableModule,
+	MatPaginatorModule,
+	MatMenuModule,
+];
+
 @NgModule({
 	declarations: [
 		HomeComponent,

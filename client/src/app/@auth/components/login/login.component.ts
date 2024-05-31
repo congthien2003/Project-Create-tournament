@@ -57,12 +57,11 @@ export class LoginComponent implements OnInit {
 						this.loaderService.setLoading(false);
 
 						localStorage.setItem("token", data.token);
+						console.log(this.service.getUserRoleFromToken());
 
-						if (this.service.getUserRoleFromToken() === "0") {
-							this.route.navigate(["/admin/dashboard"]);
-						} else if (
-							this.service.getUserRoleFromToken() === "1"
-						) {
+						if (this.service.getUserRoleFromToken() === 1) {
+							this.route.navigate(["/pages"]);
+						} else {
 							this.route.navigate(["/pages"]);
 						}
 					},
