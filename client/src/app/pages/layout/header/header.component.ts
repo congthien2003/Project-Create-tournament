@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 		this.isLogin = this.authService.isAuthenticated();
 		this.username = this.authService.getUsernameFromToken();
 		this.id = this.authService.getUserIdFromToken();
+		this.activeIndex = 0;
 	}
 	ngOnChanges(changes: SimpleChanges): void {
 		this.isLogin = this.authService.isAuthenticated();

@@ -1,0 +1,35 @@
+@import "../../../shared/variable.scss";
+
+.dashboard {
+	&--wrapper {
+		height: 100%;
+		width: 100%;
+		background-color: whitesmoke;
+
+		.card {
+			border-left: 8px solid #1cc88a;
+			display: flex;
+			align-items: center;
+			flex-direction: row;
+			gap: 24px;
+			padding: 24px 24px;
+
+			&--icon {
+				font-size: 28px;
+			}
+
+			&--content {
+				h4 {
+					font-size: 30px;
+					font-weight: 500;
+					margin-bottom: 8px;
+				}
+				p {
+					font-size: 18px;
+					font-weight: 400;
+					color: #767676;
+				}
+			}
+		}
+	}
+}

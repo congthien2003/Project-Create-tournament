@@ -20,6 +20,11 @@ namespace CreateTournament.Controllers
             _userService = userService;
             
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync() {
+            var list = await _userService.GetList();
+            return Ok(list);
+        }
 
         [HttpGet]
         [Route("{id:int}")]

@@ -52,7 +52,7 @@ namespace CreateTournament.Repositories
                 return null;
             }
 
-            var matchs = await _context.Matches.Where(obj => obj.TouramentId == tour.Id).ToListAsync();
+            var matchs = await _context.Matches.Where(obj => obj.TournamentId == tour.Id).ToListAsync();
 
             List<MatchResult> matchResults = new List<MatchResult>();
             for (int i = 0; i < matchs.Count; i++)
@@ -81,7 +81,7 @@ namespace CreateTournament.Repositories
             {
                 return null;
             }
-            var matchs = await _context.Matches.Where(obj => obj.TouramentId == tour.Id).ToListAsync();
+            var matchs = await _context.Matches.Where(obj => obj.TournamentId == tour.Id).ToListAsync();
             List<MatchResult> matchResults = new List<MatchResult>();
             for (int i=0;i<matchs.Count;i++)
             {

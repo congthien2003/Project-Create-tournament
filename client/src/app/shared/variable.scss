@@ -71,6 +71,16 @@ body {
 	padding: 2px 4px;
 }
 
+.btn--primary--custom {
+	background-color: $primary;
+	color: white;
+}
+.btn--primary--custom--outline {
+	background-color: transparent;
+	color: $primary;
+	border: 1px solid $primary;
+}
+
 @keyframes rotate {
 	0% {
 		transform: rotate(45);

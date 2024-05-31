@@ -79,5 +79,11 @@ namespace CreateTournament.Repositories
             await _dataContext.SaveChangesAsync();
             return user;
         }
+
+        public async Task<List<User>> GetList(bool includeDeleted = false)
+        {
+            var list = await _dataContext.Users.ToListAsync();
+            return list;
+        }
     }
 }

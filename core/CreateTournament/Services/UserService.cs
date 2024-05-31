@@ -63,5 +63,11 @@ namespace CreateTournament.Services
             var user = await _userRepository.UpdatePassword(id, password, includeDeleted);
             return mapper.Map<UserDTO>(user);
         }
+
+        public async Task<List<UserDTO>> GetList(bool includeDeleted = false)
+        {
+            var list = await _userRepository.GetList(includeDeleted);
+            return mapper.Map<List<UserDTO>>(list);
+        }
     }
 }

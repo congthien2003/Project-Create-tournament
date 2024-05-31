@@ -1,72 +1,53 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="#">Navbar</a>
-		<button
-			class="navbar-toggler"
-			type="button"
-			data-bs-toggle="collapse"
-			data-bs-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent"
-			aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item">
+<div class="admin--wrapper">
+	<div class="admin--sidebar">
+		<div class="sidebar--header"><p>Admin</p></div>
+		<div class="sidebar--nav">
+			<ul class="nav nav-pills flex-column mb-auto gap-2">
+				<li class="nav-item" *ngFor="let link of links; index as i">
 					<a
-						class="nav-link active"
-						aria-current="page"
-						href="/admin/user"
-						>Home</a
-					>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Link</a>
-				</li>
-				<li class="nav-item dropdown">
-					<a
-						class="nav-link dropdown-toggle"
-						href="#"
-						id="navbarDropdown"
-						role="button"
-						data-bs-toggle="dropdown"
-						aria-expanded="false">
-						Dropdown
+						[routerLink]="link.link"
+						[class.active]="this.activeIndex === i"
+						(click)="this.activeIndex = i"
+						class="nav-link"
+						aria-current="page">
+						<i [classList]="link.iconClass"></i>
+						{{ link.name }}
 					</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li><a class="dropdown-item" href="#">Action</a></li>
-						<li>
-							<a class="dropdown-item" href="#">Another action</a>
-						</li>
-						<li><hr class="dropdown-divider" /></li>
-						<li>
-							<a class="dropdown-item" href="#"
-								>Something else here</a
-							>
-						</li>
-					</ul>
-				</li>
-				<li class="nav-item">
-					<a
-						class="nav-link disabled"
-						href="#"
-						tabindex="-1"
-						aria-disabled="true"
-						>Disabled</a
-					>
 				</li>
 			</ul>
-			<form class="d-flex">
-				<input
-					class="form-control me-2"
-					type="search"
-					placeholder="Search"
-					aria-label="Search" />
-				<button class="btn btn-outline-success" type="submit">
-					Search
-				</button>
-			</form>
 		</div>
 	</div>
-</nav>
+	<div class="admin--content">
+		<nav class="navbar topbar mb-4 static-top shadow">
+			<ul class="sub-navbar ml-auto d-flex align-items-center gap-2">
+				<p class="fw-bold fs-6">Hi, {{ name }}</p>
+				<div class="action">
+					<button
+						mat-button
+						color="primary"
+						[matMenuTriggerFor]="menu"
+						aria-label="button">
+						<i class="fa fa-list fs-6" aria-hidden="true"></i>
+					</button>
+					<mat-menu #menu="matMenu">
+						<button mat-menu-item>
+							<i
+								class="fa fa-plus fs-6 px-1"
+								aria-hidden="true"></i>
+							New account
+						</button>
+						<button mat-menu-item (click)="logOut()">
+							<i
+								class="fa fa-arrow-right fs-6 px-1"
+								aria-hidden="true"></i>
+							Log out
+						</button>
+					</mat-menu>
+				</div>
+			</ul>
+		</nav>
+		<div class="h-100">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+</div>

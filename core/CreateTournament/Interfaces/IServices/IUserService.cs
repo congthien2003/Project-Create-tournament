@@ -8,6 +8,9 @@ namespace CreateTournament.Interfaces.IServices
     {
         Task<UserDTO> Login(LoginDTO loginDTO);
         Task<UserDTO> Register(RegisterDTO registerDTO);
+
+        Task<List<UserDTO>> GetList(bool includeDeleted = false);
+
         Task<UserDTO> GetById(int id, bool includeDeleted = false);
         Task<User> GetByEmail(string email, bool includeDeleted = false);
         Task<bool> Delete(int id);
