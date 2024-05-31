@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
 						if (this.service.getUserRoleFromToken() === 1) {
 							this.route.navigate(["/pages"]);
 						} else {
-							this.route.navigate(["/pages"]);
+							this.route.navigate(["/admin/dashboard"]);
 						}
 					},
 					error: (error) => {

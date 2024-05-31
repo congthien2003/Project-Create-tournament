@@ -9,13 +9,14 @@ import { ManagementUserComponent } from "./management-user/management-user.compo
 import { ManagementTournamentComponent } from "./management-tournament/management-tournament.component";
 import { ManagementFormatTypeComponent } from "./management-format-type/management-format-type.component";
 import { ManagementSportTypeComponent } from "./management-sport-type/management-sport-type.component";
+import { adminGuard } from "src/app/@auth/guards/admin.guard";
 
 const routes: Routes = [
 	{ path: "admin", redirectTo: "admin/dashboard", pathMatch: "full" },
 	{
 		path: "admin",
 		component: AdminComponent,
-		canActivate: [authGuard],
+		canActivate: [authGuard, adminGuard],
 		children: [
 			{
 				path: "dashboard",
@@ -44,8 +45,6 @@ const routes: Routes = [
 			},
 		],
 	},
-	{ path: "", redirectTo: "admin/dashboard", pathMatch: "full" },
-	{ path: "**", redirectTo: "admin/dashboard", pathMatch: "full" },
 ];
 
 @NgModule({
