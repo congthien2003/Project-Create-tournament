@@ -11,15 +11,17 @@ import { TournamentService } from "src/app/core/services/tournament.service";
 	templateUrl: "./mytour.component.html",
 	styleUrls: ["./mytour.component.scss"],
 })
-export class MytourComponent implements OnInit, AfterViewInit {
+export class MytourComponent implements OnInit {
 	id: number = 0;
 
-	@ViewChild(MatPaginator)
-	paginator!: MatPaginator;
-
-	ngAfterViewInit() {
-		this.dataSource.paginator = this.paginator;
-	}
+	// Pagi
+	totalPage: number;
+	totalRecords: number;
+	currentPage: number = 1;
+	pageSize: number = 9;
+	pageSizeArr: number[] = [10, 15, 20, 30];
+	hasNext: any = true;
+	hasPrev: any = false;
 
 	displayedColumns: string[] = [
 		"name",

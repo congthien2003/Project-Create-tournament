@@ -35,19 +35,10 @@ namespace CreateTournament.Repositories
             return tournament;
         }
 
-        public async Task<List<Tournament>> GetAll(bool incluDeleted = false)
-        {
-            return await _dataContext.Tournaments
-                .Where(x=>x.IsDeleted == incluDeleted)
-                .ToListAsync();
-        }
-
         public async Task<Tournament> GetByIdTournament(int id, bool incluDeleted = false)
         {
             var exists = await _dataContext.Tournaments
                 .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == incluDeleted);
-            exists!.View++;
-
             return exists;
         }
 
@@ -78,21 +69,77 @@ namespace CreateTournament.Repositories
             await _dataContext.SaveChangesAsync();
             return exists;
         }
-
-        public async Task<List<Tournament>> SearchTournaments(string searchTerm = "", int idSportType = -1, bool incluDeleted = false)
+        public async Task<Tournament> UpdateView(Tournament tournament, bool incluDeleted = false)
         {
-            var tournament = _dataContext.Tournaments
-                .Where(t => t.Name.Contains(searchTerm));
+            var exists = await _dataContext.Tournaments
+                .FirstOrDefaultAsync(x => x.Id == tournament.Id && x.IsDeleted == incluDeleted);
+            if (exists == null)
+            {
+                return null;
+            }
+            else
+            {
+                exists.View++;
+            }
+            await _dataContext.SaveChangesAsync();
+            return exists;
+        }
+        public async Task<List<Tournament>> SearchTournaments(string searchTerm = "", int idSportType = 0, bool incluDeleted = false)
+        {
+            var tournament = _dataContext.Tournaments.AsQueryable();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                tournament = tournament.Where(t => t.Name.Contains(searchTerm));
+            }
             if (!incluDeleted)
             {
                 tournament = tournament.Where(t => t.IsDeleted == incluDeleted);
             }
-            if (idSportType != -1)
+            if (idSportType != 0)
             {
                 tournament = tournament.Where(t => t.SportTypeId == idSportType);
             }
             var searchTour = await tournament.ToListAsync();
             return searchTour;
+        }
+
+
+        public Task<List<Tournament>> GetList(int currentPage = 1, int pageSize = 5, string searchTerm = "", int idSportType = -1, bool incluDeleted = false)
+        {
+            var tournament = _dataContext.Tournaments.AsQueryable();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                tournament = tournament.Where(t => t.Name.Contains(searchTerm));
+            }
+            if (!incluDeleted)
+            {
+                tournament = tournament.Where(t => t.IsDeleted == incluDeleted);
+            }
+            if (idSportType != 0)
+            {
+                tournament = tournament.Where(t => t.SportTypeId == idSportType);
+            }
+            var list = tournament.Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
+            return list;
+        }
+
+        public async Task<int> GetCount(string searchTerm = "", int idSportType = 0, bool incluDeleted = false)
+        {
+            var tournament = _dataContext.Tournaments.AsQueryable();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                tournament = tournament.Where(t => t.Name.Contains(searchTerm));
+            }
+            if (!incluDeleted)
+            {
+                tournament = tournament.Where(t => t.IsDeleted == incluDeleted);
+            }
+            if (idSportType != 0)
+            {
+                tournament = tournament.Where(t => t.SportTypeId == idSportType);
+            }
+            var searchTour = await tournament.ToListAsync();
+            return searchTour.Count();
         }
     }
 }

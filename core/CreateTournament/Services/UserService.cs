@@ -64,10 +64,16 @@ namespace CreateTournament.Services
             return mapper.Map<UserDTO>(user);
         }
 
-        public async Task<List<UserDTO>> GetList(bool includeDeleted = false)
+        public async Task<List<UserDTO>> GetList(int currentPage = 1, int pageSize = 5, bool includeDeleted = false)
         {
-            var list = await _userRepository.GetList(includeDeleted);
+            var list = await _userRepository.GetList(currentPage, pageSize, includeDeleted);
             return mapper.Map<List<UserDTO>>(list);
+        }
+
+        public async Task<int> GetCountList(bool includeDeleted = false)
+        {
+            var count = await _userRepository.GetCountList();
+            return count;
         }
     }
 }

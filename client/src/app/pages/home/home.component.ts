@@ -5,6 +5,7 @@ import { Tournament } from "src/app/core/models/classes/Tournament";
 import { TournamentService } from "src/app/core/services/tournament.service";
 import { FormatTypeData } from "src/app/core/constant/data/format.data";
 import { SportTypeData } from "src/app/core/constant/data/sport.data";
+import { Router } from "@angular/router";
 @Component({
 	selector: "app-home",
 	templateUrl: "./home.component.html",
@@ -13,11 +14,14 @@ import { SportTypeData } from "src/app/core/constant/data/sport.data";
 export class HomeComponent implements OnInit {
 	formatData = FormatTypeData;
 	sportData = SportTypeData;
-	constructor(private tournamentService: TournamentService) {}
+	constructor(
+		private tournamentService: TournamentService,
+		private router: Router
+	) {}
 
 	ngOnInit(): void {
 		// Get Tour
-		this.tournamentService.getAll().subscribe({
+		this.tournamentService.getAllNoPagi().subscribe({
 			next: (data) => {
 				this.data = data;
 
@@ -56,6 +60,10 @@ export class HomeComponent implements OnInit {
 		"formatType",
 		"quantity",
 		"location",
+		"startAt",
+		"finishAt",
+		"views",
+		"actions",
 	];
 
 	data: Tournament[] = [];
@@ -65,5 +73,13 @@ export class HomeComponent implements OnInit {
 	@ViewChild("searchTour") search: ElementRef<HTMLInputElement>;
 	onSearch(): void {
 		const search = this.search.nativeElement.value;
+
+		this.router.navigate(["/find"], {
+			queryParams: { searchInput: search },
+		});
+	}
+
+	onViewDetail(id: number) {
+		this.router.navigateByUrl(`/tournament/${id}/overview`);
 	}
 }

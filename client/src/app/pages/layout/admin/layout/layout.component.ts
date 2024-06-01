@@ -12,27 +12,27 @@ export class LayoutComponent implements OnInit {
 		{
 			name: "Dashboard",
 			link: "/admin/dashboard",
-			iconClass: "bx bxs-home",
+			iconClass: "fa-solid fa-house",
 		},
 		{
 			name: "Users",
 			link: "/admin/user",
-			iconClass: "bx bxs-user",
+			iconClass: "fa-solid fa-user",
 		},
 		{
 			name: "Tournaments",
 			link: "/admin/tournament",
-			iconClass: "bx bx-code-alt",
+			iconClass: "fa-solid fa-code",
 		},
 		{
 			name: "Formats Type",
 			link: "/admin/formattype",
-			iconClass: "bx bxl-meta",
+			iconClass: "fa-solid fa-gears",
 		},
 		{
 			name: "Sports Type",
 			link: "/admin/sporttype",
-			iconClass: "bx bxl-dribbble",
+			iconClass: "fa-brands fa-dribbble",
 		},
 	];
 

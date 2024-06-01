@@ -20,11 +20,11 @@ export class FormatTypeService {
 	}
 
 	create(data: FormatType): Observable<FormatType> {
-		return this.master.post(this.endpoint.create, null, data);
+		return this.master.post(this.endpoint.create, data);
 	}
 
 	update(data: FormatType): Observable<FormatType> {
-		return this.master.put(this.endpoint.update, null, data);
+		return this.master.put(this.endpoint.update, data);
 	}
 
 	delteById(id: number): Observable<FormatType> {

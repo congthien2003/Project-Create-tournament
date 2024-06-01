@@ -11,21 +11,21 @@ import { UserService } from "src/app/core/services/user.service";
 })
 export class DashboardComponent implements OnInit {
 	listTour: Tournament[] = [];
-	listUser: User[] = [];
+	countUser: number;
 	constructor(
 		private tourService: TournamentService,
 		private userService: UserService
 	) {}
 	ngOnInit(): void {
-		this.tourService.getAll().subscribe({
+		this.tourService.getCount().subscribe({
 			next: (value) => {
 				this.listTour = value;
 			},
 		});
 
-		this.userService.list().subscribe({
+		this.userService.getCount().subscribe({
 			next: (value) => {
-				this.listUser = value;
+				this.countUser = value;
 			},
 		});
 	}

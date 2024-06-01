@@ -30,6 +30,10 @@ export class TournamentComponent implements OnInit {
 		this.tourService.getById(this.idTour).subscribe({
 			next: (value) => {
 				this.tour = value;
+
+				this.tourService.updateView(value).subscribe({
+					next: () => {},
+				});
 			},
 		});
 	}

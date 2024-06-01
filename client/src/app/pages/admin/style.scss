@@ -1,3 +1,5 @@
+@import "../../shared/variable.scss";
+
 @mixin layout {
 	.management--wrapper {
 		display: flex;
@@ -5,7 +7,6 @@
 		justify-content: center;
 		flex-direction: column;
 		width: 100%;
-
 		.header {
 			&--wrapper {
 				display: flex;
@@ -33,8 +34,8 @@
 				padding: 8px 24px;
 				gap: 12px;
 				input {
-					border-radius: 8px;
-					padding: 4px 8px;
+					border-radius: 6px;
+					padding: 8px 8px;
 					outline: none;
 					border: 1px solid #cfcfcf;
 				}
@@ -45,16 +46,52 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			flex-direction: column;
 			padding: 12px 24px;
 			.table {
 				border: 1px solid #fefefe;
-
-				.actions {
-					display: flex;
-					align-items: center;
-					gap: 12px;
-				}
+				overflow-y: scroll;
+				height: 300px;
 			}
+			.pagination {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 12px 24px;
+			}
+		}
+	}
+}
+
+@mixin layout-form {
+	.form {
+		&--wrapper {
+			width: 200px;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+		}
+		&--header {
+			background-color: $primary;
+			color: white;
+			font-size: 20px;
+			font-weight: bold;
+			padding: 12px 12px;
+		}
+
+		&--input {
+			padding: 8px 12px;
+			input {
+				padding: 4px;
+			}
+		}
+
+		&--actions {
+			padding: 8px 12px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 8px;
 		}
 	}
 }

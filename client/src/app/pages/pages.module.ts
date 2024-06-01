@@ -14,6 +14,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { FindTournamentComponent } from "./find-tournament/find-tournament.component";
 import { TournamentModule } from "./tournament/tournament.module";
 import { MatMenuModule } from "@angular/material/menu";
+import { MytourComponent } from "./mytour/mytour.component";
 const MatModule = [
 	MatCommonModule,
 	MatTableModule,
@@ -28,6 +29,7 @@ const MatModule = [
 		CreateTournamentComponent,
 		CardInfoComponent,
 		FindTournamentComponent,
+		MytourComponent,
 	],
 	imports: [
 		CommonModule,

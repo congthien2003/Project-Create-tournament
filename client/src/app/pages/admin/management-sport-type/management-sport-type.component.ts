@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+	Component,
+	OnChanges,
+	OnInit,
+	SimpleChanges,
+	ViewChild,
+} from "@angular/core";
 import { SportType } from "src/app/core/models/classes/SportType";
 import { SportTypeService } from "src/app/core/services/sport-type.service";
 import {
@@ -11,15 +17,16 @@ import { ToastrService } from "ngx-toastr";
 import { FormEditComponent } from "../components/form-edit/form-edit.component";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
+import { FormSportTypeComponent } from "./form-sport-type/form-sport-type.component";
 @Component({
 	selector: "app-management-sport-type",
 	templateUrl: "./management-sport-type.component.html",
 	styleUrls: ["./management-sport-type.component.scss"],
 })
-export class ManagementSportTypeComponent implements OnInit {
+export class ManagementSportTypeComponent implements OnInit, OnChanges {
 	list: SportType[] = [];
 
-	displayedColumns: string[] = ["id", "name"];
+	displayedColumns: string[] = ["id", "name", "actions"];
 
 	data: SportType[] = [];
 
@@ -35,6 +42,14 @@ export class ManagementSportTypeComponent implements OnInit {
 		public dialog: MatDialog,
 		private toastr: ToastrService
 	) {}
+	ngOnChanges(changes: SimpleChanges): void {
+		this.service.getAll().subscribe({
+			next: (value) => {
+				this.data = value;
+				this.dataSource = new MatTableDataSource<SportType>(this.data);
+			},
+		});
+	}
 	ngOnInit(): void {
 		this.service.getAll().subscribe({
 			next: (value) => {
@@ -45,25 +60,41 @@ export class ManagementSportTypeComponent implements OnInit {
 	}
 
 	openEditDialog(id: number): void {
-		const dialogRef = this.dialog.open(FormEditComponent, {
-			data: { id: id, type: SportType, service: SportTypeService },
+		const dialogRef = this.dialog.open(FormSportTypeComponent, {
+			data: { id: id },
 		});
 
 		dialogRef.afterClosed().subscribe((result) => {
-			console.log("Form Edit Closed");
+			this.service.getAll().subscribe({
+				next: (value) => {
+					this.data = value;
+					this.dataSource = new MatTableDataSource<SportType>(
+						this.data
+					);
+				},
+			});
 		});
 	}
 
 	openDeleteDialog(id: number): void {
 		const dialogRef = this.dialog.open(ModalDeleteComponent, {
-			data: { id: id, type: SportType, service: SportTypeService },
+			data: { id: id },
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result === true) {
 				this.service.delteById(id).subscribe({
 					next: (value) => {
-						this.toastr.warning("Success", "Deleted item.", {
+						this.toastr.success("Success", "Deleted item.", {
 							timeOut: 3000,
+						});
+						this.service.getAll().subscribe({
+							next: (value) => {
+								this.data = value;
+								this.dataSource =
+									new MatTableDataSource<SportType>(
+										this.data
+									);
+							},
 						});
 					},
 					error: (error) => {

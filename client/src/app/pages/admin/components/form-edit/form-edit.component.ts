@@ -16,6 +16,12 @@ export class FormEditComponent {
 
 	ngOnInit() {
 		this.injectService();
+
+		this.injectedService.getById(this.data.id).subscribe({
+			next: (value: any) => {
+				console.log(value);
+			},
+		});
 	}
 
 	injectService() {

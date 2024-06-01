@@ -3,11 +3,11 @@ import { MatDialog } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
 import { FormatType } from "src/app/core/models/classes/FormatType";
 import { FormatTypeService } from "src/app/core/services/format-type.service";
-import { FormEditComponent } from "../components/form-edit/form-edit.component";
 import { ModalDeleteComponent } from "../components/modal-delete/modal-delete.component";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { SportType } from "src/app/core/models/classes/SportType";
+import { FormFormatTypeComponent } from "./form-format-type/form-format-type.component";
 
 @Component({
 	selector: "app-management-format-type",
@@ -17,7 +17,7 @@ import { SportType } from "src/app/core/models/classes/SportType";
 export class ManagementFormatTypeComponent {
 	list: FormatType[] = [];
 
-	displayedColumns: string[] = ["id", "name"];
+	displayedColumns: string[] = ["id", "name", "actions"];
 
 	data: SportType[] = [];
 
@@ -44,12 +44,19 @@ export class ManagementFormatTypeComponent {
 	}
 
 	openEditDialog(id: number): void {
-		const dialogRef = this.dialog.open(FormEditComponent, {
+		const dialogRef = this.dialog.open(FormFormatTypeComponent, {
 			data: { id: id, type: FormatType, service: FormatTypeService },
 		});
 
 		dialogRef.afterClosed().subscribe((result) => {
-			console.log("Form Edit Closed");
+			this.service.getAll().subscribe({
+				next: (value) => {
+					this.list = value;
+					this.dataSource = new MatTableDataSource<SportType>(
+						this.list
+					);
+				},
+			});
 		});
 	}
 
@@ -61,8 +68,17 @@ export class ManagementFormatTypeComponent {
 			if (result === true) {
 				this.service.delteById(id).subscribe({
 					next: (value) => {
-						this.toastr.warning("Success", "Deleted item.", {
+						this.toastr.success("Success", "Deleted item.", {
 							timeOut: 3000,
+						});
+						this.service.getAll().subscribe({
+							next: (value) => {
+								this.list = value;
+								this.dataSource =
+									new MatTableDataSource<SportType>(
+										this.list
+									);
+							},
 						});
 					},
 					error: (error) => {
