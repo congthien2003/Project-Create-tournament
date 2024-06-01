@@ -12,10 +12,10 @@
 	</header>
 	<div class="table--wrapper">
 		<div class="mat-elevation-z8 w-100">
-			<table mat-table [dataSource]="data">
+			<table class="table" mat-table [dataSource]="data">
 				<!-- Position Column -->
 				<ng-container matColumnDef="name">
-					<th mat-header-cell *matHeaderCellDef>Tên giải đấu</th>
+					<th mat-header-cell *matHeaderCellDef>Name</th>
 					<td mat-cell *matCellDef="let element">
 						{{ element.name }}
 					</td>
@@ -23,7 +23,7 @@
 
 				<!-- Name Column -->
 				<ng-container matColumnDef="sportType">
-					<th mat-header-cell *matHeaderCellDef>Môn thi đấu</th>
+					<th mat-header-cell *matHeaderCellDef>Sport</th>
 					<td mat-cell *matCellDef="let element">
 						{{ element.sportTypeId | sportName }}
 					</td>
@@ -31,14 +31,14 @@
 
 				<!-- Weight Column -->
 				<ng-container matColumnDef="formatType">
-					<th mat-header-cell *matHeaderCellDef>Thể loại thi đấu</th>
+					<th mat-header-cell *matHeaderCellDef>Format</th>
 					<td mat-cell *matCellDef="let element">
 						{{ element.formatTypeId | formatName }}
 					</td>
 				</ng-container>
 
 				<ng-container matColumnDef="quantity">
-					<th mat-header-cell *matHeaderCellDef>Số đội thi đấu</th>
+					<th mat-header-cell *matHeaderCellDef>Quantity Team</th>
 					<td mat-cell *matCellDef="let element">
 						{{ element.quantityTeam }}
 					</td>
@@ -46,9 +46,26 @@
 
 				<!-- Symbol Column -->
 				<ng-container matColumnDef="location">
-					<th mat-header-cell *matHeaderCellDef>Địa chỉ</th>
+					<th mat-header-cell *matHeaderCellDef>Location</th>
 					<td mat-cell *matCellDef="let element">
 						{{ element.location }}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="actions">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						aria-label="row actions"></th>
+					<td mat-cell *matCellDef="let element">
+						<button
+							(click)="openDeleteDialog(element.id)"
+							mat-stroked-button
+							color="warn"
+							aria-label="Delete"
+							matTooltip="Delete">
+							<i class="fa fa-close" aria-hidden="true"></i>
+						</button>
 					</td>
 				</ng-container>
 
@@ -57,11 +74,14 @@
 					mat-row
 					*matRowDef="let row; columns: displayedColumns"></tr>
 			</table>
-			<mat-paginator
-				[pageSizeOptions]="[5, 10, 20]"
-				showFirstLastButtons
-				aria-label="Select page of periodic elements">
-			</mat-paginator>
 		</div>
+		<!-- <div class="table--pagination">
+			<table-pagination
+				[_hasNext]="hasNext"
+				[_hasPrev]="hasPrev"
+				[_currentPage]="currentPage"
+				[_totalPage]="totalPage"
+				(changePage)="onChangePage($event)"></table-pagination>
+		</div> -->
 	</div>
 </div>

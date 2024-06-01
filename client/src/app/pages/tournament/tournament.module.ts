@@ -9,7 +9,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { FormEditTourComponent } from "./overview/form-edit-tour/form-edit-tour.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FormEditTeamComponent } from "./overview/form-edit-team/form-edit-team.component";
-import { MytourComponent } from "./mytour/mytour.component";
+import { MytourComponent } from "../mytour/mytour.component";
 import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatTooltipModule } from "@angular/material/tooltip";
@@ -51,7 +51,6 @@ const MatImport = [
 		TournamentComponent,
 		FormEditTourComponent,
 		FormEditTeamComponent,
-		MytourComponent,
 		NavbarComponent,
 		TeamComponent,
 		BracketComponent,

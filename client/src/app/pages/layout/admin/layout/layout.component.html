@@ -11,7 +11,7 @@
 						class="nav-link"
 						aria-current="page">
 						<i [classList]="link.iconClass"></i>
-						{{ link.name }}
+						<span>{{ link.name }}</span>
 					</a>
 				</li>
 			</ul>
@@ -21,7 +21,7 @@
 		<nav class="navbar topbar mb-4 static-top shadow">
 			<ul class="sub-navbar ml-auto d-flex align-items-center gap-2">
 				<p class="fw-bold fs-6">Hi, {{ name }}</p>
-				<!-- <div class="action">
+				<div class="action">
 					<button
 						mat-button
 						color="primary"
@@ -32,18 +32,24 @@
 					<mat-menu #menu="matMenu">
 						<button mat-menu-item>
 							<i
-								class="fa fa-plus fs-6 px-1"
+								class="fa fa-plus fs-6 mx-1"
 								aria-hidden="true"></i>
 							New account
 						</button>
+						<button mat-menu-item>
+							<i
+								class="fa-solid fa-edit fs-6 mx-1"
+								aria-hidden="true"></i>
+							Edit
+						</button>
 						<button mat-menu-item (click)="logOut()">
 							<i
-								class="fa fa-arrow-right fs-6 px-1"
+								class="fa fa-arrow-right fs-6 mx-1"
 								aria-hidden="true"></i>
 							Log out
 						</button>
 					</mat-menu>
-				</div> -->
+				</div>
 			</ul>
 		</nav>
 		<div class="h-100">

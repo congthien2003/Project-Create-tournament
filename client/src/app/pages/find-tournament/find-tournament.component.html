@@ -1,4 +1,3 @@
-<app-spinner></app-spinner>
 <app-header></app-header>
 <div class="find-tour--wrapper container">
 	<div class="d-flex flex-column">
@@ -11,12 +10,18 @@
 						type="text"
 						id="tourname"
 						placeholder="Nhập tên giải đấu"
+						[value]="searchValue"
 						#searchInput />
 				</div>
 
-				<div class="find-btn" (click)="onSearch()">
-					<i class="bx bx-search-alt-2"></i>
-				</div>
+				<button
+					mat-raised-button
+					color="warn"
+					(click)="onSearch()"
+					aria-label="Search"
+					class="find-btn">
+					<i class="fa-solid fa-search"></i>
+				</button>
 			</div>
 			<div class="find--filter">
 				<div class="filter--sport">
@@ -48,32 +53,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="list--tour__pagi mt-4 px-2">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center">
-						<li class="page-item disabled">
-							<a
-								class="page-link"
-								href="#"
-								tabindex="-1"
-								aria-disabled="true"
-								>Previous</a
-							>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">1</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">2</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">3</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">Next</a>
-						</li>
-					</ul>
-				</nav>
+			<div
+				class="pagination d-flex align-items-center justify-content-center">
+				<table-pagination
+					[_hasNext]="hasNext"
+					[_hasPrev]="hasPrev"
+					[_currentPage]="currentPage"
+					[_totalPage]="totalPage"
+					(changePage)="onChangePage($event)"></table-pagination>
 			</div>
 		</div>
 	</div>

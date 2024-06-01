@@ -20,11 +20,11 @@ export class SportTypeService {
 	}
 
 	create(data: SportType): Observable<SportType> {
-		return this.master.post(this.endpoint.create, null, data);
+		return this.master.post(this.endpoint.create, data);
 	}
 
 	update(data: SportType): Observable<SportType> {
-		return this.master.put(this.endpoint.update, null, data);
+		return this.master.put(this.endpoint.update, data);
 	}
 
 	delteById(id: number): Observable<SportType> {

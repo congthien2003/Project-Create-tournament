@@ -1,0 +1,25 @@
+<div class="form--wrapper">
+	<div class="form--header">{{ title }}</div>
+	<div class="form--input">
+		<input type="text" #input />
+	</div>
+	<div class="form--actions">
+		<button
+			type="button"
+			mat-raised-button
+			color="warn"
+			*ngIf="!this.isEdit"
+			(click)="onAdd()">
+			Add
+		</button>
+		<button
+			type="button"
+			mat-raised-button
+			color="accent"
+			*ngIf="this.isEdit"
+			(click)="onSave()">
+			Save
+		</button>
+		<button mat-raised-button (click)="onClose()">Close</button>
+	</div>
+</div>

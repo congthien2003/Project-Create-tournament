@@ -80,10 +80,16 @@ namespace CreateTournament.Repositories
             return user;
         }
 
-        public async Task<List<User>> GetList(bool includeDeleted = false)
+        public async Task<List<User>> GetList(int currentPage = 1, int pageSize = 5, bool includeDeleted = false)
         {
-            var list = await _dataContext.Users.ToListAsync();
+            var list = await _dataContext.Users.Where(x => x.IsDeleted == includeDeleted).Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
             return list;
+        }
+
+        public async Task<int> GetCountList(bool includeDeleted = false)
+        {
+            var list = await _dataContext.Users.Where(x => x.IsDeleted == includeDeleted).ToListAsync();
+            return list.Count;
         }
     }
 }

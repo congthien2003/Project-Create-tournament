@@ -15,6 +15,8 @@ import { ManagementFormatTypeComponent } from "./management-format-type/manageme
 import { ManagementSportTypeComponent } from "./management-sport-type/management-sport-type.component";
 import { ManagementTournamentComponent } from "./management-tournament/management-tournament.component";
 import { ManagementUserComponent } from "./management-user/management-user.component";
+import { FormSportTypeComponent } from "./management-sport-type/form-sport-type/form-sport-type.component";
+import { FormFormatTypeComponent } from "./management-format-type/form-format-type/form-format-type.component";
 
 @NgModule({
 	declarations: [
@@ -28,6 +30,8 @@ import { ManagementUserComponent } from "./management-user/management-user.compo
 		ManagementFormatTypeComponent,
 		FormEditComponent,
 		ModalDeleteComponent,
+		FormSportTypeComponent,
+		FormFormatTypeComponent,
 	],
 	imports: [
 		CommonModule,

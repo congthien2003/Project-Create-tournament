@@ -21,6 +21,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatMenuModule } from "@angular/material/menu";
 import { RolePipe } from "../core/utils/role.pipe";
+import { PaginationComponent } from "./components/pagination/pagination.component";
 const MatImport = [
 	MatTabsModule,
 	MatTableModule,
@@ -42,6 +43,7 @@ const MatImport = [
 		SpinnerComponent,
 		DropdownComponent,
 		TourCardComponent,
+		PaginationComponent,
 		HeaderComponent,
 		FooterComponent,
 		FormatTypePipe,
@@ -53,6 +55,7 @@ const MatImport = [
 		SpinnerComponent,
 		DropdownComponent,
 		TourCardComponent,
+		PaginationComponent,
 		FormatTypePipe,
 		SportTypePipe,
 		RolePipe,

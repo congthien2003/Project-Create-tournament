@@ -33,11 +33,6 @@ namespace CreateTournament.Services
             return true;
         }
 
-        public async Task<List<TournamentDTO>> GetAll(bool incluDeleted = false)
-        {
-            var tournament = await _tournamentRepository.GetAll();
-            return mapper.Map<List<TournamentDTO>>(tournament);
-        }
 
         public async Task<TournamentDTO> GetByIdTournament(int id, bool incluDeleted = false)
         {
@@ -58,11 +53,31 @@ namespace CreateTournament.Services
             return mapper.Map<TournamentDTO>(editTournament);
             
         }
-        public async Task<List<TournamentDTO>> SearchTournaments(string searchTerm = "", int idSportType = -1, bool incluDeleted = false)
+
+        public async Task<TournamentDTO> UpdateView(TournamentDTO tournamentDTO, bool incluDeleted = false)
+        {
+            var tournament = mapper.Map<Tournament>(tournamentDTO);
+            var editTournament = await _tournamentRepository.UpdateView(tournament);
+            return mapper.Map<TournamentDTO>(editTournament);
+
+        }
+        public async Task<List<TournamentDTO>> SearchTournaments(string searchTerm = "", int idSportType = 0, bool incluDeleted = false)
         {
             var tournaments = await _tournamentRepository.SearchTournaments(searchTerm, idSportType, incluDeleted);
             return mapper.Map<List<TournamentDTO>>(tournaments);
         }
 
+        public async Task<List<TournamentDTO>> GetList(int currentPage = 1, int pageSize = 5, string searchTerm = "", int idSportType = -1, bool incluDeleted = false)
+        {
+            var tournaments = await _tournamentRepository.GetList(currentPage, pageSize, searchTerm, idSportType);
+            return mapper.Map<List<TournamentDTO>>(tournaments);
+
+        }
+
+        public async Task<int> GetCountList(string searchTerm = "", int idSportType = 0, bool incluDeleted = false)
+        {
+            var count = await _tournamentRepository.GetCount(searchTerm, idSportType);
+            return count;
+        }
     }
 }
