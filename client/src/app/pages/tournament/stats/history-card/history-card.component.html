@@ -1,14 +1,16 @@
 <div class="match--result">
-	<div class="d-flex align-items-center justify-content-between">
+	<div
+		class="d-flex align-items-center justify-content-between"
+		*ngIf="team1.id !== 0">
 		<div class="team border-0 w-75">
 			<div class="team--img">
 				<img
-					*ngIf="team1.imageTeam"
+					*ngIf="team1.imageTeam !== undefined"
 					src="{{ team1.imageTeam }}"
 					alt="logo"
 					width="100%" />
 				<img
-					*ngIf="!team1.imageTeam"
+					*ngIf="team1.imageTeam === undefined"
 					src="https://givetour-prod.s3.amazonaws.com/UploadFiles/AvatarPhoto/303e02e1-97c5-4ff5-ae78-22b17bb958ec.png"
 					alt="logo"
 					width="100%" />
@@ -22,7 +24,9 @@
 		</div>
 	</div>
 	<div class="text-center">VS</div>
-	<div class="d-flex align-items-center justify-content-between">
+	<div
+		class="d-flex align-items-center justify-content-between"
+		*ngIf="team2.id !== 0">
 		<div class="score fs-5 fw-bold">
 			{{ matchResult.scoreT2 }}
 		</div>

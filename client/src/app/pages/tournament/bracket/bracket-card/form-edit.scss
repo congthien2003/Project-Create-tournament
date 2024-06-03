@@ -1,7 +1,7 @@
 @import "../../../../shared/variable.scss";
 
 .form-edit {
-	width: 400px;
+	min-width: 400px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;

@@ -61,8 +61,6 @@ export class CreateTournamentComponent implements OnInit {
 			]),
 			format: this.formBuilder.control("", Validators.required),
 		});
-
-		console.log(this.createTour.get("tourName"));
 	}
 
 	onChange(event: any): void {

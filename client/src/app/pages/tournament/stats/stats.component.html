@@ -1,9 +1,295 @@
+<div class="dashboard">
+	<div class="dashboard--header">
+		<h3>Thống kê giải đấu</h3>
+	</div>
+	<div class="dashboard--content">
+		<div class="dashboard--card">
+			<div class="card--header">Bàn thắng</div>
+			<div class="card--content">
+				<div class="info">
+					<p class="main-info">37</p>
+					<p class="sub-info">Tổng số bàn thắng</p>
+				</div>
+				<div class="img">
+					<img
+						src="https://img.uefa.com/imgml/uefacom/ucl/2020/stats/net.svg"
+						alt="Logo" />
+				</div>
+			</div>
+		</div>
+		<div class="dashboard--card">
+			<div class="card--header">Kiến tạo</div>
+			<div class="card--content">
+				<div class="info">
+					<p class="main-info">37</p>
+					<p class="sub-info">Tổng số kiến tạo</p>
+				</div>
+				<div class="img">
+					<img
+						src="https://th.bing.com/th/id/OIP.GedD_qFtBy-qfiwyfMifMgHaGE?w=500&h=410&rs=1&pid=ImgDetMain"
+						alt="Assit" />
+				</div>
+			</div>
+		</div>
+		<div class="dashboard--card">
+			<div class="card--header">Thẻ vàng</div>
+			<div class="card--content">
+				<div class="info">
+					<p class="main-info">8</p>
+					<p class="sub-info">Tổng số thẻ vàng</p>
+				</div>
+				<div class="img">
+					<img
+						src="https://images.vexels.com/media/users/3/146861/isolated/preview/dcafb4e33c5514e9b53b3d929501feaf-football-yellow-card-icon.png"
+						alt="Yellow Card" />
+				</div>
+			</div>
+		</div>
+		<div class="dashboard--card">
+			<div class="card--header">Thẻ đỏ</div>
+			<div class="card--content">
+				<div class="info">
+					<p class="main-info">3</p>
+					<p class="sub-info">Tổng số thẻ đỏ</p>
+				</div>
+				<div class="img">
+					<img
+						src="https://www.iconpacks.net/icons/1/free-red-card-icon-460-thumb.png"
+						alt="Red Card" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="stats--wrapper">
-	<div class="history--table">
-		<div *ngFor="let matchResult of this.listMatchResult">
+	<app-spinner *ngIf="listMatchResult.length === 0"></app-spinner>
+	<div class="team-stats">
+		<div class="header">
+			<h3>Chỉ số đội</h3>
+		</div>
+		<!-- <div class="team--card">
+			<div class="team--img">
+				<img
+					src="https://firebasestorage.googleapis.com/v0/b/createtour-e9236.appspot.com/o/teamImg%2FR.png?alt=media&token=f655b2f7-c6ef-47d8-be72-9d2f19c0ff05"
+					alt="logo"
+					width="100%" />
+			</div>
+			<div class="team--name">Real Malrid</div>
+
+			<div class="team--content">
+				<p>Tổng số bàn thắng: <span>20</span></p>
+				<p>Tổng số kiến tạo: <span>20</span></p>
+				<p>Tổng số thẻ và: <span>20</span></p>
+				<p>Tổng số thẻ đỏ: <span>20</span></p>
+			</div>
+		</div> -->
+
+		<div class="table">
+			<table
+				mat-table
+				[dataSource]="dataSource"
+				matSort
+				(matSortChange)="announceSortChange($event)"
+				class="mat-elevation-z8">
+				<!-- Position Column -->
+				<ng-container matColumnDef="id">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by number">
+						No.
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.id }}
+					</td>
+				</ng-container>
+
+				<!-- Name Column -->
+				<ng-container matColumnDef="playerId">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by name">
+						Name
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.name }}
+					</td>
+				</ng-container>
+
+				<!-- Weight Column -->
+				<ng-container matColumnDef="score">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by weight">
+						Goals
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.score }}
+					</td>
+				</ng-container>
+
+				<!-- Symbol Column -->
+				<ng-container matColumnDef="assits">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by symbol">
+						Assits
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.assits }}
+					</td>
+				</ng-container>
+
+				<!-- Symbol Column -->
+				<ng-container matColumnDef="redCard">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by symbol">
+						Red Cards
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.redCards }}
+					</td>
+				</ng-container>
+
+				<!-- Symbol Column -->
+				<ng-container matColumnDef="yellowCard">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by symbol">
+						Yellow Cards
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.yellowCards }}
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr
+					mat-row
+					*matRowDef="let row; columns: displayedColumns"></tr>
+			</table>
+		</div>
+	</div>
+	<div class="player-stats">
+		<div class="header">
+			<h3>Chỉ số thành viên</h3>
+		</div>
+		<div class="table">
+			<table
+				mat-table
+				[dataSource]="dataSource"
+				matSort
+				(matSortChange)="announceSortChange($event)"
+				class="mat-elevation-z8">
+				<!-- Position Column -->
+				<ng-container matColumnDef="id">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by number">
+						No.
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.id }}
+					</td>
+				</ng-container>
+
+				<!-- Name Column -->
+				<ng-container matColumnDef="playerId">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by name">
+						Name
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.playerId }}
+					</td>
+				</ng-container>
+
+				<!-- Weight Column -->
+				<ng-container matColumnDef="score">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by weight">
+						Weight
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.score }}
+					</td>
+				</ng-container>
+
+				<!-- Symbol Column -->
+				<ng-container matColumnDef="assits">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by symbol">
+						Symbol
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.assits }}
+					</td>
+				</ng-container>
+
+				<!-- Symbol Column -->
+				<ng-container matColumnDef="redCard">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by symbol">
+						Symbol
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.redCard }}
+					</td>
+				</ng-container>
+
+				<!-- Symbol Column -->
+				<ng-container matColumnDef="yellowCard">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						mat-sort-header
+						sortActionDescription="Sort by symbol">
+						Symbol
+					</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.yellowCard }}
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr
+					mat-row
+					*matRowDef="let row; columns: displayedColumns"></tr>
+			</table>
+		</div>
+	</div>
+	<div class="history">
+		<div class="header">
+			<h3>Lịch sử đấu</h3>
+		</div>
+		<div *ngFor="let matchResult of listMatchResult">
 			<history-card [matchResult]="matchResult"></history-card>
 		</div>
 	</div>
-
-	<div class="stats-player">Stats Player</div>
 </div>

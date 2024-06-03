@@ -84,5 +84,11 @@ namespace CreateTournament.Repositories
             await _context.SaveChangesAsync();
             return match;
         }
+
+        public async Task<Match> CheckTeamExists(int idTeam, int idMatch)
+        {
+            var exists = await _context.Matches.FirstOrDefaultAsync(x => (x.IdTeam1 == idTeam || x.IdTeam2 == idTeam) && x.Id != idMatch);
+            return exists;
+        }
     }   
 }

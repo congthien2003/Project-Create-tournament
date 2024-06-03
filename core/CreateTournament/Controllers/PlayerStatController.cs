@@ -85,7 +85,7 @@ namespace CreateTournament.Controllers
             }
             return Ok(playerStat);
         }
-        [HttpPut("id")]
+        [HttpPut("{id:int}")]
         public async Task<ActionResult> UpdateById(int id, PlayerStatsDTO playerStatsDTO)
         {
             var exits = await _playerStatService.GetByIdAsync(id);
@@ -144,7 +144,7 @@ namespace CreateTournament.Controllers
             }
             return Ok(result);
         }
-        [HttpGet("id")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult> GetById(int id)
         {
             var playerStat = await _playerStatService.GetByIdAsync(id);
@@ -154,27 +154,28 @@ namespace CreateTournament.Controllers
             }
             return Ok(playerStat);
         }
-        [HttpGet("idmatchresult")]
-        public async Task<ActionResult> GetAllByIdMatch(int id)
+        [HttpGet("idMatchResult")]
+        public async Task<ActionResult> GetAllByIdMatch(int idmatchresult)
         {
-            var playerStats = await _playerStatService.GetAllByIdMatchAsync(id);
-            if (playerStats == null)
+            var playerStats = await _playerStatService.GetAllByIdMatchAsync(idmatchresult);
+            if(playerStats == null)
+>>>>>>> .theirs
             {
                 return BadRequest("Trận đấu chưa diễn ra");
             }
             return Ok(playerStats);
         }
-        [HttpGet("idplayer")]
-        public async Task<ActionResult> GetAllByIdPlayer(int id)
+        [HttpGet("idPlayer")]
+        public async Task<ActionResult> GetAllByIdPlayer(int idplayer)
         {
-            var playerStats = await _playerStatService.GetAllByIdPlayerAsync(id);
+            var playerStats = await _playerStatService.GetAllByIdPlayerAsync(idplayer);
             if (playerStats == null)
             {
                 return BadRequest("Cầu thủ chưa tham gia thi đấu");
             }
             return Ok(playerStats);
         }
-        [HttpGet("idmap")]
+        [HttpGet]
         public async Task<ActionResult> GetAllByIdPlayerAndMatch(int idMatch, int idPlayer)
         {
             if (idMatch <= 0 || idPlayer <= 0)
@@ -190,9 +191,9 @@ namespace CreateTournament.Controllers
             return Ok(playerStat);
         }
         [HttpGet("idTournament")]
-        public async Task<ActionResult> GetAllByIdTournament(int id)
+        public async Task<ActionResult> GetAllByIdTournament(int idTournament)
         {
-            var playerStats = await _playerStatService.GetAllByIdTournamentAsync(id);
+            var playerStats = await _playerStatService.GetAllByIdTournamentAsync(idTournament);
             if (playerStats == null)
             {
                 return BadRequest("Giải đấu chưa diễn ra");
@@ -200,16 +201,16 @@ namespace CreateTournament.Controllers
             return Ok(playerStats);
         }
 
-        [HttpGet("{idtour:int}")]
-        public async Task<ActionResult> GetAllByIdPlayerScore(int idtour)
+        [HttpGet("Score/idTournament")]
+        public async Task<ActionResult> GetAllByIdPlayerScore(int idTournament)
         {
-            var tour = await _tournamentService.GetByIdTournament(idtour);
+            var tour = await _tournamentService.GetByIdTournament(idTournament);
             if (tour == null)
             {
-                return BadRequest("khong tim thay giai đấu");
+                return BadRequest("Không tìm thấy giải đấu");
 
             }
-            var playerstats = await _playerStatService.GetAllByIdPlayerScoreAsync(idtour);
+            var playerstats = await _playerStatService.GetAllByIdPlayerScoreAsync(idTournament);
             var result = new
             {
                 tour,
@@ -219,15 +220,15 @@ namespace CreateTournament.Controllers
         }
 
         [HttpGet("toplist")]
-        public async Task<IActionResult> GetAllPlayStats(int idtour, string pageNumber = "1", string pageSize = "5", string? sortColumn = "", string ascendingOrder = "false")
+        public async Task<IActionResult> GetAllPlayStats(int idTournament, string currentPage = "1", string pageSize = "10", string? sortColumn= "", string ascendingOrder = "false")
         {
-            var tour = await _tournamentService.GetByIdTournament(idtour);
+            var tour = await _tournamentService.GetByIdTournament(idTournament);
             if (tour == null)
             {
-                return BadRequest("khong tim thay giai đấu");
+                return BadRequest("Không tìm thấy giải đấu");
 
             }
-            int _currentPage = int.Parse(pageNumber);
+            int _currentPage = int.Parse(currentPage);
             int _pageSize = int.Parse(pageSize);
             bool _ascendingOrder = ascendingOrder == "true";
             var playstats = await _playerStatService.GetAllPlayStats(false, _currentPage, _pageSize, sortColumn, _ascendingOrder);

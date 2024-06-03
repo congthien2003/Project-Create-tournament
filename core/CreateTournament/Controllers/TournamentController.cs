@@ -83,6 +83,8 @@ namespace CreateTournament.Controllers
         }
 
         [HttpPut("updateview")]
+        [AllowAnonymous]
+
         public async Task<ActionResult> UpdateView(TournamentDTO tournamentDTO)
         {
             var tournament = await _tournamentService.UpdateView(tournamentDTO);
@@ -110,5 +112,7 @@ namespace CreateTournament.Controllers
             var tournaments = await _tournamentService.SearchTournaments(searchTerm, idSportType);
             return Ok(tournaments);
         }
+
+       
     }
 }

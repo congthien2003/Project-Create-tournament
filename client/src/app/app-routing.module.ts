@@ -2,6 +2,8 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AdminRoutingModule } from "./pages/admin/admin-routing.module";
 import { PagesRoutingModule } from "./pages/pages-routing.module";
+import { UserComponent } from "./pages/user/user.component";
+import { authGuard } from "./@auth/guards/auth.guard";
 
 const routes: Routes = [
 	{
@@ -25,6 +27,11 @@ const routes: Routes = [
 			import("./pages/tournament/tournament.module").then(
 				(m) => m.TournamentModule
 			),
+	},
+	{
+		path: "user/:id",
+		component: UserComponent,
+		canActivate: [authGuard],
 	},
 
 	{ path: "", redirectTo: "pages", pathMatch: "full" },

@@ -15,10 +15,5 @@ export const FormatTypeData = {
 			nameVie: "Vòng bảng kết hợp loại trực tiếp",
 			nameEng: "Two stages",
 		},
-		{
-			id: 4,
-			nameVie: "Thụy sĩ",
-			nameEng: "Swiss System",
-		},
 	],
 };

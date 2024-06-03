@@ -24,12 +24,11 @@
 		</div>
 	</div>
 	<div class="form-edit__actions">
-		<button type="button" class="btn btn-secondary-custom" mat-dialog-close>
-			Hủy
-		</button>
+		<button type="button" mat-raised-button mat-dialog-close>Hủy</button>
 		<button
 			type="button"
-			class="btn btn-primary-custom"
+			mat-raised-button
+			color="warn"
 			(click)="saveMatch()"
 			[disabled]="!editMatch.valid">
 			Lưu

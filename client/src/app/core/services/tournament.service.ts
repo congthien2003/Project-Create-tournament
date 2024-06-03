@@ -26,7 +26,7 @@ export class TournamentService {
 			.set("idSportType", sportTypeId);
 		return this.master.get(this.endpoints.getAll, { params });
 	}
-	getAllNoPagi(): Observable<Tournament[]> {
+	getAllNoPagi(): Observable<any> {
 		return this.master.get(this.endpoints.getAll);
 	}
 	getCount(): Observable<any> {

@@ -1,4 +1,5 @@
 import {
+	AfterViewInit,
 	Component,
 	EventEmitter,
 	Input,
@@ -24,14 +25,14 @@ import { AuthenticationService } from "src/app/core/services/auth/authentication
 	templateUrl: "./bracket-card.component.html",
 	styleUrls: ["./bracket-card.component.scss", "./form-edit.scss"],
 })
-export class BracketCardComponent implements OnInit, OnChanges {
+export class BracketCardComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input() match: Match;
 	@Input() canEdit: boolean;
 
 	@Output() saveMatch = new EventEmitter<MatchResult>();
 
-	team1?: Team = new Team();
-	team2?: Team = new Team();
+	team1: Team;
+	team2: Team;
 	matchResult?: MatchResult;
 	constructor(
 		private teamService: TeamService,
@@ -40,8 +41,7 @@ export class BracketCardComponent implements OnInit, OnChanges {
 		private dialogRef: MatDialog,
 		private toastr: ToastrService
 	) {}
-	ngOnChanges(changes: SimpleChanges): void {}
-	ngOnInit(): void {
+	ngAfterViewInit(): void {
 		this.teamService.getById(this.match.idTeam1).subscribe({
 			next: (value) => {
 				this.team1 = value;
@@ -59,14 +59,20 @@ export class BracketCardComponent implements OnInit, OnChanges {
 			next: (value) => {
 				this.matchResult = value;
 			},
-			error: () => {},
+			error: () => {
+				console.log(" ");
+			},
 		});
 	}
+	ngOnChanges(changes: SimpleChanges): void {}
+	ngOnInit(): void {}
 
 	openEditResult(): void {
 		const dialogRef = this.dialogRef.open(FormEditResultComponent, {
 			data: {
 				match: this.match,
+				team1: this.team1,
+				team2: this.team2,
 			},
 		});
 		const subscribeDialog =
@@ -84,6 +90,8 @@ export class BracketCardComponent implements OnInit, OnChanges {
 		const dialogRef = this.dialogRef.open(FormEditInfoComponent, {
 			data: {
 				match: this.match,
+				team1: this.team1,
+				team2: this.team2,
 			},
 		});
 		const subscribeDialog = dialogRef.componentInstance.saveInfo.subscribe(

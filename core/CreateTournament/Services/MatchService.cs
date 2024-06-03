@@ -18,6 +18,16 @@ namespace CreateTournament.Services
             _mapper = mapper;
         }
 
+        public async Task<MatchDTO> CheckTeamExists(int idTeam, int idMatch)
+        {
+            var matchExists = await _matchRepo.CheckTeamExists(idTeam, idMatch);
+            if (matchExists != null)
+            {
+                return _mapper.Map<MatchDTO>(matchExists);
+            }
+            return null;
+        }
+
         public async Task<MatchDTO> CreateAsync(MatchDTO matchDTO)
         {
             var match = _mapper.Map<Match>(matchDTO);

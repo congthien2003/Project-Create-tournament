@@ -6,9 +6,10 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 	styleUrls: ["./dropdown.component.scss"],
 })
 export class DropdownComponent {
+	constructor() {}
+
 	@Input() title = "Select Options";
 	@Input() listItem = ["Option 1", "Option 2", "Option 3"];
-
 	@Output() outputValue: EventEmitter<number> = new EventEmitter();
 
 	value: string = "";

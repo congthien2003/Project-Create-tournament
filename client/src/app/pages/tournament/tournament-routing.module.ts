@@ -28,10 +28,6 @@ const routes: Routes = [
 				path: "stats",
 				component: StatsComponent,
 			},
-			{
-				path: "mytour",
-				component: MytourComponent,
-			},
 		],
 	},
 ];

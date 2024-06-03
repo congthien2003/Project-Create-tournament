@@ -1,4 +1,6 @@
 <div class="overview--wrapper g-0">
+	<app-spinner *ngIf="Tour.id === 0"></app-spinner>
+
 	<div class="overview--content">
 		<div class="row">
 			<div class="col-4">
@@ -7,14 +9,17 @@
 						Chi tiết giải đấu
 
 						<!-- Button trigger modal -->
-						<div
+						<button
+							mat-stroked-button
+							color="warn"
+							aria-label="edit"
 							*ngIf="canEdit"
 							type="button"
-							class="btn btn-edit d-inline-flex align-items-center justify-content-center"
+							class="btn-edit"
 							data-bs-toggle="modal"
 							data-bs-target="#modalEdit">
-							<i class="bx bx-edit"></i>
-						</div>
+							<i class="fa-solid fa-edit"></i>
+						</button>
 
 						<!-- Modal -->
 						<div
@@ -146,14 +151,17 @@
 					<div class="detail__header">
 						Đội thi đấu
 						<!-- Button trigger modal -->
-						<div
+						<button
+							mat-stroked-button
+							color="warn"
+							aria-label="edit"
 							*ngIf="canEdit"
 							type="button"
-							class="btn btn-edit d-inline-flex align-items-center justify-content-center"
+							class="btn-edit"
 							data-bs-toggle="modal"
 							data-bs-target="#modalEditTeam">
-							<i class="bx bx-edit"></i>
-						</div>
+							<i class="fa-solid fa-edit"></i>
+						</button>
 
 						<!-- Modal -->
 						<div

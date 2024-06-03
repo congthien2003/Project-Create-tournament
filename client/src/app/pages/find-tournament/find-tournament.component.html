@@ -1,4 +1,6 @@
 <app-header></app-header>
+<app-spinner *ngIf="listTour.length === 0"></app-spinner>
+
 <div class="find-tour--wrapper container">
 	<div class="d-flex flex-column">
 		<div class="find--actions">
@@ -23,7 +25,7 @@
 					<i class="fa-solid fa-search"></i>
 				</button>
 			</div>
-			<div class="find--filter">
+			<!-- <div class="find--filter">
 				<div class="filter--sport">
 					<app-dropdown
 						[title]="titleSportSelect"
@@ -34,7 +36,7 @@
 				</div>
 
 				<div class="filter--status"></div>
-			</div>
+			</div> -->
 		</div>
 		<div class="list--tour container">
 			<h3 class="list--tour__header text-center fs-4 fw-bold">

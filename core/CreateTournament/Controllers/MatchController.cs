@@ -65,6 +65,9 @@ namespace CreateTournament.Controllers
             var team1 = await _teamService.FindTeamByIdAsync(matchDTO.IdTeam1);
             var team2 = await _teamService.FindTeamByIdAsync(matchDTO.IdTeam2);
             if (team1 == null || team2 == null || team1 == team2) { return BadRequest("Team 1, Team 2 không tồn tại hoặc 2 team trùng nhau"); }
+
+            var matchExists = await _matchService.GetMatchByIdAsync(id);
+
             var match = await _matchService.UpdateMatchAsync(id, matchDTO);
             if (match == null)
             {
