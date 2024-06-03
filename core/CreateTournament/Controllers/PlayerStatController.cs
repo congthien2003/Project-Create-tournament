@@ -41,12 +41,12 @@ namespace CreateTournament.Controllers
                 return BadRequest("Trận đấu chưa diễn ra");
             }
             var player = await _playerService.GetPlayerById(playerStatsDTO.PlayerId);
-            if(player == null)
+            if (player == null)
             {
                 return BadRequest("Cầu thủ không tồn tại");
             }
             var match = await _matchService.GetMatchByIdAsync(matchResult.MatchId);
-            if(match == null)
+            if (match == null)
             {
                 return BadRequest("Trận đấu không tồn tại");
             }
@@ -108,8 +108,8 @@ namespace CreateTournament.Controllers
             {
                 return BadRequest("Trận đấu không tồn tại");
             }
-            
-            if(player.TeamId != match.IdTeam1 && player.TeamId != match.IdTeam2)
+
+            if (player.TeamId != match.IdTeam1 && player.TeamId != match.IdTeam2)
             {
                 return BadRequest("Cầu thủ không tồn tại trong team này");
             }
@@ -136,7 +136,7 @@ namespace CreateTournament.Controllers
                     return BadRequest("Số kiến tạo nhiều hơn kết quả trận đấu");
                 }
             }
-            var playerStat = await _playerStatService.UpdateByIdAsync(id,playerStatsDTO);
+            var playerStat = await _playerStatService.UpdateByIdAsync(id, playerStatsDTO);
             var result = await _playerStatService.GetByIdAsync(id);
             if (playerStat == null)
             {
@@ -148,7 +148,7 @@ namespace CreateTournament.Controllers
         public async Task<ActionResult> GetById(int id)
         {
             var playerStat = await _playerStatService.GetByIdAsync(id);
-            if(playerStat == null)
+            if (playerStat == null)
             {
                 return BadRequest("Không tồn tại thông tin");
             }
@@ -158,7 +158,7 @@ namespace CreateTournament.Controllers
         public async Task<ActionResult> GetAllByIdMatch(int id)
         {
             var playerStats = await _playerStatService.GetAllByIdMatchAsync(id);
-            if(playerStats == null)
+            if (playerStats == null)
             {
                 return BadRequest("Trận đấu chưa diễn ra");
             }
@@ -177,16 +177,16 @@ namespace CreateTournament.Controllers
         [HttpGet("idmap")]
         public async Task<ActionResult> GetAllByIdPlayerAndMatch(int idMatch, int idPlayer)
         {
-            if(idMatch <= 0 || idPlayer <= 0)
+            if (idMatch <= 0 || idPlayer <= 0)
             {
                 return BadRequest("Thông tin truyền vô không hợp lệ");
             }
             var playerStat = await _playerStatService.GetByIdMatchAndIdPlayerAsync(idMatch, idPlayer);
-            if( playerStat == null)
+            if (playerStat == null)
             {
                 return BadRequest("Cầu thủ không tham gia trận đấu này");
             }
-            
+
             return Ok(playerStat);
         }
         [HttpGet("idTournament")]
@@ -219,7 +219,7 @@ namespace CreateTournament.Controllers
         }
 
         [HttpGet("toplist")]
-        public async Task<IActionResult> GetAllPlayStats(int idtour, string pageNumber = "1", string pageSize = "10", string? sortColumn= "", string ascendingOrder = "false")
+        public async Task<IActionResult> GetAllPlayStats(int idtour, string pageNumber = "1", string pageSize = "5", string? sortColumn = "", string ascendingOrder = "false")
         {
             var tour = await _tournamentService.GetByIdTournament(idtour);
             if (tour == null)
@@ -230,7 +230,10 @@ namespace CreateTournament.Controllers
             int _currentPage = int.Parse(pageNumber);
             int _pageSize = int.Parse(pageSize);
             bool _ascendingOrder = ascendingOrder == "true";
-            var playstats = await _playerStatService.GetAllPlayStats(false,_currentPage, _pageSize, sortColumn, _ascendingOrder);
+            var playstats = await _playerStatService.GetAllPlayStats(false, _currentPage, _pageSize, sortColumn, _ascendingOrder);
+            var count = _playerStatService.GetCountAllPlayerStats(sortColumn, _ascendingOrder, false);
+            int totalPage = count % _pageSize != 0 ? (count / _pageSize + 1) : (count / _pageSize);
+            int totalRecords = playstats.Count;
             var result = new
             {
                 tour,
@@ -238,8 +241,178 @@ namespace CreateTournament.Controllers
                 _currentPage,
                 _pageSize,
                 _ascendingOrder,
+                totalPage,
+                totalRecords,
+                hasPrevious = _currentPage > 1,
+                hasNext = _currentPage < totalPage,
             };
             return Ok(result);
         }
+
+        [HttpGet("teamStats")]
+        public async Task<ActionResult> GetTeamStatsByIdTour(int idtour, string pageNumber = "1", string pageSize = "5", string? sortColumn = "", string ascendingOrder = "false")
+        {
+            var tour = await _tournamentService.GetByIdTournament(idtour);
+            if (tour == null)
+            {
+                return BadRequest("không tìm thấy giải đấu");
+            }
+            var teamIds = await _playerService.GetTeamIdByTournamentAsync(idtour);
+            if (teamIds == null || teamIds.Count == 0) {
+                return BadRequest("không tìm thấy đội nào trong giải đấu này");
+            }
+
+            int _currentPage = int.Parse(pageNumber);
+            int _pageSize = int.Parse(pageSize);
+            bool _ascendingOrder = ascendingOrder == "true";
+
+            var playerStats = await _playerStatService.GetAllByIdTournamentTeamAsync(idtour, currentPage: _currentPage, pageSize: _pageSize, sortColumn: sortColumn, ascendingOrder: _ascendingOrder);
+            if (playerStats == null || playerStats.Count == 0)
+            {
+                return Ok(new { idTour = tour.Id, teams = new List<object>() });
+            }
+            playerStats = playerStats.Where(ps => ps.Player != null && ps.Player.TeamId != null).ToList();
+
+            var teamStats = teamIds.Select(teamId =>
+            {
+                var teamPlayerStats = playerStats.Where(ps => ps.Player.TeamId == teamId).ToList();
+                int? score = teamPlayerStats.Sum(ps => ps.Score);
+                int? assists = teamPlayerStats.Sum(ps => ps.Assits);
+                int? yellowCard = teamPlayerStats.Sum(ps => ps.YellowCard);
+                int? redCard = teamPlayerStats.Sum(ps => ps.RedCard);
+                return new
+                {
+                    idteam = teamId,
+                    Score = score,
+                    Assists = assists,
+                    YellowCard = yellowCard,
+                    RedCard = redCard
+                };
+            }).ToList();
+
+
+            if (sortColumn == "score")
+            {
+                teamStats = _ascendingOrder ? teamStats.OrderBy(t => t.Score).ToList() : teamStats.OrderByDescending(t => t.Score).ToList();
+            }
+            else if (sortColumn == "assits")
+            {
+                teamStats = _ascendingOrder ? teamStats.OrderBy(t => t.Assists).ToList() : teamStats.OrderByDescending(t => t.Assists).ToList();
+            }
+            else if (sortColumn == "yellowcard")
+            {
+                teamStats = _ascendingOrder ? teamStats.OrderBy(t => t.YellowCard).ToList() : teamStats.OrderByDescending(t => t.YellowCard).ToList();
+            }
+            else if (sortColumn == "redcard")
+            {
+                teamStats = _ascendingOrder ? teamStats.OrderBy(t => t.RedCard).ToList() : teamStats.OrderByDescending(t => t.RedCard).ToList();
+            }
+
+
+            var count = _playerStatService.GetCountAllPlayerStats(sortColumn, _ascendingOrder, false);
+            int totalPage = count % _pageSize != 0 ? (count / _pageSize + 1) : (count / _pageSize);
+            int totalRecords = playerStats.Count;
+
+            var result = new
+            {
+                idTour = tour.Id,
+                ListTeamStats = teamStats.Skip((_currentPage - 1) * _pageSize).Take(_pageSize).ToList(),
+                _currentPage,
+                _pageSize,
+                _ascendingOrder,
+                totalPage,
+                totalRecords,
+                hasPrevious = _currentPage > 1,
+                hasNext = _currentPage < totalPage
+            };
+
+            return Ok(result);
+        }
+
+        [HttpGet("tourStats")]
+        public async Task<ActionResult> GetTourStatsByIdTour(int idtour)
+        {
+            var tour = await _tournamentService.GetByIdTournament(idtour);
+            if (tour == null)
+            {
+                return BadRequest("không tìm thấy giải đấu");
+            }
+
+            var playerStats = await _playerStatService.GetAllPlayerStatsByTournamentAsync(idtour);
+            if (playerStats == null || playerStats.Count == 0)
+            {
+                return Ok(new { idTour = tour.Id, PlayerStatss = new { score = 0, assists = 0, yellowCard = 0, redCard = 0 } });
+            }
+
+            int? totalScore = playerStats.Sum(ps => ps.Score);
+            int? totalAssists = playerStats.Sum(ps => ps.Assits);
+            int? totalYellowCard = playerStats.Sum(ps => ps.YellowCard);
+            int? totalRedCard = playerStats.Sum(ps => ps.RedCard);
+
+            var result = new
+            {
+                idTour = tour.Id,
+                TourStats = new
+                {
+                    score = totalScore,
+                    assists = totalAssists,
+                    yellowCard = totalYellowCard,
+                    redCard = totalRedCard
+                }
+            };
+
+            return Ok(result);
+        }
+
+        [HttpGet("playerStats")]
+        public async Task<ActionResult> GetPlayerStatsByIdTour(int idtour, string pageNumber = "1", string pageSize = "5", string? sortColumn = "", string ascendingOrder = "false")
+        {
+            var tour = await _tournamentService.GetByIdTournament(idtour);
+            if (tour == null)
+            {
+                return BadRequest("Không tìm thấy giải đấu");
+            }
+            int _currentPage = int.Parse(pageNumber);
+            int _pageSize = int.Parse(pageSize);
+            bool _ascendingOrder = ascendingOrder == "true";
+
+            var playerStats = await _playerStatService.GetAllPlayerStatsByTournamentAsync(idtour, currentPage: _currentPage, pageSize: _pageSize, sortColumn: sortColumn, ascendingOrder: _ascendingOrder);
+            if (playerStats == null || playerStats.Count == 0)
+            {
+                return Ok(new { idTour = tour.Id, playerStats = new List<object>() });
+            }
+            var count = _playerStatService.GetCountAllPlayerStats(sortColumn, _ascendingOrder, false);
+            int totalPage = count % _pageSize != 0 ? (count / _pageSize + 1) : (count / _pageSize);
+            int totalRecords = playerStats.Count;
+            var playerStatsDTOs = playerStats
+                .GroupBy(ps => ps.PlayerId)
+                .Select(group => new
+                {
+                    PlayerStatsId = group.Key,
+                    Score = group.Sum(ps => ps.Score),
+                    Assits = group.Sum(ps => ps.Assits),
+                    YellowCard = group.Sum(ps => ps.YellowCard),
+                    RedCard = group.Sum(ps => ps.RedCard)
+                })
+                .ToList();
+
+            var result = new
+            {
+                idTour = tour.Id,
+                listplayerStats = playerStatsDTOs,
+                _currentPage,
+                _pageSize,
+                _ascendingOrder,
+                totalPage,
+                totalRecords,
+                hasPrevious = _currentPage > 1,
+                hasNext = _currentPage < totalPage,
+            };
+
+            return Ok(result);
+        }
+
+
+
     }
 }

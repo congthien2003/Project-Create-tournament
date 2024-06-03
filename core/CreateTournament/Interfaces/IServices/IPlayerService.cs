@@ -11,6 +11,7 @@ namespace CreateTournament.Interfaces.IServices
         Task<bool> DeleteAsync(int id);
         Task<List<PlayerDTO>> GetPlayerByName(string name);
         Task<PlayerDTO> GetPlayerById(int id);
+        Task<List<int>> GetTeamIdByTournamentAsync(int idtour);
 
     }
 }

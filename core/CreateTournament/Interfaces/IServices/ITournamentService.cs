@@ -15,5 +15,6 @@ namespace CreateTournament.Interfaces.IServices
 
         Task<bool> Delete(int id);
         Task<List<TournamentDTO>> SearchTournaments(string searchTerm = "", int idSportType = -1, bool incluDeleted = false);
+
     }
 }
