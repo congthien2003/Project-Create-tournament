@@ -12,10 +12,9 @@ namespace CreateTournament.Models
         public string Name { get; set; }
         public DateTime Created { get; set; }
 
-        [AllowNull]
         public DateTime FinishAt { get; set; }
         public int QuantityTeam { get; set; }
-        public string Location { get; set; }
+        public string Location { get; set; } = "";
         public int View {  get; set; } = 0;
         public int UserId { get; set; }
         [ForeignKey("UserId")]

@@ -97,10 +97,10 @@ namespace CreateTournament.Controllers
         [Route("{id:int}")]
         public async Task<ActionResult> Deleted(int id)
         {
-            
+
                 var tournament = await _tournamentService.Delete(id);
                 return Ok(tournament);
-            
+
         }
 
         [HttpGet("search")]
