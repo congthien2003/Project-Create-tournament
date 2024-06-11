@@ -1,0 +1,74 @@
+.table-pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 24px;
+}
+.table__page-size {
+	select {
+		margin-left: 4px;
+		width: 50px;
+		border-radius: 4px;
+		outline: none;
+		border: none;
+		font-size: 14px;
+		background-color: #ededed;
+		padding: 4px 2px;
+		& > option {
+			background-color: white;
+		}
+		& > option:hover {
+			background-color: blue;
+		}
+	}
+	label {
+		margin-left: 4px;
+		font-size: 14px;
+	}
+}
+
+.list__page {
+	display: flex;
+	align-items: center;
+	list-style: none;
+	height: 60px;
+	gap: 4px;
+}
+
+.page__item {
+	cursor: pointer;
+
+	&--btn {
+		padding: 10px 16px;
+		outline: none;
+		border: none;
+		transition: 0.25s ease-in;
+		background-color: transparent;
+		&:hover {
+			background-color: #007bff;
+			color: white;
+			border-radius: 8px;
+		}
+	}
+}
+
+.item-actions {
+	background-color: #007bff;
+	color: white;
+	width: 50px;
+	padding: 8px 16px;
+	margin: 0 8px;
+	border-radius: 8px;
+	text-align: center;
+	font-size: 20px;
+}
+
+.page__active {
+	background-color: #007bff;
+	color: white;
+	border-radius: 8px;
+}
+.page__disable {
+	cursor: not-allowed;
+	background-color: rgb(203, 203, 203);
+}

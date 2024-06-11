@@ -9,6 +9,7 @@ namespace CreateTournament.Interfaces.IRepositories
         Task<List<TPlayer>> GetAllByIdTeamAsync(int idTeam, bool includeDeleted = false);
         Task<TPlayer> DeleteAsync(int id);
         Task<List<TPlayer>> GetPlayerByName(string name, bool includeDeleted = false);
-        Task<TPlayer> GetPlayerById(int id, bool includeDeleted = false);    
+        Task<TPlayer> GetPlayerById(int id, bool includeDeleted = false);
+        Task<List<int>> GetTeamIdByTournamentAsync(int idtour);
     }
 }

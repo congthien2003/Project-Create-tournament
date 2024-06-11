@@ -247,6 +247,9 @@ namespace CreateTournament.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("FinishAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("FormatTypeId")
                         .HasColumnType("int");
 

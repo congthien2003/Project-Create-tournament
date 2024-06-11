@@ -1,1 +1,58 @@
-<h1>Dashboard</h1>
+<div class="dashboard--wrapper">
+	<div class="container-lg">
+		<div class="row">
+			<h3 class="fw-bold fs-3">Stats</h3>
+			<div class="col-3">
+				<div class="card">
+					<div class="card--icon">
+						<i class="bx bxl-dribbble"></i>
+					</div>
+					<div class="card--content">
+						<h4 class="card--title">8</h4>
+						<p>Sport Type</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="card">
+					<div class="card--icon">
+						<i class="bx bxl-meta"></i>
+					</div>
+					<div class="card--content">
+						<h4 class="card--title">4</h4>
+						<p>Format Type</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="card">
+					<div class="card--icon">
+						<i class="fa-solid fa-user"></i>
+					</div>
+					<div class="card--content">
+						<h4 class="card--title">{{ countUser }}</h4>
+						<p>Users</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="card">
+					<div class="card--icon">
+						<i class="bx bx-code-alt"></i>
+					</div>
+					<div class="card--content">
+						<h4 class="card--title">
+							{{ listTour.length }}
+						</h4>
+						<p>Tournament</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-4">
+			<h3 class="fw-bold fs-3">Charts</h3>
+			<div class="col-6"></div>
+			<div class="col-6"></div>
+		</div>
+	</div>
+</div>

@@ -30,10 +30,25 @@ namespace CreateTournament.Controllers
 
         [HttpGet("getall")]
         [AllowAnonymous]
-        public async Task<ActionResult> GetAll()
+        public async Task<ActionResult> GetAll(string currentPage = "1", string pageSize = "5", string searchTerm = "", int idSportType = 0)
         {
-            var tournament = await _tournamentService.GetAll();
-            return Ok(tournament);
+            int _currentPage = int.Parse(currentPage);
+            int _pageSize = int.Parse(pageSize);
+
+            var list = await _tournamentService.GetList(_currentPage, _pageSize, searchTerm, idSportType, false);
+            var count = await _tournamentService.GetCountList(searchTerm, idSportType, false);
+            var _totalPage = count % _pageSize == 0 ? count / _pageSize : count / _pageSize + 1;
+            var result = new
+            {
+                list,
+                _currentPage,
+                _pageSize,
+                _totalPage,
+                _totalRecords = count,
+                _hasNext = _currentPage < _totalPage,
+                _hasPre = _currentPage > 1,
+            };
+            return Ok(result);
         }
 
         [HttpGet]
@@ -76,6 +91,17 @@ namespace CreateTournament.Controllers
             return Ok(tournament);
         }
 
+        [HttpPut("updateview")]
+        public async Task<ActionResult> UpdateView(TournamentDTO tournamentDTO)
+        {
+            var tournament = await _tournamentService.UpdateView(tournamentDTO);
+            if (tournament == null)
+            {
+                return BadRequest();
+            }
+            return Ok(tournament);
+        }
+
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<ActionResult> Deleted(int id)
@@ -85,13 +111,9 @@ namespace CreateTournament.Controllers
         }
 
         [HttpGet("search")]
+        [AllowAnonymous]
         public async Task<ActionResult> SearchTournaments(string searchTerm = "", int idSportType = 0)
         {
-            // Kiểm tra từ khóa tìm kiếm
-            if (string.IsNullOrEmpty(searchTerm))
-            {
-                return BadRequest("Search term is required");
-            }
             var tournaments = await _tournamentService.SearchTournaments(searchTerm, idSportType);
             return Ok(tournaments);
         }

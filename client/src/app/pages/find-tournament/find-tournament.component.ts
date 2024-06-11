@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { FormatTypeData } from "src/app/core/constant/data/format.data";
 import { SportTypeData } from "src/app/core/constant/data/sport.data";
 import { Tournament } from "src/app/core/models/classes/Tournament";
@@ -21,23 +21,49 @@ export class FindTournamentComponent implements OnInit {
 	sportTypeNameList = SportTypeData.listSport.map((item) => item.nameVie);
 
 	filterSportType = 0;
+	searchValue: string = "";
+
+	// Pagi
+	totalPage: number;
+	totalRecords: number;
+	currentPage: number = 1;
+	pageSize: number = 9;
+	pageSizeArr: number[] = [10, 15, 20, 30];
+	hasNext: any = true;
+	hasPrev: any = false;
 
 	constructor(
-		private loaderService: LoaderService,
 		private tourService: TournamentService,
-		private route: Router
+		private router: Router,
+		private route: ActivatedRoute
 	) {}
 	listTour: Tournament[] = [];
 	ngOnInit(): void {
-		setTimeout(() => {
-			this.loaderService.setLoading(false);
-		}, 1000);
+		this.loadList();
+		this.searchValue =
+			this.route.snapshot.paramMap.get("searchInput") ?? "";
+	}
 
-		this.tourService.getAll().subscribe({
-			next: (value) => {
-				this.listTour = value.slice(0, 9);
-			},
-		});
+	loadList(): void {
+		this.tourService
+			.getAll(
+				this.currentPage,
+				this.pageSize,
+				this.searchValue,
+				this.filterSportType
+			)
+			.subscribe({
+				next: (res) => {
+					const value = Object.values(res);
+
+					this.listTour = value[0] as Tournament[];
+					this.currentPage = value[1] as number;
+					this.pageSize = value[2] as number;
+					this.totalPage = value[3] as number;
+					this.hasNext = value[5] as boolean;
+					this.hasPrev = value[6] as boolean;
+				},
+			});
 	}
 
 	onReceiveValueSportType(index: any) {
@@ -46,23 +72,23 @@ export class FindTournamentComponent implements OnInit {
 	}
 
 	onViewDetail(id: number) {
-		this.route.navigateByUrl(`/tournament/${id}/overview`);
+		this.router.navigateByUrl(`/tournament/${id}/overview`);
 	}
 
 	@ViewChild("searchInput") searchInput: ElementRef<HTMLInputElement>;
 	onSearch() {
-		const searchValue = this.searchInput.nativeElement.value;
-		console.log(searchValue);
-
+		this.searchValue = this.searchInput.nativeElement.value;
 		this.tourService
-			.searchByName(searchValue, this.filterSportType)
+			.searchByName(this.searchValue, this.filterSportType)
 			.subscribe({
 				next: (value) => {
 					this.listTour = value;
 				},
-				error: (error) => {
-					console.log("Search error");
-				},
 			});
+	}
+
+	onChangePage(currentPage: number): void {
+		this.currentPage = currentPage;
+		this.loadList();
 	}
 }

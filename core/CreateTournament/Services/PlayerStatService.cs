@@ -52,7 +52,21 @@ namespace CreateTournament.Services
             return _mapper.Map<List<PlayerStatsDTO>>(playerStats);
         }
 
-        public async Task<List<PlayerStatsDTO>> GetAllPlayStats(bool includeDeleted = false, int currentPage = 1, int pageSize = 10, string sortColumn = "", bool ascendingOrder = false)
+        public async Task<List<PlayerStatsDTO>> GetAllByIdTournamentTeamAsync(int id, bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false)
+        {
+            var playerStats = await _playerStatRepo.GetAllByIdTournamentTeam(id, includeDeleted, currentPage, pageSize,sortColumn,ascendingOrder);
+            return _mapper.Map<List<PlayerStatsDTO>>(playerStats);
+        }
+
+        public async Task<List<PlayerStatsDTO>> GetAllPlayerStatsByTournamentAsync(int id, bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false)
+        {
+            var playerStats = await _playerStatRepo.GetAllPlayerStatsByTournamentAsync(id,includeDeleted,currentPage,pageSize,sortColumn,ascendingOrder);
+
+            return _mapper.Map<List<PlayerStatsDTO>>(playerStats);
+        }
+
+
+        public async Task<List<PlayerStatsDTO>> GetAllPlayStats(bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false)
         {
             var playerStatsList = await _playerStatRepo.Getlist(includeDeleted, currentPage, pageSize, sortColumn, ascendingOrder);
             return _mapper.Map<List<PlayerStatsDTO>>(playerStatsList);
@@ -68,6 +82,12 @@ namespace CreateTournament.Services
         {
             var playerStat = await _playerStatRepo.GetByIdMatchAndIdPlayerAsync(idMatch,idPlayer);
             return _mapper.Map<PlayerStatsDTO>(playerStat);
+        }
+
+        public int GetCountAllPlayerStats(string sortColumn = "", bool ascendingOrder = false, bool incluDeleted = false)
+        {
+            var count = _playerStatRepo.GetCount(sortColumn, ascendingOrder, incluDeleted);
+            return count;
         }
 
         public async Task<PlayerStatsDTO> UpdateByIdAsync(int id, PlayerStatsDTO playerStats)

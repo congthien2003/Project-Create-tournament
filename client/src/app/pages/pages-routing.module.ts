@@ -5,8 +5,10 @@ import { CreateTournamentComponent } from "./create-tournament/create-tournament
 import { authGuard } from "../@auth/guards/auth.guard";
 import { FindTournamentComponent } from "./find-tournament/find-tournament.component";
 import { roleGuard } from "../@auth/guards/role.guard";
+import { MytourComponent } from "./mytour/mytour.component";
 
 const routes: Routes = [
+	{ path: "", redirectTo: "/pages", pathMatch: "full" },
 	{
 		path: "",
 		component: HomeComponent,
@@ -19,6 +21,11 @@ const routes: Routes = [
 	{
 		path: "find",
 		component: FindTournamentComponent,
+	},
+	{
+		path: "mytour/:id",
+		component: MytourComponent,
+		canActivate: [authGuard],
 	},
 ];
 

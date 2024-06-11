@@ -23,13 +23,13 @@ export class HeaderComponent implements OnInit, OnChanges {
 	constructor(
 		private router: Router,
 		private authService: AuthenticationService
-	) {
-		this.bindActiveMenu(this.router.url);
-	}
+	) {}
 	ngOnInit(): void {
 		this.isLogin = this.authService.isAuthenticated();
 		this.username = this.authService.getUsernameFromToken();
 		this.id = this.authService.getUserIdFromToken();
+		this.activeIndex = 0;
+		this.bindActiveMenu(this.router.url);
 	}
 	ngOnChanges(changes: SimpleChanges): void {
 		this.isLogin = this.authService.isAuthenticated();
@@ -87,9 +87,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 	}
 
 	myTour() {
-		console.log(`tournament/${this.id}/mytour/`);
-
-		this.router.navigate([`tournament/${this.id}/mytour/`]);
+		this.router.navigate([`/mytour/${this.id}`]);
 	}
 
 	logOut(): void {

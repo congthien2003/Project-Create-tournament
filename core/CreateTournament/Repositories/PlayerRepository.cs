@@ -78,5 +78,14 @@ namespace CreateTournament.Repositories
             }
             return exits;
         }
+
+        public async Task<List<int>> GetTeamIdByTournamentAsync(int idtour)
+        {
+            var teams = await _context.Teams
+                             .Where(t => t.TournamentId == idtour)
+                             .Select(t => t.Id)
+                             .ToListAsync();
+            return teams;
+        }
     }
 }

@@ -13,8 +13,14 @@ import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { FindTournamentComponent } from "./find-tournament/find-tournament.component";
 import { TournamentModule } from "./tournament/tournament.module";
-
-const MatModule = [MatCommonModule, MatTableModule, MatPaginatorModule];
+import { MatMenuModule } from "@angular/material/menu";
+import { MytourComponent } from "./mytour/mytour.component";
+const MatModule = [
+	MatCommonModule,
+	MatTableModule,
+	MatPaginatorModule,
+	MatMenuModule,
+];
 
 @NgModule({
 	declarations: [
@@ -23,6 +29,7 @@ const MatModule = [MatCommonModule, MatTableModule, MatPaginatorModule];
 		CreateTournamentComponent,
 		CardInfoComponent,
 		FindTournamentComponent,
+		MytourComponent,
 	],
 	imports: [
 		CommonModule,

@@ -8,7 +8,8 @@ namespace CreateTournament.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
+
     public class PlayerController : ControllerBase
     {
         private readonly IPlayerService _playerService;
@@ -55,6 +56,7 @@ namespace CreateTournament.Controllers
             return Ok(player);
         }
         [HttpGet("all")]
+        [AllowAnonymous]
         public async Task<ActionResult> GetAllByIdTeamAsync(int idTeam)
         {
             var players = await _playerService.GetAllByIdTeamAsync(idTeam);

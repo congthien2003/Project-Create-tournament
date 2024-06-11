@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CreateTournament.Models
 {
@@ -10,8 +11,10 @@ namespace CreateTournament.Models
         [StringLength(100)]
         public string Name { get; set; }
         public DateTime Created { get; set; }
+
+        public DateTime FinishAt { get; set; }
         public int QuantityTeam { get; set; }
-        public string Location { get; set; }
+        public string Location { get; set; } = "";
         public int View {  get; set; } = 0;
         public int UserId { get; set; }
         [ForeignKey("UserId")]
