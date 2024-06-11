@@ -2,6 +2,7 @@
 using CreateTournament.Interfaces.IServices;
 using CreateTournament.Models;
 using CreateTournament.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace CreateTournament.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class PlayerStatController : ControllerBase
     {
         private readonly IPlayerStatService _playerStatService;
