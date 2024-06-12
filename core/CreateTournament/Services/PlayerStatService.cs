@@ -52,19 +52,6 @@ namespace CreateTournament.Services
             return _mapper.Map<List<PlayerStatsDTO>>(playerStats);
         }
 
-        public async Task<List<PlayerStatsDTO>> GetAllByIdTournamentTeamAsync(int id, bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false)
-        {
-            var playerStats = await _playerStatRepo.GetAllByIdTournamentTeam(id, includeDeleted, currentPage, pageSize,sortColumn,ascendingOrder);
-            return _mapper.Map<List<PlayerStatsDTO>>(playerStats);
-        }
-
-        public async Task<List<PlayerStatsDTO>> GetAllPlayerStatsByTournamentAsync(int id, bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false)
-        {
-            var playerStats = await _playerStatRepo.GetAllPlayerStatsByTournamentAsync(id,includeDeleted,currentPage,pageSize,sortColumn,ascendingOrder);
-
-            return _mapper.Map<List<PlayerStatsDTO>>(playerStats);
-        }
-
 
         public async Task<List<PlayerStatsDTO>> GetAllPlayStats(bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false)
         {
@@ -97,6 +84,20 @@ namespace CreateTournament.Services
             return _mapper.Map<PlayerStatsDTO>(playerStat);
         }
 
+        public async Task<List<PlayerStats>> GetPlayerStats(int id, bool includeDeleted = false, string sortColumn = "", bool ascendingOrder = false)
+        {
+            var playerStats = await _playerStatRepo.GetTourStats(id, sortColumn, ascendingOrder);
+
+            return _mapper.Map<List<PlayerStats>>(playerStats);
+        }
+
+        public async Task<List<PlayerStats>> GetTeamStats(int id, bool includeDeleted = false, string sortColumn = "", bool ascendingOrder = false)
+        {
+            var playerStats = await _playerStatRepo.GetTourStats(id, sortColumn, ascendingOrder);
+            
+
+            return _mapper.Map<List<PlayerStats>>(playerStats);
+        }
 
     }
 }

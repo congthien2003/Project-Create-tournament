@@ -69,15 +69,13 @@
 }
 
 .btn-primary-custom {
-	background-color: white;
 	outline: none;
 	transition: 0.2s ease-in;
-	color: $primary;
-	border: 1px solid $primary;
 	font-weight: 450;
+	background-color: $primary-medium;
+	color: white;
 	&:hover {
-		background-color: $primary;
-		color: white;
+		opacity: 0.8;
 	}
 }
 
@@ -86,11 +84,9 @@
 	outline: none;
 	transition: 0.2s ease-in;
 	color: $primary-medium;
-	border: 1px solid $primary-medium;
 	font-weight: 450;
 
 	&:hover {
-		background-color: $primary-medium;
-		color: white;
+		opacity: 0.8;
 	}
 }

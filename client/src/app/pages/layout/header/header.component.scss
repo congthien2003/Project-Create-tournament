@@ -1,7 +1,7 @@
 @import "../../../shared/variable.scss";
 
 #header {
-	background-color: $primary-dark;
+	background-color: $primary;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -22,7 +22,7 @@
 	}
 
 	&:hover {
-		color: $primary;
+		transform: scale(110%);
 	}
 }
 
@@ -38,7 +38,7 @@
 	}
 	.tab-active {
 		transition: ease-in-out 0.5s;
-		border-bottom: 2px solid $primary;
+		border-bottom: 2px solid white;
 	}
 	.menu--item {
 		font-size: $text-size;
@@ -49,7 +49,7 @@
 		position: relative;
 		&:hover {
 			transform: scale(105%);
-			border-bottom: 2px solid $primary;
+			border-bottom: 2px solid white;
 		}
 	}
 }
@@ -73,7 +73,6 @@
 		font-weight: bold;
 	}
 	a:nth-child(1) {
-		background-color: $primary-dark;
 		color: white;
 		font-size: $text-size;
 		margin-right: 12px;
@@ -84,7 +83,7 @@
 		}
 	}
 	a:nth-child(2) {
-		background-color: $primary;
+		background-color: $primary-dark;
 		color: white;
 		font-size: $text-size;
 		margin-right: 12px;
@@ -125,8 +124,6 @@
 	right: 24px;
 	z-index: 5;
 	background-color: $primary-medium;
-
-	// box-shadow: 1px 1px 1px 1px rgb(225, 225, 225);
 	animation: showToptoBot 0.3s;
 	border-radius: 4px;
 	overflow: hidden;

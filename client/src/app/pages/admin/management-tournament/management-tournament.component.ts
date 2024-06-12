@@ -63,7 +63,8 @@ export class ManagementTournamentComponent implements OnInit {
 
 		this.tourService.getAllNoPagi().subscribe({
 			next: (res) => {
-				this.data = res;
+				const value = Object.values(res);
+				this.data = value[0] as Tournament[];
 				this.dataSource = new MatTableDataSource<Tournament>(this.data);
 			},
 		});

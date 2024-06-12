@@ -5,10 +5,13 @@
 		background-color: $white-smoke;
 		padding: 24px 48px;
 		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
 	}
 
 	&--header {
-		color: $primary-medium;
+		color: $primary-dark;
 		padding: 12px 48px;
 		font-size: 24px;
 		font-weight: bold;
@@ -22,5 +25,33 @@
 		align-items: center;
 		justify-content: space-evenly;
 		gap: 48px;
+	}
+
+	&--main {
+		display: grid;
+		grid-template-columns: auto auto auto;
+		gap: 24px;
+	}
+}
+
+.round-32 {
+	&--wrapper {
+	}
+	&--content {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		grid-template-rows: 50% 50%;
+		gap: 12px;
+	}
+}
+
+.round-16 {
+	&--wrapper {
+	}
+	&--content {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		grid-template-rows: auto auto auto auto;
+		gap: 24px;
 	}
 }

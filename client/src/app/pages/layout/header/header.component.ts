@@ -83,7 +83,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 	}
 
 	detailUser() {
-		this.router.navigate(["/pages/user"]);
+		this.router.navigate([`/user/${this.id}`]);
 	}
 
 	myTour() {

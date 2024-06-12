@@ -35,7 +35,7 @@ export class CreateTournamentComponent implements OnInit {
 	sportTypeNameList = SportTypeData.listSport.map((item) => item.nameVie);
 
 	titleQuantityTeams = "Số lượng đội thi đấu";
-	quantityTeams = ["2", "4", "8", "16", "32"];
+	quantityTeams = ["2", "4", "8", "16"];
 
 	constructor(
 		private loaderService: LoaderService,
@@ -61,8 +61,6 @@ export class CreateTournamentComponent implements OnInit {
 			]),
 			format: this.formBuilder.control("", Validators.required),
 		});
-
-		console.log(this.createTour.get("tourName"));
 	}
 
 	onChange(event: any): void {

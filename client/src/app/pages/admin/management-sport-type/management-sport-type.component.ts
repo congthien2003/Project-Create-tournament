@@ -18,6 +18,7 @@ import { FormEditComponent } from "../components/form-edit/form-edit.component";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { FormSportTypeComponent } from "./form-sport-type/form-sport-type.component";
+import { SportTypeData } from "src/app/core/constant/data/sport.data";
 @Component({
 	selector: "app-management-sport-type",
 	templateUrl: "./management-sport-type.component.html",
@@ -30,7 +31,7 @@ export class ManagementSportTypeComponent implements OnInit, OnChanges {
 
 	data: SportType[] = [];
 
-	dataSource = new MatTableDataSource<SportType>();
+	dataSource = new MatTableDataSource<any>();
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -54,7 +55,9 @@ export class ManagementSportTypeComponent implements OnInit, OnChanges {
 		this.service.getAll().subscribe({
 			next: (value) => {
 				this.data = value;
-				this.dataSource = new MatTableDataSource<SportType>(this.data);
+				this.dataSource = new MatTableDataSource<any>(
+					SportTypeData.listSport
+				);
 			},
 		});
 	}

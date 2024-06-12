@@ -6,9 +6,8 @@
         public int? YellowCard { get; set; }
         public int? RedCard { get; set; }
         public int? Score { get; set; }
-        public int? Assits { get; set; }
+        public int? Assists { get; set; }
         public int PlayerId { get; set; }
         public int MatchResultId { get; set; }
-        public PlayerDTO Player { get; set; }
     }
 }

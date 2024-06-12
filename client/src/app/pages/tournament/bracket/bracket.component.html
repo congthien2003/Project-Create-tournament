@@ -1,6 +1,38 @@
 <div class="bracket--wrapper">
-	<div class="row h-100">
-		<div class="col-4" *ngIf="quarterfinals.matchs.length > 0">
+	<app-spinner *ngIf="listMatch.length === 0"></app-spinner>
+
+	<div class="round-32--wrapper">
+		<div class="" *ngIf="round32.matchs.length > 0">
+			<h4 class="bracket--header">VÒNG 32</h4>
+			<div class="round-16--content">
+				<div class="match w-100" *ngFor="let match of round32.matchs">
+					<bracket-card
+						(saveMatch)="handleUpdateMatch($event)"
+						[match]="match"
+						[canEdit]="canEdit"></bracket-card>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="round-16--wrapper">
+		<div class="" *ngIf="round16.matchs.length > 0">
+			<h4 class="bracket--header">VÒNG 16</h4>
+			<div class="round-16--content">
+				<div class="match w-100" *ngFor="let match of round16.matchs">
+					<bracket-card
+						(saveMatch)="handleUpdateMatch($event)"
+						[match]="match"
+						[canEdit]="canEdit"></bracket-card>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bracket--main h-100">
+		<div
+			class="quarterfinals--wrapper"
+			*ngIf="quarterfinals.matchs.length > 0">
 			<h4 class="bracket--header">TỨ KẾT</h4>
 			<div class="bracket--content">
 				<div
@@ -13,7 +45,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-4" *ngIf="semifinals.matchs.length > 0">
+		<div class="semifinals--wrapper" *ngIf="semifinals.matchs.length > 0">
 			<h4 class="bracket--header">BÁN KẾT</h4>
 			<div class="bracket--content">
 				<div
@@ -26,7 +58,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-4" *ngIf="final.matchs.length > 0">
+		<div class="finail--wrapper" *ngIf="final.matchs.length > 0">
 			<h4 class="bracket--header">CHUNG KẾT</h4>
 			<div class="bracket--content">
 				<div class="match w-100" *ngFor="let match of final.matchs">

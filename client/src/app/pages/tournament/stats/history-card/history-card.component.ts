@@ -13,8 +13,8 @@ import { TeamService } from "src/app/core/services/team.service";
 export class HistoryCardComponent implements OnInit {
 	@Input() matchResult: MatchResult;
 
-	team1: Team;
-	team2: Team;
+	team1: Team = new Team();
+	team2: Team = new Team();
 
 	constructor(
 		private teamService: TeamService,

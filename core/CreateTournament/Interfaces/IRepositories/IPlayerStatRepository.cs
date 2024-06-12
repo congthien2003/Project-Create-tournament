@@ -14,10 +14,6 @@ namespace CreateTournament.Interfaces.IRepositories
         Task<List<TPlayerStat>> GetAllByIdPlayerScoreAsynsc(int id, bool includeDeleted = false);
         Task<List<TPlayerStat>> Getlist(bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false);
         Int32 GetCount(string sortColumn = "", bool ascendingOrder = false, bool incluDeleted = false);
-
-        Task<List<PlayerStats>> GetAllByIdTournamentTeam(int id, bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false);
-
-        Task<List<PlayerStats>> GetAllPlayerStatsByTournamentAsync(int id, bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = true);
-
+        Task<List<PlayerStats>> GetTourStats(int idTournament, string sortColumn = "", bool ascendingOrder = true);
     }
 }

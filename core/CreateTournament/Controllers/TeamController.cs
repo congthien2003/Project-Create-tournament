@@ -21,6 +21,7 @@ namespace CreateTournament.Controllers
             _teamService = teamService;
         }
         [HttpPost("create")]
+
         public async Task<ActionResult> CreateAsync(int quantity, int idTournament)
         {
             if (quantity <= 0)
@@ -52,8 +53,9 @@ namespace CreateTournament.Controllers
         }
 
         [HttpGet("{id:int}")]
-        
-        public async Task<ActionResult> UpdateTeam(int id)
+        [AllowAnonymous]
+
+        public async Task<ActionResult> GetById(int id)
         {
 
             var team = await _teamService.GetTeamByIdAsync(id);
@@ -65,6 +67,7 @@ namespace CreateTournament.Controllers
         }
 
         [HttpPut("update")]
+        [Authorize]
 
         public async Task<ActionResult> UpdateTeam(int id, string name)
         {
@@ -78,13 +81,15 @@ namespace CreateTournament.Controllers
         }
 
         [HttpPut("updateImage")]
+        [Authorize]
+
         public async Task<ActionResult> UpdateImage(int id, string path)
         {
 
             var team = await _teamService.UpdateImage(id, path);
             if (team == null)
             {
-                return BadRequest("Trận đấu không tồn tại");
+                return BadRequest("Đội không tồn tại");
             }
             return Ok(team);
         }

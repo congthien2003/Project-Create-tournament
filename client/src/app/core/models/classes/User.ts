@@ -7,7 +7,7 @@ export class User implements IUser {
 	password: string;
 	phones: string;
 	role: number;
-
+	isDeleted: boolean;
 	constructor() {
 		this.id = 0;
 		this.username = "";
@@ -15,5 +15,6 @@ export class User implements IUser {
 		this.password = "";
 		this.phones = "";
 		this.role = 1;
+		this.isDeleted = false;
 	}
 }

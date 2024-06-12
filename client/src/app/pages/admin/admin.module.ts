@@ -8,7 +8,7 @@ import { AdminComponent } from "./admin.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "src/app/shared/shared.module";
 
-import { UserComponent } from "../../shared/components/user/user.component";
+import { UserComponent } from "../user/user.component";
 import { FormEditComponent } from "./components/form-edit/form-edit.component";
 import { ModalDeleteComponent } from "./components/modal-delete/modal-delete.component";
 import { ManagementFormatTypeComponent } from "./management-format-type/management-format-type.component";
@@ -22,7 +22,6 @@ import { FormFormatTypeComponent } from "./management-format-type/form-format-ty
 	declarations: [
 		LayoutComponent,
 		DashboardComponent,
-		UserComponent,
 		AdminComponent,
 		ManagementUserComponent,
 		ManagementTournamentComponent,

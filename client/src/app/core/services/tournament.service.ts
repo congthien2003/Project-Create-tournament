@@ -16,17 +16,20 @@ export class TournamentService {
 	getAll(
 		currentPage: number = 1,
 		pageSize: number = 5,
-		searchTerm: string = " ",
-		sportTypeId: number = 0
+		searchTerm: string = "",
+		sortCol: string = "",
+		ascSort: string = "true"
 	): Observable<any> {
 		const params = new HttpParams()
 			.set("currentPage", currentPage)
 			.set("pageSize", pageSize)
 			.set("searchTerm", searchTerm)
-			.set("idSportType", sportTypeId);
+			.set("sortColumn", sortCol)
+			.set("asc", ascSort);
+
 		return this.master.get(this.endpoints.getAll, { params });
 	}
-	getAllNoPagi(): Observable<Tournament[]> {
+	getAllNoPagi(): Observable<any> {
 		return this.master.get(this.endpoints.getAll);
 	}
 	getCount(): Observable<any> {
@@ -60,13 +63,8 @@ export class TournamentService {
 		return this.master.delete(`${this.endpoints.deleteById}/${id}`);
 	}
 
-	searchByName(
-		searchTerm: string = " ",
-		sportTypeId: number = 0
-	): Observable<Tournament[]> {
-		const params = new HttpParams()
-			.set("searchTerm", searchTerm)
-			.set("idSportType", sportTypeId);
+	searchByName(searchTerm: string = " "): Observable<Tournament[]> {
+		const params = new HttpParams().set("searchTerm", searchTerm);
 		return this.master.get(`${this.endpoints.search}`, { params });
 	}
 }

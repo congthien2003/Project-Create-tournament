@@ -20,6 +20,7 @@ export class ManagementUserComponent implements OnInit {
 		"email",
 		"phone",
 		"role",
+		"isActive",
 		"expand",
 	];
 	data: User[] = [];

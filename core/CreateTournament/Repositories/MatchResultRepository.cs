@@ -159,7 +159,7 @@ namespace CreateTournament.Repositories
                 }
             }
 
-            
+
             if (teamWin1 != null && teamWin2 == null)
             {
                 bool matchExists = false;
@@ -243,7 +243,7 @@ namespace CreateTournament.Repositories
                         return newmatch;
                     }
                 }
-                
+
             }
             return null;
         }
@@ -279,7 +279,7 @@ namespace CreateTournament.Repositories
                 }
             }
 
-            
+
             if (teamWin1 != null && teamWin2 == null)
             {
                 var matchExists = false;
@@ -335,7 +335,7 @@ namespace CreateTournament.Repositories
             if (teamWin1 != null && teamWin2 != null)
             {
                 var match = await _context.Matches.Where(obj => obj.TournamentId == idTournament && (obj.IdTeam1 == teamWin1 && obj.IdTeam2 == 9999 || obj.IdTeam1 == 9999 && obj.IdTeam2 == teamWin2)).FirstOrDefaultAsync();
-                if(match != null)
+                if (match != null)
                 {
                     if (match.IdTeam1 == 9999)
                     {
@@ -367,7 +367,7 @@ namespace CreateTournament.Repositories
                 }
             }
             //Match 2
-            
+
             if (teamWin3 != null && teamWin4 == null)
             {
                 bool matchExists = false;
@@ -405,7 +405,8 @@ namespace CreateTournament.Repositories
                         break;
                     }
                 }
-                if (!matchExists){
+                if (!matchExists)
+                {
                     var match = new Match
                     {
                         TournamentId = idTournament,
@@ -422,7 +423,7 @@ namespace CreateTournament.Repositories
             if (teamWin3 != null && teamWin4 != null)
             {
                 var match = await _context.Matches.Where(obj => obj.TournamentId == idTournament && (obj.IdTeam1 == teamWin3 && obj.IdTeam2 == 9999 || obj.IdTeam1 == 9999 && obj.IdTeam2 == teamWin4)).FirstOrDefaultAsync();
-                if(match != null)
+                if (match != null)
                 {
                     if (match.IdTeam1 == 9999)
                     {
@@ -452,7 +453,7 @@ namespace CreateTournament.Repositories
                         return newmatch;
                     }
                 }
-                
+
             }
             var matchSemiFinal = await _context.Matches.Where(obj => obj.TournamentId == idTournament && obj.round == 4).ToListAsync();
             if (matchSemiFinal.Count == 2)
@@ -519,7 +520,7 @@ namespace CreateTournament.Repositories
                         matchExists = true;
                         break;
                     }
-                    
+
                 }
                 if (!matchExists)
                 {
@@ -546,7 +547,7 @@ namespace CreateTournament.Repositories
                         matchExists = true;
                         break;
                     }
-                    
+
                 }
                 if (!matchExists)
                 {
@@ -566,7 +567,7 @@ namespace CreateTournament.Repositories
             if (teamWin1 != null && teamWin2 != null)
             {
                 var match = await _context.Matches.Where(obj => obj.TournamentId == idTournament && (obj.IdTeam1 == teamWin1 && obj.IdTeam2 == 9999 || obj.IdTeam1 == 9999 && obj.IdTeam2 == teamWin2)).FirstOrDefaultAsync();
-                if(match != null)
+                if (match != null)
                 {
                     if (match.IdTeam1 == 9999)
                     {
@@ -596,7 +597,7 @@ namespace CreateTournament.Repositories
                         return newmatch;
                     }
                 }
-                
+
             }
             //match2
             if (teamWin3 != null && teamWin4 == null)
@@ -610,7 +611,7 @@ namespace CreateTournament.Repositories
                         break;
                     }
                 }
-                if(!matchExists)
+                if (!matchExists)
                 {
                     var match = new Match
                     {
@@ -618,7 +619,7 @@ namespace CreateTournament.Repositories
                         IdTeam1 = teamWin3.Value,
                         IdTeam2 = 9999,
                         STT = 2,
-                        round =  3
+                        round = 3
                     };
                     await _context.Matches.AddAsync(match);
                     await _context.SaveChangesAsync();
@@ -635,9 +636,9 @@ namespace CreateTournament.Repositories
                         matchExists = true;
                         break;
                     }
-                    
+
                 }
-                if(!matchExists)
+                if (!matchExists)
                 {
                     var match = new Match
                     {
@@ -655,7 +656,7 @@ namespace CreateTournament.Repositories
             if (teamWin3 != null && teamWin4 != null)
             {
                 var match = await _context.Matches.Where(obj => obj.TournamentId == idTournament && (obj.IdTeam1 == teamWin3 && obj.IdTeam2 == 9999 || obj.IdTeam1 == 9999 && obj.IdTeam2 == teamWin4)).FirstOrDefaultAsync();
-                if(match != null)
+                if (match != null)
                 {
                     if (match.IdTeam1 == 9999)
                     {
@@ -685,7 +686,7 @@ namespace CreateTournament.Repositories
                         return newmatch;
                     }
                 }
-                
+
             }
             //match3
             if (teamWin5 != null && teamWin6 == null)
@@ -725,7 +726,8 @@ namespace CreateTournament.Repositories
                         break;
                     }
                 }
-                if (!matchExists){
+                if (!matchExists)
+                {
                     var match = new Match
                     {
                         TournamentId = idTournament,
@@ -742,7 +744,7 @@ namespace CreateTournament.Repositories
             if (teamWin5 != null && teamWin6 != null)
             {
                 var match = await _context.Matches.Where(obj => obj.TournamentId == idTournament && (obj.IdTeam1 == teamWin5 && obj.IdTeam2 == 9999 || obj.IdTeam1 == 9999 && obj.IdTeam2 == teamWin6)).FirstOrDefaultAsync();
-                if(match != null)
+                if (match != null)
                 {
                     if (match.IdTeam1 == 9999)
                     {
@@ -782,7 +784,7 @@ namespace CreateTournament.Repositories
                     if (matches[j].IdTeam1 == teamWin7 && matches[j].IdTeam2 == 9999)
                     {
                         matchExists = true;
-                        break ;
+                        break;
                     }
                 }
                 if (!matchExists)
@@ -793,7 +795,7 @@ namespace CreateTournament.Repositories
                         IdTeam1 = teamWin7.Value,
                         IdTeam2 = 9999,
                         STT = 4,
-                        round = 3 
+                        round = 3
                     };
                     await _context.Matches.AddAsync(match);
                     await _context.SaveChangesAsync();
@@ -811,7 +813,7 @@ namespace CreateTournament.Repositories
                         break;
                     }
                 }
-                if(!matchExists)
+                if (!matchExists)
                 {
                     var match = new Match
                     {
@@ -829,7 +831,7 @@ namespace CreateTournament.Repositories
             if (teamWin7 != null && teamWin8 != null)
             {
                 var match = await _context.Matches.Where(obj => obj.TournamentId == idTournament && (obj.IdTeam1 == teamWin7 && obj.IdTeam2 == 9999 || obj.IdTeam1 == 9999 && obj.IdTeam2 == teamWin8)).FirstOrDefaultAsync();
-                if(match != null)
+                if (match != null)
                 {
                     if (match.IdTeam1 == 9999)
                     {
@@ -859,7 +861,7 @@ namespace CreateTournament.Repositories
                         return newmatch;
                     }
                 }
-                
+
             }
             var matchQuaterFinal = await _context.Matches.Where(obj => obj.TournamentId == idTournament && obj.STT == 3).ToListAsync();
             if (matchQuaterFinal.Count == 4)
@@ -867,62 +869,63 @@ namespace CreateTournament.Repositories
                 await CreateKnockOut8(matchQuaterFinal, idTournament);
             }
             return null;
-        public async Task<List<MatchResult>> Getlist(int idtour, bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false)
-        {
-            var tournament = await _context.Tournaments.FirstOrDefaultAsync(obj => obj.Id == idtour && obj.IsDeleted == includeDeleted);
-            if (tournament == null)
-            {
-                return null;
-            }
-
-            var listMatchResults = _context.MatchResults.AsQueryable().Where(obj => obj.Match.TournamentId == idtour);
-
-            if (!includeDeleted)
-            {
-                listMatchResults = listMatchResults.Where(obj => !obj.IsDeleted);
-            }
-
-            if (!string.IsNullOrEmpty(sortColumn))
-            {
-                if (ascendingOrder)
-                {
-                    listMatchResults = listMatchResults.OrderByDescending(GetSortColumnExpression(sortColumn));
-                }
-                else
-                {
-                    listMatchResults = listMatchResults.OrderBy(GetSortColumnExpression(sortColumn));
-                }
-            }
-            else
-            {
-                listMatchResults = listMatchResults.OrderBy(x => x.Id);
-            }
-            return await listMatchResults.Skip(pageSize * currentPage - pageSize).Take(pageSize).ToListAsync();
         }
-
-        public Int32 GetCount(int idtour,string sortColumn = "", bool ascendingOrder = false, bool incluDeleted = false)
-        {
-            var matchresult = _context.MatchResults.AsQueryable().Where(obj => obj.Match.TournamentId == idtour);
-            if (!incluDeleted)
+            public async Task<List<MatchResult>> Getlist(int idtour, bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false)
             {
-                matchresult = matchresult.Where(obj => !obj.IsDeleted);
-            }
-            if (!string.IsNullOrEmpty(sortColumn))
-            {
-                if (ascendingOrder)
+                var tournament = await _context.Tournaments.FirstOrDefaultAsync(obj => obj.Id == idtour && obj.IsDeleted == includeDeleted);
+                if (tournament == null)
                 {
-                    matchresult = matchresult.OrderByDescending(GetSortColumnExpression(sortColumn));
+                    return null;
+                }
+
+                var listMatchResults = _context.MatchResults.AsQueryable().Where(obj => obj.Match.TournamentId == idtour);
+
+                if (!includeDeleted)
+                {
+                    listMatchResults = listMatchResults.Where(obj => !obj.IsDeleted);
+                }
+
+                if (!string.IsNullOrEmpty(sortColumn))
+                {
+                    if (ascendingOrder)
+                    {
+                        listMatchResults = listMatchResults.OrderByDescending(GetSortColumnExpression(sortColumn));
+                    }
+                    else
+                    {
+                        listMatchResults = listMatchResults.OrderBy(GetSortColumnExpression(sortColumn));
+                    }
                 }
                 else
                 {
-                    matchresult = matchresult.OrderBy(GetSortColumnExpression(sortColumn));
+                    listMatchResults = listMatchResults.OrderBy(x => x.Id);
                 }
+                return await listMatchResults.Skip(pageSize * currentPage - pageSize).Take(pageSize).ToListAsync();
             }
-            else
+
+            public Int32 GetCount(int idtour, string sortColumn = "", bool ascendingOrder = false, bool incluDeleted = false)
             {
-                matchresult = matchresult.OrderBy(x => x.Id);
+                var matchresult = _context.MatchResults.AsQueryable().Where(obj => obj.Match.TournamentId == idtour);
+                if (!incluDeleted)
+                {
+                    matchresult = matchresult.Where(obj => !obj.IsDeleted);
+                }
+                if (!string.IsNullOrEmpty(sortColumn))
+                {
+                    if (ascendingOrder)
+                    {
+                        matchresult = matchresult.OrderByDescending(GetSortColumnExpression(sortColumn));
+                    }
+                    else
+                    {
+                        matchresult = matchresult.OrderBy(GetSortColumnExpression(sortColumn));
+                    }
+                }
+                else
+                {
+                    matchresult = matchresult.OrderBy(x => x.Id);
+                }
+                return matchresult.Count();
             }
-            return matchresult.Count();
         }
     }
-}

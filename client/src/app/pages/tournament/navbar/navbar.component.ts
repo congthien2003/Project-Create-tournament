@@ -44,15 +44,16 @@ export class NavbarComponent implements OnInit, OnChanges {
 		private idloaderService: IdloaderService,
 		private router: Router
 	) {}
-	ngOnChanges(changes: SimpleChanges): void {
-		this.activeRoute();
-	}
 
 	ngOnInit(): void {
 		this.subscription = this.idloaderService.currentId$.subscribe({
 			next: (id) => (this.idTour = id ?? 0),
 		});
 		this.activeLink = this.links[0].href;
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		this.activeRoute();
 	}
 
 	ngOnDestroy() {
@@ -65,8 +66,11 @@ export class NavbarComponent implements OnInit, OnChanges {
 		this.links.forEach((link) => {
 			if (url.includes(link.href)) {
 				const temp = link.href.toString();
-				console.log(temp);
+
+				this.activeLink = temp;
 			}
 		});
+
+		console.log(url);
 	}
 }

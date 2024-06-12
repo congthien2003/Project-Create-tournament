@@ -17,6 +17,7 @@ namespace CreateTournament.Services
             _teamRepo = teamRepository;
             _mapper = mapper;
         }
+
         public async Task<TeamDTO> CreateAsync(TeamDTO teamDTO)
         {
             var team = _mapper.Map<Team>(teamDTO);

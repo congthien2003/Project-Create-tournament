@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { authGuard } from "src/app/@auth/guards/auth.guard";
 import { roleGuard } from "src/app/@auth/guards/role.guard";
-import { UserComponent } from "../../shared/components/user/user.component";
+import { UserComponent } from "../user/user.component";
 import { AdminComponent } from "./admin.component";
 import { ManagementUserComponent } from "./management-user/management-user.component";
 import { ManagementTournamentComponent } from "./management-tournament/management-tournament.component";
@@ -21,27 +21,22 @@ const routes: Routes = [
 			{
 				path: "dashboard",
 				component: DashboardComponent,
-				canActivateChild: [authGuard],
 			},
 			{
 				path: "user",
 				component: ManagementUserComponent,
-				canActivateChild: [authGuard],
 			},
 			{
 				path: "tournament",
 				component: ManagementTournamentComponent,
-				canActivateChild: [authGuard],
 			},
 			{
 				path: "formattype",
 				component: ManagementFormatTypeComponent,
-				canActivateChild: [authGuard],
 			},
 			{
 				path: "sporttype",
 				component: ManagementSportTypeComponent,
-				canActivateChild: [authGuard],
 			},
 		],
 	},

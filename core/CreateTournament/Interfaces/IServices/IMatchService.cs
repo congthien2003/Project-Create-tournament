@@ -5,7 +5,10 @@ namespace CreateTournament.Interfaces.IServices
     public interface IMatchService
     {
         Task<MatchDTO> CreateAsync(MatchDTO matchDTO);
-        Task<List<MatchDTO>> CreateListMatchAsync(int idTournament );
+        Task<List<MatchDTO>> CreateListMatchAsync(int idTournament);
+
+        Task<MatchDTO> CheckTeamExists(int idTeam, int idMatch);
+
         Task<MatchDTO> UpdateMatchAsync(int id,MatchDTO matchDTO);
         Task<MatchDTO> GetMatchByIdAsync(int id);
         Task<List<MatchDTO>> GetAllMatchesByIdTournamentAsync(int idTournament);

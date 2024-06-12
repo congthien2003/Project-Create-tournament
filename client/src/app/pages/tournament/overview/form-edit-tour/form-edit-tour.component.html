@@ -3,7 +3,7 @@
 		<h4>Chỉnh sửa thông tin giải đấu</h4>
 		<button
 			type="button"
-			class="btn-close"
+			class="btn-close btn-close-white"
 			data-bs-dismiss="modal"
 			aria-label="Close"></button>
 	</div>
@@ -33,14 +33,16 @@
 	</div>
 	<div class="form-edit__actions">
 		<button
+			mat-raised-button
 			type="button"
 			class="btn btn-secondary-custom"
 			data-bs-dismiss="modal">
 			Hủy
 		</button>
 		<button
+			mat-button
 			type="button"
-			class="btn btn-primary-custom"
+			class="btn-primary-custom text-white"
 			(click)="handleSave()"
 			data-bs-dismiss="modal"
 			[disabled]="!editTour.valid">

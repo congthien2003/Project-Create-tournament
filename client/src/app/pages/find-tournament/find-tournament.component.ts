@@ -20,7 +20,6 @@ export class FindTournamentComponent implements OnInit {
 	sportTypeList = SportTypeData.listSport;
 	sportTypeNameList = SportTypeData.listSport.map((item) => item.nameVie);
 
-	filterSportType = 0;
 	searchValue: string = "";
 
 	// Pagi
@@ -39,19 +38,14 @@ export class FindTournamentComponent implements OnInit {
 	) {}
 	listTour: Tournament[] = [];
 	ngOnInit(): void {
-		this.loadList();
 		this.searchValue =
-			this.route.snapshot.paramMap.get("searchInput") ?? "";
+			this.route.snapshot.queryParamMap.get("searchInput") ?? "";
+		this.loadList();
 	}
 
 	loadList(): void {
 		this.tourService
-			.getAll(
-				this.currentPage,
-				this.pageSize,
-				this.searchValue,
-				this.filterSportType
-			)
+			.getAll(this.currentPage, this.pageSize, this.searchValue)
 			.subscribe({
 				next: (res) => {
 					const value = Object.values(res);
@@ -62,13 +56,14 @@ export class FindTournamentComponent implements OnInit {
 					this.totalPage = value[3] as number;
 					this.hasNext = value[5] as boolean;
 					this.hasPrev = value[6] as boolean;
+
+					console.log(this.listTour);
 				},
 			});
 	}
 
 	onReceiveValueSportType(index: any) {
 		console.log(this.sportTypeList[index].id);
-		this.filterSportType = this.sportTypeList[index].id;
 	}
 
 	onViewDetail(id: number) {
@@ -78,13 +73,11 @@ export class FindTournamentComponent implements OnInit {
 	@ViewChild("searchInput") searchInput: ElementRef<HTMLInputElement>;
 	onSearch() {
 		this.searchValue = this.searchInput.nativeElement.value;
-		this.tourService
-			.searchByName(this.searchValue, this.filterSportType)
-			.subscribe({
-				next: (value) => {
-					this.listTour = value;
-				},
-			});
+		this.tourService.searchByName(this.searchValue).subscribe({
+			next: (value) => {
+				this.listTour = value;
+			},
+		});
 	}
 
 	onChangePage(currentPage: number): void {

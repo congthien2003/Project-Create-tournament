@@ -1,13 +1,20 @@
-import { Component, OnInit } from "@angular/core";
+import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { MatSort, Sort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
 import { ToastrService } from "ngx-toastr";
 import { Subscription, forkJoin, map } from "rxjs";
 import { Match } from "src/app/core/models/classes/Match";
 import { MatchResult } from "src/app/core/models/classes/MatchResult";
+import { PlayerStats } from "src/app/core/models/classes/PlayerStats";
 import { Tournament } from "src/app/core/models/classes/Tournament";
 import { AuthenticationService } from "src/app/core/services/auth/authentication.service";
 import { MatchResultService } from "src/app/core/services/match-result.service";
 import { MatchService } from "src/app/core/services/match.service";
+import { PlayerService } from "src/app/core/services/player.service";
+import { PlayerStatsService } from "src/app/core/services/playerstats.service";
+import { TeamService } from "src/app/core/services/team.service";
 import { TournamentService } from "src/app/core/services/tournament.service";
 import { IdloaderService } from "src/app/shared/services/idloader.service";
 
@@ -20,9 +27,25 @@ export class StatsComponent implements OnInit {
 	idTour: number = 0;
 	Tour: Tournament = new Tournament();
 	listMatchResult: MatchResult[] = [];
-
+	listStats: PlayerStats[] = [];
 	isAuthenticated: boolean = false;
 	canEdit: boolean = false;
+
+	// Table
+	displayedColumns: string[] = [
+		"id",
+		"playerId",
+		"score",
+		"redCard",
+		"yellowCard",
+	];
+	tourStats!: any;
+	teamStats: any[] = [];
+	playerStats: any[] = [];
+
+	teamStatsSource!: any;
+
+	topScore!: any;
 
 	private subscription: Subscription;
 
@@ -31,7 +54,9 @@ export class StatsComponent implements OnInit {
 		private authService: AuthenticationService,
 		private matchService: MatchService,
 		private matchResultService: MatchResultService,
-
+		private playerStatsService: PlayerStatsService,
+		private teamService: TeamService,
+		private playerService: PlayerService,
 		public dialog: MatDialog,
 		private toastr: ToastrService,
 		private idloaderService: IdloaderService
@@ -69,8 +94,196 @@ export class StatsComponent implements OnInit {
 						});
 					},
 				});
+
+				// TODO: Table Player Stats, Team Stats
+
+				// * Tour Stats
+				this.playerStatsService
+					.getTourStatsByIdTour(this.Tour.id)
+					.subscribe({
+						next: (res) => {
+							const value = Object.values(res);
+							this.tourStats = value[0];
+						},
+					});
+
+				this.loadTeamStats();
 			},
 			error: (error) => {},
 		});
 	}
+
+	// TABLE TEAM STATS
+
+	tableTeamStats = {
+		totalPage: 5,
+		totalRecords: 0,
+		currentPage: 1,
+		pageSize: 10,
+		hasNext: true,
+		hasPrev: false,
+		sortColumn: "score",
+		asc: true,
+	};
+
+	sortIndex = 0;
+
+	onChangePage(currentPage: number): void {
+		this.tableTeamStats.currentPage = currentPage;
+		this.loadTeamStats();
+	}
+
+	onSort($event: any): void {
+		switch ($event) {
+			case 0: {
+				if (this.tableTeamStats.sortColumn === "score") {
+					this.tableTeamStats.asc = !this.tableTeamStats.asc;
+				}
+				this.tableTeamStats.sortColumn = "score";
+				this.sortIndex = 0;
+				break;
+			}
+			case 1: {
+				if (this.tableTeamStats.sortColumn === "yellowcard") {
+					this.tableTeamStats.asc = !this.tableTeamStats.asc;
+				}
+				this.tableTeamStats.sortColumn = "yellowcard";
+				this.sortIndex = 1;
+				break;
+			}
+			case 2: {
+				if (this.tableTeamStats.sortColumn === "redcard") {
+					this.tableTeamStats.asc = !this.tableTeamStats.asc;
+				}
+				this.tableTeamStats.sortColumn = "redcard";
+				this.sortIndex = 2;
+				break;
+			}
+		}
+		this.loadTeamStats();
+	}
+
+	loadTeamStats(): void {
+		// * Team Stats
+		this.playerStatsService
+			.getTeamStatsByIdTournament(
+				this.Tour.id,
+				this.tableTeamStats.currentPage,
+				this.tableTeamStats.pageSize,
+				this.tableTeamStats.sortColumn,
+				this.tableTeamStats.asc
+			)
+			.subscribe({
+				next: (res) => {
+					const value = Object.values(res);
+
+					let arrayTeam = value[0] as Array<any>;
+
+					const observables = arrayTeam.map((element) => {
+						const idTeam = element.idteam;
+						return this.teamService.getById(idTeam).pipe(
+							map((team) => ({
+								team: team,
+								stats: element,
+							}))
+						);
+					});
+
+					forkJoin(observables).subscribe((results) => {
+						arrayTeam = results;
+						this.teamStatsSource = results;
+						this.teamStats = arrayTeam;
+
+						// Player Stats
+						this.playerStatsService
+							.getPlayerStatsByIdTournament(
+								this.Tour.id,
+								1,
+								10,
+								"score"
+							)
+							.subscribe({
+								next: (res) => {
+									const value = Object.values(res);
+
+									let array = value[0] as Array<any>;
+
+									const observables = array.map((element) => {
+										const playerStatsId =
+											element.playerStatsId;
+										return this.playerService
+											.getById(playerStatsId)
+											.pipe(
+												map((player) => {
+													const teamObject =
+														arrayTeam.find((x) => {
+															return (
+																x.team.id ==
+																player.teamId
+															);
+														});
+
+													return {
+														team: teamObject.team,
+														player: player,
+														stats: element,
+													};
+												})
+											);
+									});
+
+									forkJoin(observables).subscribe(
+										(result) => {
+											array = result;
+											let max = 0;
+											array.forEach((element) => {
+												if (element.stats.score > max) {
+													max = element.stats.score;
+													this.topScore = element;
+												}
+											});
+											this.playerStats = array;
+										}
+									);
+								},
+							});
+					});
+				},
+			});
+	}
 }
+
+export const dataTeam = [
+	{
+		id: 1,
+		name: "Manchester City",
+		score: 20,
+		assits: 20,
+		yellowCards: 4,
+		redCards: 0,
+	},
+	{
+		id: 2,
+		name: "Manchester United",
+		score: 15,
+		assits: 15,
+		yellowCards: 6,
+		redCards: 1,
+	},
+	{
+		id: 3,
+		name: "Chelsea FC",
+		score: 25,
+		assits: 25,
+		yellowCards: 5,
+		redCards: 0,
+	},
+	{
+		id: 4,
+		name: "Liverpool",
+		score: 30,
+		assits: 30,
+		yellowCards: 6,
+		redCards: 1,
+	},
+];

@@ -11,7 +11,6 @@ import {
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
-import { timeout } from "rxjs";
 import { Match } from "src/app/core/models/classes/Match";
 import { MatchResult } from "src/app/core/models/classes/MatchResult";
 import { Team } from "src/app/core/models/classes/Team";
@@ -25,12 +24,12 @@ import { TeamService } from "src/app/core/services/team.service";
 	styleUrls: ["./form-edit-result.component.scss", "../form-edit.scss"],
 })
 export class FormEditResultComponent implements OnInit, OnChanges {
-	idMatch: number;
+	idMatch: number = -1;
 	@Output() saveResult = new EventEmitter<any>();
 	match: Match;
 	matchResult: MatchResult;
-	team1?: Team;
-	team2?: Team;
+	team1: Team;
+	team2: Team;
 	teamChoosed: number = 0;
 
 	constructor(
@@ -39,10 +38,7 @@ export class FormEditResultComponent implements OnInit, OnChanges {
 		private matchResultService: MatchResultService,
 		private teamService: TeamService,
 		private toastr: ToastrService
-	) {
-		this.match = this.data.match;
-		this.idMatch = this.match.id;
-	}
+	) {}
 
 	editResult = new FormGroup({
 		scoreTeam1: new FormControl<number>(0, [Validators.required]),
@@ -51,19 +47,14 @@ export class FormEditResultComponent implements OnInit, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges): void {}
 	ngOnInit(): void {
-		this.teamService.getById(this.match.idTeam1).subscribe({
-			next: (value) => {
-				this.team1 = value;
-			},
-			error: () => {},
-		});
+		console.log("Form Edit");
 
-		this.teamService.getById(this.match.idTeam2).subscribe({
-			next: (value) => {
-				this.team2 = value;
-			},
-			error: () => {},
-		});
+		console.log(this.data);
+
+		this.match = this.data.match;
+		this.idMatch = this.match.id;
+		this.team1 = this.data.team1;
+		this.team2 = this.data.team2;
 
 		this.matchResultService.getByIdMatch(this.match.id).subscribe({
 			next: (value) => {

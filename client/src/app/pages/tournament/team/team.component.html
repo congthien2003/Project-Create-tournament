@@ -1,4 +1,6 @@
 <div class="overview-team--wrapper">
+	<app-spinner *ngIf="listTeam.length === 0"></app-spinner>
+
 	<team-card
 		*ngFor="let team of listTeam"
 		[team]="team"

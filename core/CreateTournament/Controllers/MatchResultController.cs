@@ -1,7 +1,7 @@
 ﻿using CreateTournament.DTOs;
 using CreateTournament.Interfaces.IServices;
 using CreateTournament.Services;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CreateTournament.Controllers
@@ -128,37 +128,11 @@ namespace CreateTournament.Controllers
             return Ok(matchResult);
         }
 
-
-        [HttpGet("getall")]
-        public async Task<ActionResult> GetAllMatchResultByIdTour(int idtour, string pageNumber = "1", string pageSize = "5", string? sortColumn = "", string ascendingOrder = "false")
+        [HttpPut("/api/MatchResult/1/{id:int}")]
+        public async Task<ActionResult> UpdateKnockOut(int id, MatchResultDTO matchResultDTO)
         {
-            var tour = await _tournamentService.GetByIdTournament(idtour);
-            if (tour == null)
-            {
-                return BadRequest("khong tim thay giai đấu");
-            }
-            int _currentPage = int.Parse(pageNumber);
-            int _pageSize = int.Parse(pageSize);
-            bool _ascendingOrder = ascendingOrder == "true";
-            var matchresult = await _matchResult.GetAllMatchResult(idtour, false, _currentPage, _pageSize, sortColumn, _ascendingOrder);
-            var count = _matchResult.GetCountAllMatchResult(idtour, sortColumn, _ascendingOrder, false);
-            int totalPage = count % _pageSize != 0 ? (count / _pageSize + 1) : (count / _pageSize);
-            int totalRecords = matchresult.Count;
-            var result = new
-            {
-                tour,
-                matchresult,
-                _currentPage,
-                _pageSize,
-                _ascendingOrder,
-                totalPage,
-                totalRecords,
-                hasPrevious = _currentPage > 1,
-                hasNext = _currentPage < totalPage,
-            };
-            return Ok(result);
+            return Ok();
         }
-
     }
 
 }

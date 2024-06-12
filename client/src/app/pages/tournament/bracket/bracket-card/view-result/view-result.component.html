@@ -1,0 +1,59 @@
+<div class="result--wrapper">
+	<div class="result--header">
+		<h4>Kết quả trận đấu</h4>
+		<button
+			mat-button
+			aria-label="Close"
+			mat-dialog-close
+			class="text-white fs-6">
+			<i class="fa fa-close" aria-hidden="true"></i>
+		</button>
+	</div>
+	<div class="result--info">
+		<div class="date">{{ data?.match.startAt | date }}</div>
+		<div class="team--wrapper">
+			<div class="team">
+				<span class="team--name"> {{ data?.team1.name }}</span>
+				<div class="team--img">
+					<img src="{{ data?.team1.imageTeam }}" alt="logo" />
+				</div>
+			</div>
+
+			<div class="score">
+				<span class="scoreT1">{{ data?.matchResult?.scoreT1 }}</span> -
+				<span class="scoreT2">{{ data?.matchResult?.scoreT2 }}</span>
+			</div>
+			<div class="team">
+				<div class="team--img">
+					<img src="{{ data?.team2.imageTeam }}" alt="logo" />
+				</div>
+				<span class="team--name">{{ data?.team2.name }}</span>
+			</div>
+		</div>
+		<div class="goal--wrapper">
+			<div class="goal">
+				<div class="player" *ngFor="let item of listScoreTeam1">
+					<div class="icon">
+						<i
+							class="fa-solid fa-futbol"
+							*ngFor="let _ of item.score"></i>
+					</div>
+
+					<span class="name">{{ item.player.name }}</span>
+				</div>
+			</div>
+			<div></div>
+			<div class="goal">
+				<div class="player" *ngFor="let item of listScoreTeam2">
+					<div class="icon">
+						<i
+							class="fa-solid fa-futbol"
+							*ngFor="let _ of item.score"></i>
+					</div>
+
+					<span class="name">{{ item.player.name }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

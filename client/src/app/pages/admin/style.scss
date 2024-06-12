@@ -53,12 +53,6 @@
 				overflow-y: scroll;
 				height: 300px;
 			}
-			.pagination {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				padding: 12px 24px;
-			}
 		}
 	}
 }
@@ -94,4 +88,9 @@
 			gap: 8px;
 		}
 	}
+}
+
+.btn--bg-primary {
+	background-color: $primary;
+	color: white;
 }

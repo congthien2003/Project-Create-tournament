@@ -1,9 +1,10 @@
 @import "../../shared/variable.scss";
 
 h2 {
-	font-size: 36px;
+	font-size: 30px;
+	font-weight: bold;
 	text-align: center;
-	color: $primary;
+	color: $primary-dark;
 	text-transform: uppercase;
 }
 
@@ -23,7 +24,7 @@ h2 {
 		align-items: center;
 		flex-direction: column;
 		padding: 24px;
-		background-color: $primary-dark;
+		background-color: $primary;
 		color: white;
 		text-align: center;
 		h3 {
@@ -48,7 +49,7 @@ h2 {
 
 		.search-btn {
 			padding: 4px;
-			background-color: $primary;
+			background-color: $primary-medium;
 			height: 100%;
 			width: 40px;
 			display: flex;
@@ -58,6 +59,7 @@ h2 {
 			border-bottom-right-radius: 8px;
 			border: none;
 			outline: none;
+			color: white;
 			i {
 				transition: 0.2s ease-in-out;
 			}
@@ -75,45 +77,167 @@ h2 {
 		margin-top: 24px;
 		padding: 48px 24px;
 		border-bottom: 1px solid #cecece;
+		.intro--card {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			gap: 12px;
+			transition: all 0.2s ease-in-out;
+			padding: 24px;
+			height: 100%;
+			&__img {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				img {
+					width: 100%;
+				}
+			}
+
+			&__info {
+				text-align: center;
+				h4 {
+					font-weight: bold;
+					color: $primary-dark;
+				}
+
+				p {
+					margin-top: 8px;
+					font-size: 14px;
+					font-weight: 400;
+					color: $primary-medium;
+					padding: 0 16px;
+				}
+			}
+
+			&:hover {
+				transform: scale(102%);
+				box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+			}
+		}
 	}
 
 	&--guide {
-		margin-top: 24px;
 		min-height: 48px 24px;
-		padding: 24px;
+		padding: 48px 24px;
 		border-bottom: 1px solid #cecece;
 		background-color: whitesmoke;
 
-		.list--card {
-			padding: 12px 0;
+		.list--guide {
+			margin-top: 24px;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			gap: 24px;
+			.guide--card {
+				height: 200px;
+				padding: 24px 8px;
+				background-color: white;
+				border-radius: 8px;
+				transition: all 0.2s ease-in;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				gap: 12px;
+				box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+				&__header {
+					width: 50px;
+					height: 50px;
+					border-radius: 50%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					transition: all 0.4s ease-in-out;
+					position: relative;
+					h4 {
+						font-size: 50px;
+						text-align: center;
+						transition: all 0.3s ease-in-out;
+					}
+
+					span {
+						position: absolute;
+						content: "";
+						top: 50%;
+						right: -100%;
+						transform: translateY(-50%);
+						display: none;
+					}
+				}
+
+				&__info {
+					text-align: center;
+					padding: 0 12px;
+					opacity: 0.5;
+					transition: all 0.3s ease-in-out;
+				}
+				&:hover {
+					background-color: $primary;
+					color: white;
+
+					.guide--card__header {
+						background-color: white;
+						transform: translateY(-20px);
+
+						h4 {
+							font-size: 28px;
+							color: $primary-dark;
+						}
+
+						span {
+							display: block;
+						}
+					}
+				}
+				// &:hover {
+				// 	.guide--card__header h4 {
+				// 		font-size: 28px;
+				// 		color: $primary-dark;
+				// 	}
+				// }
+				// &:hover {
+				// 	.guide--card__header {
+				// 		background-color: white;
+				// 		transform: translateY(-20px);
+				// 	}
+				// }
+
+				&:hover {
+					.guide--card__info {
+						font-weight: bold;
+						opacity: 1;
+					}
+				}
+			}
 		}
 
-		.guide--card {
-			height: 100px;
-			padding: 24px 8px;
-			background-color: $primary-light;
-			position: relative;
-			box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-			border: 2px solid white;
-			border-radius: 8px;
-			span {
-				position: absolute;
-				content: "";
-				top: 0;
-				left: 50%;
-				transform: translate(-50%, -50%);
+		.guide--button {
+			margin-top: 24px;
+			display: flex;
+			flex-direction: row-reverse;
+
+			a {
+				font-size: 16px;
+				padding: 8px 12px;
+				border-radius: 16px;
 				background-color: $primary;
-				border-radius: 50%;
-				border: 2px solid white;
-				padding: 7px 16px;
-				font-weight: 500;
-				font-size: 18px;
+
 				color: white;
-			}
-			p {
-				color: white;
-				font-weight: 450;
-				text-align: center;
+				transition: all 0.2s ease-in-out;
+				i {
+					margin-left: 8px;
+					transition: all 0.2s ease-in-out;
+				}
+
+				&:hover {
+					opacity: 0.8;
+
+					i {
+						transform: translateX(30%);
+					}
+				}
 			}
 		}
 	}

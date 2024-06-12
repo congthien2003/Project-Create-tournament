@@ -70,6 +70,8 @@ export class BracketComponent implements OnInit {
 				this.canEdit = this.canEditService.canEdit(this.tour);
 
 				this.loadMatch();
+
+				console.log(this.quarterfinals.matchs.length);
 			},
 		});
 	}
@@ -123,6 +125,67 @@ export class BracketComponent implements OnInit {
 				listMatch[6]
 					? (this.final.matchs[0] = listMatch[6])
 					: (this.final.matchs[0] = { ...new Match() });
+				break;
+			}
+			case 15: {
+				for (let i = 0; i < 8; i++) {
+					this.round16.matchs[i] = listMatch[i];
+				}
+
+				let z = 0;
+				for (let j = 8; j < 12; j++) {
+					console.log(listMatch[j]);
+
+					listMatch[j] !== undefined
+						? (this.quarterfinals.matchs[z++] = listMatch[j])
+						: (this.quarterfinals.matchs[z++] = {
+								...new Match(),
+						  });
+				}
+
+				listMatch[12] !== undefined
+					? (this.semifinals.matchs[0] = listMatch[12])
+					: (this.semifinals.matchs[0] = { ...new Match() });
+				listMatch[13] !== undefined
+					? (this.semifinals.matchs[1] = listMatch[13])
+					: (this.semifinals.matchs[1] = { ...new Match() });
+
+				listMatch[14] !== undefined
+					? (this.final.matchs[0] = listMatch[14])
+					: (this.final.matchs[0] = { ...new Match() });
+
+				break;
+			}
+			case 31: {
+				let z = 0;
+
+				for (let k = 0; k < 16; k++) {
+					this.round32.matchs[k] = listMatch[z++];
+				}
+
+				for (let i = 0; i < 8; i++) {
+					this.round16.matchs[i] = listMatch[z++];
+				}
+
+				for (let j = 0; j < 4; j++) {
+					listMatch[j]
+						? (this.quarterfinals.matchs[z++] = listMatch[j])
+						: (this.quarterfinals.matchs[z++] = {
+								...new Match(),
+						  });
+				}
+
+				listMatch[z++] !== undefined
+					? (this.semifinals.matchs[0] = listMatch[z++])
+					: (this.semifinals.matchs[0] = { ...new Match() });
+				listMatch[z++] !== undefined
+					? (this.semifinals.matchs[1] = listMatch[z++])
+					: (this.semifinals.matchs[1] = { ...new Match() });
+
+				listMatch[z++] !== undefined
+					? (this.final.matchs[0] = listMatch[z++])
+					: (this.final.matchs[0] = { ...new Match() });
+
 				break;
 			}
 		}
@@ -409,3 +472,78 @@ export class BracketType {
 	title: string;
 	matchs: Match[];
 }
+
+export const listMatch = [
+	{
+		id: 1137,
+		idTeam1: 1204,
+		idTeam2: 1205,
+		round: 0,
+		created: "2024-06-02T15:53:04.5356761",
+		startAt: "2024-06-02T15:53:04.5356739",
+		tournamentId: 1050,
+	},
+	{
+		id: 1138,
+		idTeam1: 1206,
+		idTeam2: 1207,
+		round: 0,
+		created: "2024-06-02T15:53:04.5568415",
+		startAt: "2024-06-02T15:53:04.5568404",
+		tournamentId: 1050,
+	},
+	{
+		id: 1139,
+		idTeam1: 1208,
+		idTeam2: 1209,
+		round: 0,
+		created: "2024-06-02T15:53:04.5593896",
+		startAt: "2024-06-02T15:53:04.559389",
+		tournamentId: 1050,
+	},
+	{
+		id: 1140,
+		idTeam1: 1210,
+		idTeam2: 1211,
+		round: 0,
+		created: "2024-06-02T15:53:04.5612961",
+		startAt: "2024-06-02T15:53:04.5612954",
+		tournamentId: 1050,
+	},
+	{
+		id: 1141,
+		idTeam1: 1212,
+		idTeam2: 1213,
+		round: 0,
+		created: "2024-06-02T15:53:04.5632691",
+		startAt: "2024-06-02T15:53:04.5632684",
+		tournamentId: 1050,
+	},
+	{
+		id: 1142,
+		idTeam1: 1214,
+		idTeam2: 1215,
+		round: 0,
+		created: "2024-06-02T15:53:04.5651376",
+		startAt: "2024-06-02T15:53:04.5651368",
+		tournamentId: 1050,
+	},
+	{
+		id: 1143,
+		idTeam1: 1216,
+		idTeam2: 1217,
+		round: 0,
+		created: "2024-06-02T15:53:04.5670346",
+		startAt: "2024-06-02T15:53:04.567034",
+		tournamentId: 1050,
+	},
+	{
+		id: 1144,
+		idTeam1: 1218,
+		idTeam2: 1219,
+		round: 0,
+		created: "2024-06-02T15:53:04.5688386",
+		startAt: "2024-06-02T15:53:04.5688375",
+		tournamentId: 1050,
+	},
+];

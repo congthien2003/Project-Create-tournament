@@ -19,30 +19,13 @@ export class HomeComponent implements OnInit {
 		private router: Router
 	) {}
 
-	// Pagi
-	totalPage: number;
-	totalRecords: number;
-	currentPage: number = 1;
-	pageSize: number = 9;
-	pageSizeArr: number[] = [10, 15, 20, 30];
-	hasNext: any = true;
-	hasPrev: any = false;
-
 	ngOnInit(): void {
 		// Get Tour
-		this.tournamentService.getAll(this.currentPage,
-			this.pageSize,
-			).subscribe({
-			next: (res) => {
-				const value = Object.values(res);
+		this.tournamentService.getAll(1, 5, "", "view").subscribe({
+			next: (data) => {
+				const value = Object.values(data);
+				this.data = value[0] as Tournament[];
 
-					this.data = value[0] as Tournament[];
-					this.currentPage = value[1] as number;
-					this.pageSize = value[2] as number;
-					this.totalPage = value[3] as number;
-					this.hasNext = value[5] as boolean;
-					this.hasPrev = value[6] as boolean;
-					
 				this.dataSource = new MatTableDataSource<Tournament>(this.data);
 			},
 			error(err) {
@@ -79,7 +62,6 @@ export class HomeComponent implements OnInit {
 		"quantity",
 		"location",
 		"startAt",
-		"finishAt",
 		"views",
 		"actions",
 	];

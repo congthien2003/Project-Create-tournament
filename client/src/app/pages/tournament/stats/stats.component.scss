@@ -1,15 +1,194 @@
 @import "../../../shared/variable.scss";
 
+.dashboard {
+	background-color: $primary;
+	padding: 48px 32px;
+
+	&--header {
+		h3 {
+			font-size: 32px;
+			font-weight: bold;
+			color: white;
+			margin-bottom: 0;
+		}
+		margin-bottom: 24px;
+	}
+
+	&--content {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		gap: 12px;
+	}
+
+	&--card {
+		height: 200px;
+		width: 350px;
+		padding: 24px;
+		display: flex;
+		flex-direction: column;
+		border-radius: 8px;
+		background-color: white;
+
+		.card {
+			&--header {
+				font-size: 20px;
+				font-weight: bold;
+				color: $primary-dark;
+			}
+
+			&--content {
+				display: grid;
+				grid-template-columns: 60% 40%;
+				.info {
+					display: flex;
+					flex-direction: column;
+					gap: 24px;
+					padding: 24px 0px;
+					.main-info {
+						font-size: 52px;
+						font-weight: bold;
+						color: $primary-dark;
+					}
+					.sub-info {
+						font-size: 16px;
+						color: $primary-dark;
+					}
+				}
+				.img {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					img {
+						width: 100%;
+					}
+				}
+			}
+		}
+
+		&:hover {
+			background-color: $primary-blue;
+		}
+	}
+}
 .stats {
 	&--wrapper {
-		height: 100vh;
 		width: 100%;
 		background-color: $white-smoke;
 		display: grid;
-		grid-template-columns: auto auto;
+		grid-template-columns: auto;
+		grid-template-rows: auto auto auto;
 		padding: 24px 48px;
-		gap: 48px;
-		.history--table {
+		gap: 24px;
+
+		.header {
+			h3 {
+				margin-bottom: 0;
+				font-size: 20px;
+				font-weight: bold;
+				color: white;
+				background-color: $primary-light;
+				text-align: center;
+				padding: 12px 24px;
+			}
+		}
+
+		.team-stats {
+			.team {
+				&--card {
+					width: 200px;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					gap: 24px;
+					padding: 12px 8px;
+					border-radius: 8px;
+				}
+
+				&--img {
+					width: 100%;
+					object-fit: cover;
+				}
+
+				&--name {
+					font-size: 28px;
+					font-weight: bold;
+					text-align: center;
+				}
+
+				&--content {
+					p {
+						font-size: 16px;
+						margin-bottom: 8px;
+						span {
+							display: inline-block;
+							margin-left: auto;
+							font-weight: bold;
+						}
+					}
+				}
+			}
+		}
+
+		.players-stats {
+		}
+
+		.history {
+		}
+	}
+}
+
+.img-team--wrapper {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	img {
+		width: 100%;
+		display: block;
+	}
+}
+
+.top-score-card {
+	position: relative;
+	.img-logo--team {
+		position: absolute;
+		content: "";
+		top: 20%;
+		right: 40px;
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transition: all 0.3s ease-in-out;
+		transform: translateX(30%);
+		img {
+			width: 100%;
+			display: block;
+			transition: all 0.1s ease-out;
+			opacity: 1;
+		}
+	}
+	transition: all 0.2s ease-in;
+	&:hover {
+		background-color: $primary-blue;
+
+		.img img {
+			display: none;
+			opacity: 0;
+		}
+
+		.img-logo--team {
+			z-index: 5;
+			opacity: 1;
+			transform: translateX(0%);
 		}
 	}
 }

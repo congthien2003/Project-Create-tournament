@@ -22,6 +22,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatMenuModule } from "@angular/material/menu";
 import { RolePipe } from "../core/utils/role.pipe";
 import { PaginationComponent } from "./components/pagination/pagination.component";
+import { MatSortModule } from "@angular/material/sort";
 const MatImport = [
 	MatTabsModule,
 	MatTableModule,
@@ -36,6 +37,7 @@ const MatImport = [
 	MatDatepickerModule,
 	MatNativeDateModule,
 	MatMenuModule,
+	MatSortModule,
 ];
 
 @NgModule({
