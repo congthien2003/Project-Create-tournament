@@ -11,7 +11,7 @@ namespace CreateTournament.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [AllowAnonymous]
     public class SportTypeController : ControllerBase
     {
         private readonly ISportTypeService _sportTypeService;

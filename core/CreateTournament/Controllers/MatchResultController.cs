@@ -8,6 +8,7 @@ namespace CreateTournament.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class MatchResultController : ControllerBase
     {
         private readonly IMatchResultService _matchResult;

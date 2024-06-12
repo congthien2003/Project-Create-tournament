@@ -9,7 +9,7 @@ namespace CreateTournament.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [AllowAnonymous]
     public class FormatTypeController : ControllerBase
     {
         private readonly IFormatTypeService _formatTypeService;

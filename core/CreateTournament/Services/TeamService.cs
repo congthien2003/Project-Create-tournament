@@ -25,6 +25,12 @@ namespace CreateTournament.Services
             return _mapper.Map<TeamDTO>(team);
         }
 
+        public async Task<List<TeamDTO>> CreateListTeamAsync(int quantity, int IdTournament)
+        {
+            var teams = await _teamRepo.CreateListTeamAsync(quantity, IdTournament);
+            return _mapper.Map<List<TeamDTO>>(teams);
+        }
+
         public async Task<TeamDTO> FindTeamByIdAsync(int id)
         {
             var team = await _teamRepo.FindByIdAsync(id);

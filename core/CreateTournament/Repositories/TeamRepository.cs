@@ -1,4 +1,5 @@
 ﻿using CreateTournament.Data;
+using CreateTournament.DTOs;
 using CreateTournament.Interfaces.IRepositories;
 using CreateTournament.Models;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,8 @@ namespace CreateTournament.Repositories
         }
         public async Task<Team> CreateAsync(Team team)
         {
+            team.Eliminated = false;
+            team.Point = 0;
             _context.Teams.Add(team); 
             await _context.SaveChangesAsync();
             return team;
@@ -84,6 +87,26 @@ namespace CreateTournament.Repositories
             }
             await _context.SaveChangesAsync();
             return exits;
+        }
+        public async Task<List<Team>> CreateListTeamAsync(int quantity, int idTournament)
+        {
+            if(quantity <= 0)
+            {
+                return null;
+            }
+            var teams = new List<Team>();
+            for (int i = 1; i <= quantity; i++)
+            {
+                var team = new Team
+                {
+                    Name = $"#{i}",
+                    TournamentId = idTournament,
+                };
+                teams.Add(team);
+            }
+            await _context.AddRangeAsync(teams);
+            await _context.SaveChangesAsync();
+            return teams;
         }
     }
 }

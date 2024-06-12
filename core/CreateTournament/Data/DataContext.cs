@@ -16,6 +16,7 @@ namespace CreateTournament.Data
         public DbSet<Match> Matches { get; set; }
         public DbSet<MatchResult> MatchResults { get; set; }
         public DbSet<PlayerStats> PlayerStats { get; set; }
+        public DbSet<TypeOfMatch> TypeOfMatches { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PlayerStats>()

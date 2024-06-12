@@ -11,18 +11,22 @@ namespace CreateTournament.Services
     {
         private readonly ITournamentRepository<Tournament> _tournamentRepository;
         private readonly IMapper mapper;
+        private readonly ITeamRepository<Team> _teamRepo;
+        private readonly IMatchRepository<Match> _matchRepo;
 
-        public TournamentService(ITournamentRepository<Tournament> tournamentRepository,IMapper mapper)
+        public TournamentService(ITournamentRepository<Tournament> tournamentRepository,IMapper mapper
+                                 ,ITeamRepository<Team> teamRepository, IMatchRepository<Match> matchRepository)
         {
             _tournamentRepository = tournamentRepository;
             this.mapper = mapper;
+            _teamRepo = teamRepository;
+            _matchRepo = matchRepository;
         }
 
         public async Task<TournamentDTO> Create(TournamentDTO tournamentDTO)
         {
             var newTournament = mapper.Map<Tournament>(tournamentDTO);
             var tournament = await _tournamentRepository.Create(newTournament);
-
             var createTournament = mapper.Map<TournamentDTO>(tournament);
             return createTournament;
         }

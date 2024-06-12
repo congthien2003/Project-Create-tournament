@@ -9,6 +9,7 @@ namespace CreateTournament.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
+
     public class PlayerController : ControllerBase
     {
         private readonly IPlayerService _playerService;

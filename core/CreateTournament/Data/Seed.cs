@@ -34,6 +34,10 @@ namespace CreateTournament.Data
                         new FormatType()
                         {
                             Name = "Knock Out"
+                        },
+                        new FormatType()
+                        {
+                            Name = "Long Distance"
                         }
                     });
                     context.SaveChanges();
@@ -94,25 +98,29 @@ namespace CreateTournament.Data
                         {
                             Name = "Real Madrid",
                             TournamentId = tournamentId,
-                            IsDeleted =false
+                            IsDeleted =false,
+                            Eliminated = false,
                         },
                         new Team()
                         {
                             Name = "PSG",
                             TournamentId = tournamentId,
-                            IsDeleted =false
+                            IsDeleted =false,
+                            Eliminated = false,
                         },
                         new Team()
                         {
                             Name = "Bayern Munich",
                             TournamentId = tournamentId,
-                            IsDeleted =false
+                            IsDeleted =false,
+                            Eliminated = false
                         },
                         new Team()
                         {
                             Name = "DortMund",
                             TournamentId = tournamentId,
-                            IsDeleted =false
+                            IsDeleted =false,
+                            Eliminated = false
                         }
                     });
                     context.SaveChanges();
@@ -357,6 +365,37 @@ namespace CreateTournament.Data
                             RedCard = 0,
                             YellowCard = 0,
                         },
+                    });
+                    context.SaveChanges();
+                }
+                if (!context.TypeOfMatches.Any())
+                {
+                    context.TypeOfMatches.AddRange(new List<TypeOfMatch>
+                    {
+                        new TypeOfMatch()
+                        {
+                            Name = "Round 32"
+                        },
+                        new TypeOfMatch()
+                        {
+                            Name = "Round 16"
+                        },
+                        new TypeOfMatch()
+                        {
+                            Name = "Quarter-Final"
+                        },
+                        new TypeOfMatch()
+                        {
+                            Name = "Semi-Final"
+                        },
+                        new TypeOfMatch()
+                        {
+                            Name = "Final"
+                        },
+                        new TypeOfMatch()
+                        {
+                            Name = "League"
+                        }
                     });
                     context.SaveChanges();
                 }
