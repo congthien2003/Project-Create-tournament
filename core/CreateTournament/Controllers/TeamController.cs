@@ -1,10 +1,9 @@
-﻿
+
 using CreateTournament.DTOs;
 using CreateTournament.Interfaces.IServices;
 using CreateTournament.Models;
 using CreateTournament.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CreateTournament.Controllers
@@ -12,6 +11,7 @@ namespace CreateTournament.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
+
     public class TeamController : ControllerBase
     {
         private readonly ITeamService _teamService;

@@ -11,6 +11,7 @@ namespace CreateTournament.Models
         public DateTime StartAt { get; set; } = DateTime.UtcNow;
         public int round { get; set; }
         public int TournamentId { get; set; }
+        public int STT { get; set; }
         [ForeignKey("TournamentId")]
         public Tournament Tournament { get; set; }
     }

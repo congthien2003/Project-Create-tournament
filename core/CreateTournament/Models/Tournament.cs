@@ -25,6 +25,7 @@ namespace CreateTournament.Models
         public int SportTypeId { get; set; }
         [ForeignKey("SportTypeId")]
         public SportType SportType { get; set; }
+
         public Collection<Team> Teams { get; set; }
     }
 }

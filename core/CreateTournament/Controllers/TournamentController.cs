@@ -11,14 +11,21 @@ namespace CreateTournament.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [AllowAnonymous]
     public class TournamentController : ControllerBase
     {
         private readonly ITournamentService _tournamentService;
+        private readonly ITournamentRepository<Tournament> _tournamentRepository;
+        private readonly ITeamService _teamService;
+        private readonly IMatchService _matchService;
 
-        public TournamentController(ITournamentService tournamentService)
+        public TournamentController(ITournamentService tournamentService, ITournamentRepository<Tournament> tournamentRepository,
+                                    ITeamService teamService, IMatchService matchService )
         {
             _tournamentService = tournamentService;
+            _tournamentRepository = tournamentRepository;
+            _teamService = teamService;
+            _matchService = matchService;
         }
 
         [HttpGet("getall")]
@@ -68,6 +75,8 @@ namespace CreateTournament.Controllers
         public async Task<ActionResult> Create(TournamentDTO tournamentDTO)
         {
             var newtournament = await _tournamentService.Create(tournamentDTO);
+            await _teamService.CreateListTeamAsync(newtournament.QuantityTeam, newtournament.Id);
+            await _matchService.CreateListMatchAsync(newtournament.Id);
             return Ok(newtournament);
         }
 
@@ -97,10 +106,8 @@ namespace CreateTournament.Controllers
         [Route("{id:int}")]
         public async Task<ActionResult> Deleted(int id)
         {
-
                 var tournament = await _tournamentService.Delete(id);
                 return Ok(tournament);
-
         }
 
         [HttpGet("search")]

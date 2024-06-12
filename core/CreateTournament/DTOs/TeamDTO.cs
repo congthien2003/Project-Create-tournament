@@ -10,6 +10,7 @@ namespace CreateTournament.DTOs
         public string Name { get; set; }
         public string? ImageTeam { get; set; }
         public int? Point { get; set; }
+        public bool? Eliminated { get; set; }
         public Collection<PlayerDTO> Players { get; set; }
         public int TournamentId { get; set; }
         public TournamentDTO TournamentDTO { get; set; }
