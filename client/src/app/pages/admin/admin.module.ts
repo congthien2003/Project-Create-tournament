@@ -22,7 +22,6 @@ import { FormFormatTypeComponent } from "./management-format-type/form-format-ty
 	declarations: [
 		LayoutComponent,
 		DashboardComponent,
-		UserComponent,
 		AdminComponent,
 		ManagementUserComponent,
 		ManagementTournamentComponent,

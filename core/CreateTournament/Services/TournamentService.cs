@@ -61,22 +61,22 @@ namespace CreateTournament.Services
             return mapper.Map<TournamentDTO>(editTournament);
 
         }
-        public async Task<List<TournamentDTO>> SearchTournaments(string searchTerm = "", int idSportType = 0, bool incluDeleted = false)
+        public async Task<List<TournamentDTO>> SearchTournaments(string searchTerm = "", bool incluDeleted = false)
         {
-            var tournaments = await _tournamentRepository.SearchTournaments(searchTerm, idSportType, incluDeleted);
+            var tournaments = await _tournamentRepository.SearchTournaments(searchTerm, incluDeleted);
             return mapper.Map<List<TournamentDTO>>(tournaments);
         }
 
-        public async Task<List<TournamentDTO>> GetList(int currentPage = 1, int pageSize = 5, string searchTerm = "", int idSportType = -1, bool incluDeleted = false)
+        public async Task<List<TournamentDTO>> GetList(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortColumn = "", bool ascSort = true, bool incluDeleted = false)
         {
-            var tournaments = await _tournamentRepository.GetList(currentPage, pageSize, searchTerm, idSportType);
+            var tournaments = await _tournamentRepository.GetList(currentPage, pageSize, searchTerm, sortColumn, ascSort);
             return mapper.Map<List<TournamentDTO>>(tournaments);
 
         }
 
-        public async Task<int> GetCountList(string searchTerm = "", int idSportType = 0, bool incluDeleted = false)
+        public async Task<int> GetCountList(string searchTerm = "", bool incluDeleted = false)
         {
-            var count = await _tournamentRepository.GetCount(searchTerm, idSportType);
+            var count = await _tournamentRepository.GetCount (searchTerm);
             return count;
         }
     }

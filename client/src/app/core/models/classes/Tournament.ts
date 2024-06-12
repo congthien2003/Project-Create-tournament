@@ -7,7 +7,7 @@ export class Tournament implements ITournament {
 	finishAt: Date;
 	quantityTeam: number;
 	location: string;
-	views: number;
+	view: number;
 	userId: number;
 	formatTypeId: number;
 	sportTypeId: number;
@@ -17,6 +17,6 @@ export class Tournament implements ITournament {
 		this.finishAt = new Date();
 		this.quantityTeam = 0;
 		this.location = "";
-		this.views = 0;
+		this.view = 0;
 	}
 }

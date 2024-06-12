@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { Tournament } from "src/app/core/models/classes/Tournament";
 import { TournamentService } from "src/app/core/services/tournament.service";
 import { IdloaderService } from "src/app/shared/services/idloader.service";
@@ -9,7 +9,7 @@ import { IdloaderService } from "src/app/shared/services/idloader.service";
 	templateUrl: "./tournament.component.html",
 	styleUrls: ["./tournament.component.scss"],
 })
-export class TournamentComponent implements OnInit {
+export class TournamentComponent implements OnInit, OnChanges {
 	idTour: number = 0;
 
 	tour: Tournament | undefined;
@@ -17,8 +17,10 @@ export class TournamentComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private shared: IdloaderService,
-		private tourService: TournamentService
+		private tourService: TournamentService,
+		private router: Router
 	) {}
+	ngOnChanges(changes: SimpleChanges): void {}
 
 	ngOnInit(): void {
 		const id = this.route.snapshot.paramMap.get("id");
@@ -34,6 +36,14 @@ export class TournamentComponent implements OnInit {
 				this.tourService.updateView(value).subscribe({
 					next: () => {},
 				});
+			},
+		});
+	}
+
+	loadTour(): void {
+		this.tourService.getById(this.idTour).subscribe({
+			next: (value) => {
+				this.tour = value;
 			},
 		});
 	}

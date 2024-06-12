@@ -1,0 +1,145 @@
+<div class="form-edit">
+	<div class="form-edit__header">
+		<h4>Thông số các cầu thủ</h4>
+		<button
+			type="button"
+			class="btn-close"
+			aria-label="Close"
+			mat-dialog-close></button>
+	</div>
+
+	<div class="form-edit__main overflow-y-scroll">
+		<div class="form-stats">
+			<div class="form-stats--header">
+				{{ this.data.team1.name }}
+			</div>
+			<div class="form-stats--main">
+				<div
+					class="stats--input"
+					*ngFor="let info of listInputPlayerTeam1">
+					<h3>{{ info.player.name }}</h3>
+					<div class="input--wrapper">
+						<div class="form-control">
+							<label for="score">Bàn thắng</label>
+							<input
+								min="0"
+								max="10"
+								[value]="info.playerStats.score"
+								name="score"
+								type="number"
+								[(ngModel)]="info.playerStats.score" />
+						</div>
+						<div class="form-control">
+							<label for="assists">Kiến tạo</label>
+							<input
+								min="0"
+								max="10"
+								[value]="info.playerStats.assists"
+								name="assists"
+								type="number"
+								[(ngModel)]="info.playerStats.assists" />
+						</div>
+
+						<div class="form-control">
+							<label for="yellowCard">Thẻ vàng</label>
+							<input
+								min="0"
+								max="2"
+								[value]="info.playerStats.yellowCard"
+								name="yellowCard"
+								type="number"
+								[(ngModel)]="info.playerStats.yellowCard" />
+						</div>
+
+						<div class="form-control">
+							<label for="redCard">Thẻ đỏ</label>
+							<input
+								min="0"
+								max="1"
+								[value]="info.playerStats.redCard"
+								name="redCard"
+								type="number"
+								[(ngModel)]="info.playerStats.redCard" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-stats">
+			<div class="form-stats--header">
+				{{ this.data.team2.name }}
+			</div>
+			<div class="form-stats--main">
+				<div
+					class="stats--input"
+					*ngFor="let info of listInputPlayerTeam2">
+					<h3>{{ info.player.name }}</h3>
+					<div class="input--wrapper">
+						<div class="form-control">
+							<label for="score">Bàn thắng</label>
+							<input
+								min="0"
+								max="10"
+								[value]="info.playerStats.score"
+								name="score"
+								type="number"
+								[(ngModel)]="info.playerStats.score" />
+						</div>
+						<div class="form-control">
+							<label for="assists">Kiến tạo</label>
+							<input
+								min="0"
+								max="10"
+								[value]="info.playerStats.assists"
+								name="assists"
+								type="number"
+								[(ngModel)]="info.playerStats.assists" />
+						</div>
+
+						<div class="form-control">
+							<label for="yellowCard">Thẻ vàng</label>
+							<input
+								min="0"
+								max="2"
+								[value]="info.playerStats.yellowCard"
+								name="yellowCard"
+								type="number"
+								[(ngModel)]="info.playerStats.yellowCard" />
+						</div>
+
+						<div class="form-control">
+							<label for="redCard">Thẻ đỏ</label>
+							<input
+								min="0"
+								max="1"
+								[value]="info.playerStats.redCard"
+								name="redCard"
+								type="number"
+								[(ngModel)]="info.playerStats.redCard" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-edit__actions">
+			<button
+				mat-stroked-button
+				type="button"
+				class="btn btn-secondary-custom"
+				mat-dialog-close>
+				Hủy
+			</button>
+			<button
+				mat-raised-button
+				color="warn"
+				type="button"
+				class="btn btn-primary-custom"
+				(click)="handleSave()"
+				[disabled]="false">
+				Lưu
+			</button>
+		</div>
+	</div>
+</div>

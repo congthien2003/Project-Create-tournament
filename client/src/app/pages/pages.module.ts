@@ -15,7 +15,6 @@ import { FindTournamentComponent } from "./find-tournament/find-tournament.compo
 import { TournamentModule } from "./tournament/tournament.module";
 import { MatMenuModule } from "@angular/material/menu";
 import { MytourComponent } from "./mytour/mytour.component";
-import { UserComponent } from "./user/user.component";
 const MatModule = [
 	MatCommonModule,
 	MatTableModule,

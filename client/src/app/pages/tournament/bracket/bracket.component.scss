@@ -11,7 +11,7 @@
 	}
 
 	&--header {
-		color: $primary-medium;
+		color: $primary-dark;
 		padding: 12px 48px;
 		font-size: 24px;
 		font-weight: bold;
@@ -30,6 +30,7 @@
 	&--main {
 		display: grid;
 		grid-template-columns: auto auto auto;
+		gap: 24px;
 	}
 }
 

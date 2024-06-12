@@ -75,7 +75,7 @@ namespace CreateTournament.Repositories
             return playerStats;
         }
 
-        public async Task<List<PlayerStats>> GetAllByIdTournamentTeam(int id,bool includeDeleted = false , int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false)
+        public async Task<List<PlayerStats>> GetTeamStats(int id,bool includeDeleted = false , int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false)
         {
             var playerStats =  _context.PlayerStats
                                      .Include(ps => ps.Player)
@@ -98,12 +98,23 @@ namespace CreateTournament.Repositories
                 playerStats = playerStats.OrderBy(x => x.Id);
             }
 
-            return await playerStats.Skip((currentPage - 1) * pageSize)
+            return await playerStats
+                          .Skip((currentPage - 1) * pageSize)
                           .Take(pageSize)
                           .ToListAsync();
 
         }
+        public async Task<List<PlayerStats>> GetTeamStatsNoPagi(int id, bool includeDeleted = false)
+        {
+            var playerStats = _context.PlayerStats
+                                     .Include(ps => ps.Player)
+                                     .ThenInclude(p => p.Team).AsQueryable()
+                                     .Where(ps => ps.Player.Team.TournamentId == id && !ps.IsDeleted);
 
+            
+
+            return await playerStats.ToListAsync();
+        }
         public async Task<List<PlayerStats>> GetAllByIdTournamentAsync(int id, bool includeDeleted = false)
         {
             var tour = await _context.Tournaments.FirstOrDefaultAsync(obj => obj.Id == id && obj.IsDeleted == includeDeleted);
@@ -139,9 +150,9 @@ namespace CreateTournament.Repositories
             return playerStat;
         }
 
-        public async Task<PlayerStats> GetByIdMatchAndIdPlayerAsync(int idPlayer, int idMatch, bool inculdeDeleted = false)
+        public async Task<PlayerStats> GetByIdMatchAndIdPlayerAsync(int idMatch, int idPlayer, bool inculdeDeleted = false)
         {
-            var playerStat = await _context.PlayerStats.FirstOrDefaultAsync(obj => obj.PlayerId == idPlayer && obj.MatchResultId == idMatch && obj.IsDeleted == inculdeDeleted);
+            var playerStat = await _context.PlayerStats.FirstOrDefaultAsync(obj => obj.PlayerId == idPlayer && obj.MatchResult.MatchId == idMatch && obj.IsDeleted == inculdeDeleted);
             if (playerStat == null)
             {
                 return null;
@@ -159,7 +170,7 @@ namespace CreateTournament.Repositories
             else
             {
                 exits.Score = playerStats.Score;
-                exits.Assits = playerStats.Assits;
+                exits.Assists = playerStats.Assists;
                 exits.YellowCard = playerStats.YellowCard;
                 exits.RedCard = playerStats.RedCard;
             }
@@ -172,8 +183,8 @@ namespace CreateTournament.Repositories
             {
                 case "score":
                     return x => x.Score;
-                case "assits":
-                    return x => x.Assits;
+                case "assists":
+                    return x => x.Assists;
                 case "yellowcard":
                     return x => x.YellowCard;
                 case "redcard":
@@ -231,12 +242,11 @@ namespace CreateTournament.Repositories
             }
             return playerstat.Count();
         }
-
-        public async Task<List<PlayerStats>> GetAllPlayerStatsByTournamentAsync(int id, bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = true)
+        public async Task<List<PlayerStats>> GetTourStats(int idTournament, string sortColumn = "", bool ascendingOrder = true)
         {
 
             var matches = await _context.Matches
-                                    .Where(m => m.TournamentId == id && !m.IsDeleted)
+                                    .Where(m => m.TournamentId == idTournament && !m.IsDeleted)
                                     .Select(m => m.Id)
                                     .ToListAsync();
 
@@ -253,11 +263,11 @@ namespace CreateTournament.Repositories
             {
                 if (ascendingOrder)
                 {
-                    playerStats = playerStats.OrderBy(GetSortColumnExpression(sortColumn));
+                    playerStats = playerStats.OrderBy(GetSortColumnExpression(sortColumn.ToLower()));
                 }
                 else
                 {
-                    playerStats = playerStats.OrderByDescending(GetSortColumnExpression(sortColumn));
+                    playerStats = playerStats.OrderByDescending(GetSortColumnExpression(sortColumn.ToLower()));
                 }
             }
             else
@@ -265,12 +275,7 @@ namespace CreateTournament.Repositories
                 playerStats = playerStats.OrderBy(x => x.Id);
             }
 
-            return await playerStats
-                          .Skip((currentPage - 1) * pageSize)
-                          .Take(pageSize)
-                          .ToListAsync();
-
-
+            return await playerStats.ToListAsync();
         }
     }
 }

@@ -63,13 +63,14 @@
 				padding: 12px;
 				position: relative;
 				.btn-edit {
-					background-color: white;
 					position: absolute;
 					top: 50%;
 					right: 12px;
 					transform: translateY(-50%);
+					transition: 0.15s ease-in;
 					&:hover {
-						background-color: #f3f3f3;
+						background-color: white;
+						color: $primary;
 					}
 				}
 

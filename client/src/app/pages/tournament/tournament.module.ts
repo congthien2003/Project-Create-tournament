@@ -29,6 +29,8 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { TeamCardComponent } from "./team/team-card/team-card.component";
 import { PlayerCardComponent } from "./team/team-card/player-card/player-card.component";
 import { HistoryCardComponent } from "./stats/history-card/history-card.component";
+import { FormEditStatsComponent } from './bracket/bracket-card/form-edit-stats/form-edit-stats.component';
+import { ViewResultComponent } from './bracket/bracket-card/view-result/view-result.component';
 
 const MatImport = [
 	MatTabsModule,
@@ -61,6 +63,8 @@ const MatImport = [
 		TeamCardComponent,
 		PlayerCardComponent,
 		HistoryCardComponent,
+  FormEditStatsComponent,
+  ViewResultComponent,
 	],
 	imports: [
 		CommonModule,

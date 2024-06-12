@@ -17,8 +17,6 @@
 				</div>
 
 				<button
-					mat-raised-button
-					color="warn"
 					(click)="onSearch()"
 					aria-label="Search"
 					class="find-btn">
@@ -51,7 +49,8 @@
 						<tour-card
 							[tourName]="tour.name"
 							[quantity]="tour.quantityTeam"
-							[location]="tour.location"></tour-card>
+							[location]="tour.location"
+							[view]="tour.view"></tour-card>
 					</div>
 				</div>
 			</div>

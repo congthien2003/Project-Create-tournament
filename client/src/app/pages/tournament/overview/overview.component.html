@@ -10,14 +10,15 @@
 
 						<!-- Button trigger modal -->
 						<button
-							mat-stroked-button
-							color="warn"
+							mat-flat-button
+							color="basic"
 							aria-label="edit"
 							*ngIf="canEdit"
 							type="button"
 							class="btn-edit"
 							data-bs-toggle="modal"
-							data-bs-target="#modalEdit">
+							data-bs-target="#modalEdit"
+							matTooltip="Chỉnh sửa thông tin giải">
 							<i class="fa-solid fa-edit"></i>
 						</button>
 
@@ -70,6 +71,14 @@
 								<div class="col-6">Số lượng đội:</div>
 								<div class="col-6">
 									{{ Tour.quantityTeam }}
+								</div>
+							</div>
+						</div>
+						<div class="info">
+							<div class="row">
+								<div class="col-6">Lượt xem giải:</div>
+								<div class="col-6">
+									{{ Tour.view }}
 								</div>
 							</div>
 						</div>
@@ -152,14 +161,15 @@
 						Đội thi đấu
 						<!-- Button trigger modal -->
 						<button
-							mat-stroked-button
-							color="warn"
+							mat-flat-button
+							color="basic"
 							aria-label="edit"
 							*ngIf="canEdit"
 							type="button"
 							class="btn-edit"
 							data-bs-toggle="modal"
-							data-bs-target="#modalEditTeam">
+							data-bs-target="#modalEditTeam"
+							matTooltip="Chỉnh sửa thông tin đội">
 							<i class="fa-solid fa-edit"></i>
 						</button>
 

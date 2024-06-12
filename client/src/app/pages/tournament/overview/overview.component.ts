@@ -1,5 +1,13 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import {
+	Component,
+	EventEmitter,
+	OnChanges,
+	OnDestroy,
+	OnInit,
+	Output,
+	SimpleChanges,
+} from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Team } from "src/app/core/models/classes/Team";
 import { Tournament } from "src/app/core/models/classes/Tournament";
 import { AuthenticationService } from "src/app/core/services/auth/authentication.service";
@@ -46,8 +54,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
 		private authService: AuthenticationService,
 		public dialog: MatDialog,
 		private toastr: ToastrService,
-		private idloaderService: IdloaderService
+		private idloaderService: IdloaderService,
+		private router: Router
 	) {}
+
 	ngOnDestroy(): void {
 		this.subscription.unsubscribe();
 	}
@@ -107,19 +117,33 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
 	editTour(): void {}
 
+	loadTour() {
+		this.tourService.getById(this.idTour).subscribe({
+			next: (tour) => {
+				this.Tour = tour;
+			},
+		});
+	}
+
 	saveTourData(event: any): void {
 		this.Tour.name = event.name;
 		this.Tour.location = event.location;
 
 		this.tourService.updateById(this.Tour).subscribe({
 			next: (tour) => {
-				console.log(tour);
+				this.loadTour();
+				const currentUrl = this.router.url;
+				this.router
+					.navigateByUrl("/", { skipLocationChange: true })
+					.then(() => {
+						this.router.navigate([currentUrl]);
+					});
+
 				this.toastr.success("", "Cập nhật thành công", {
 					timeOut: 3000,
 				});
 			},
 			error: (error) => {
-				console.log(error);
 				this.toastr.error("", "Cập nhật không thành công", {
 					timeOut: 3000,
 				});

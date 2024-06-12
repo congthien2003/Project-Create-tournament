@@ -80,7 +80,6 @@ export class BracketComponent implements OnInit {
 		this.matchService.list(this.idTour).subscribe({
 			next: (value) => {
 				this.listMatch = value;
-				console.log(this.listMatch);
 
 				this.convertData(this.tour, this.listMatch);
 			},
@@ -96,8 +95,6 @@ export class BracketComponent implements OnInit {
 			quantityMatch += temp / 2;
 			temp = temp / 2;
 		}
-
-		console.log(quantityMatch);
 
 		switch (quantityMatch) {
 			case 1: {
@@ -134,7 +131,6 @@ export class BracketComponent implements OnInit {
 				for (let i = 0; i < 8; i++) {
 					this.round16.matchs[i] = listMatch[i];
 				}
-				console.log(this.round16.matchs);
 
 				let z = 0;
 				for (let j = 8; j < 12; j++) {
@@ -147,8 +143,6 @@ export class BracketComponent implements OnInit {
 						  });
 				}
 
-				console.log(this.quarterfinals.matchs);
-
 				listMatch[12] !== undefined
 					? (this.semifinals.matchs[0] = listMatch[12])
 					: (this.semifinals.matchs[0] = { ...new Match() });
@@ -156,13 +150,9 @@ export class BracketComponent implements OnInit {
 					? (this.semifinals.matchs[1] = listMatch[13])
 					: (this.semifinals.matchs[1] = { ...new Match() });
 
-				console.log(this.semifinals.matchs);
-
 				listMatch[14] !== undefined
 					? (this.final.matchs[0] = listMatch[14])
 					: (this.final.matchs[0] = { ...new Match() });
-
-				console.log(this.final.matchs);
 
 				break;
 			}
@@ -173,12 +163,9 @@ export class BracketComponent implements OnInit {
 					this.round32.matchs[k] = listMatch[z++];
 				}
 
-				console.log(this.round32.matchs);
-
 				for (let i = 0; i < 8; i++) {
 					this.round16.matchs[i] = listMatch[z++];
 				}
-				console.log(this.round16.matchs);
 
 				for (let j = 0; j < 4; j++) {
 					listMatch[j]
@@ -188,8 +175,6 @@ export class BracketComponent implements OnInit {
 						  });
 				}
 
-				console.log(this.quarterfinals.matchs);
-
 				listMatch[z++] !== undefined
 					? (this.semifinals.matchs[0] = listMatch[z++])
 					: (this.semifinals.matchs[0] = { ...new Match() });
@@ -197,13 +182,9 @@ export class BracketComponent implements OnInit {
 					? (this.semifinals.matchs[1] = listMatch[z++])
 					: (this.semifinals.matchs[1] = { ...new Match() });
 
-				console.log(this.semifinals.matchs);
-
 				listMatch[z++] !== undefined
 					? (this.final.matchs[0] = listMatch[z++])
 					: (this.final.matchs[0] = { ...new Match() });
-
-				console.log(this.final.matchs);
 
 				break;
 			}

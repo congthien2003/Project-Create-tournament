@@ -14,6 +14,7 @@ import { MatchResultService } from "src/app/core/services/match-result.service";
 import { MatchService } from "src/app/core/services/match.service";
 import { PlayerService } from "src/app/core/services/player.service";
 import { PlayerStatsService } from "src/app/core/services/playerstats.service";
+import { TeamService } from "src/app/core/services/team.service";
 import { TournamentService } from "src/app/core/services/tournament.service";
 import { IdloaderService } from "src/app/shared/services/idloader.service";
 
@@ -35,30 +36,16 @@ export class StatsComponent implements OnInit {
 		"id",
 		"playerId",
 		"score",
-		"assits",
 		"redCard",
 		"yellowCard",
 	];
-	dataSource = new MatTableDataSource(dataTeam);
+	tourStats!: any;
+	teamStats: any[] = [];
+	playerStats: any[] = [];
 
-	@ViewChild(MatSort) sort: MatSort;
+	teamStatsSource!: any;
 
-	ngAfterViewInit() {
-		this.dataSource.sort = this.sort;
-	}
-
-	/** Announce the change in sort state for assistive technology. */
-	announceSortChange($event: any) {
-		// This example uses English messages. If your application supports
-		// multiple language, you would internationalize these strings.
-		// Furthermore, you can customize the message to add additional
-		// details about the values being sorted.
-		if ($event.direction) {
-			this._liveAnnouncer.announce(`Sorted ${$event.direction}ending`);
-		} else {
-			this._liveAnnouncer.announce("Sorting cleared");
-		}
-	}
+	topScore!: any;
 
 	private subscription: Subscription;
 
@@ -68,11 +55,11 @@ export class StatsComponent implements OnInit {
 		private matchService: MatchService,
 		private matchResultService: MatchResultService,
 		private playerStatsService: PlayerStatsService,
+		private teamService: TeamService,
 		private playerService: PlayerService,
 		public dialog: MatDialog,
 		private toastr: ToastrService,
-		private idloaderService: IdloaderService,
-		private _liveAnnouncer: LiveAnnouncer
+		private idloaderService: IdloaderService
 	) {}
 
 	ngOnInit(): void {
@@ -109,34 +96,160 @@ export class StatsComponent implements OnInit {
 				});
 
 				// TODO: Table Player Stats, Team Stats
-				this.playerStatsService
-					.getByIdTournament(this.Tour.id)
-					.subscribe({
-						next: (value) => {
-							this.listStats = value;
-							const reformattedArray = this.listStats.map(
-								(element) => {
-									const idPlayer = element.playerId;
-									this.playerService
-										.getById(idPlayer)
-										.subscribe({
-											next: (value) => {
-												return [...value.name];
-											},
-										});
-								}
-							);
-							// console.log(this.listStats);
-							// console.log(reformattedArray);
 
-							// this.dataSource = new MatTableDataSource(
-							// 	dataTeam
-							// );
+				// * Tour Stats
+				this.playerStatsService
+					.getTourStatsByIdTour(this.Tour.id)
+					.subscribe({
+						next: (res) => {
+							const value = Object.values(res);
+							this.tourStats = value[0];
 						},
 					});
+
+				this.loadTeamStats();
 			},
 			error: (error) => {},
 		});
+	}
+
+	// TABLE TEAM STATS
+
+	tableTeamStats = {
+		totalPage: 5,
+		totalRecords: 0,
+		currentPage: 1,
+		pageSize: 10,
+		hasNext: true,
+		hasPrev: false,
+		sortColumn: "score",
+		asc: true,
+	};
+
+	sortIndex = 0;
+
+	onChangePage(currentPage: number): void {
+		this.tableTeamStats.currentPage = currentPage;
+		this.loadTeamStats();
+	}
+
+	onSort($event: any): void {
+		switch ($event) {
+			case 0: {
+				if (this.tableTeamStats.sortColumn === "score") {
+					this.tableTeamStats.asc = !this.tableTeamStats.asc;
+				}
+				this.tableTeamStats.sortColumn = "score";
+				this.sortIndex = 0;
+				break;
+			}
+			case 1: {
+				if (this.tableTeamStats.sortColumn === "yellowcard") {
+					this.tableTeamStats.asc = !this.tableTeamStats.asc;
+				}
+				this.tableTeamStats.sortColumn = "yellowcard";
+				this.sortIndex = 1;
+				break;
+			}
+			case 2: {
+				if (this.tableTeamStats.sortColumn === "redcard") {
+					this.tableTeamStats.asc = !this.tableTeamStats.asc;
+				}
+				this.tableTeamStats.sortColumn = "redcard";
+				this.sortIndex = 2;
+				break;
+			}
+		}
+		this.loadTeamStats();
+	}
+
+	loadTeamStats(): void {
+		// * Team Stats
+		this.playerStatsService
+			.getTeamStatsByIdTournament(
+				this.Tour.id,
+				this.tableTeamStats.currentPage,
+				this.tableTeamStats.pageSize,
+				this.tableTeamStats.sortColumn,
+				this.tableTeamStats.asc
+			)
+			.subscribe({
+				next: (res) => {
+					const value = Object.values(res);
+
+					let arrayTeam = value[0] as Array<any>;
+
+					const observables = arrayTeam.map((element) => {
+						const idTeam = element.idteam;
+						return this.teamService.getById(idTeam).pipe(
+							map((team) => ({
+								team: team,
+								stats: element,
+							}))
+						);
+					});
+
+					forkJoin(observables).subscribe((results) => {
+						arrayTeam = results;
+						this.teamStatsSource = results;
+						this.teamStats = arrayTeam;
+
+						// Player Stats
+						this.playerStatsService
+							.getPlayerStatsByIdTournament(
+								this.Tour.id,
+								1,
+								10,
+								"score"
+							)
+							.subscribe({
+								next: (res) => {
+									const value = Object.values(res);
+
+									let array = value[0] as Array<any>;
+
+									const observables = array.map((element) => {
+										const playerStatsId =
+											element.playerStatsId;
+										return this.playerService
+											.getById(playerStatsId)
+											.pipe(
+												map((player) => {
+													const teamObject =
+														arrayTeam.find((x) => {
+															return (
+																x.team.id ==
+																player.teamId
+															);
+														});
+
+													return {
+														team: teamObject.team,
+														player: player,
+														stats: element,
+													};
+												})
+											);
+									});
+
+									forkJoin(observables).subscribe(
+										(result) => {
+											array = result;
+											let max = 0;
+											array.forEach((element) => {
+												if (element.stats.score > max) {
+													max = element.stats.score;
+													this.topScore = element;
+												}
+											});
+											this.playerStats = array;
+										}
+									);
+								},
+							});
+					});
+				},
+			});
 	}
 }
 

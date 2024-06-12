@@ -15,10 +15,9 @@ namespace CreateTournament.Interfaces.IServices
         Task<List<PlayerStatsDTO>> GetAllByIdPlayerScoreAsync(int id);
         Task<List<PlayerStatsDTO>> GetAllPlayStats(bool includeDeleted = false, int currentPage = 1, int pageSize = 10, string sortColumn = "", bool ascendingOrder = false);
         Int32 GetCountAllPlayerStats(string sortColumn = "", bool ascendingOrder = false, bool incluDeleted = false);
-
-        Task<List<PlayerStatsDTO>> GetAllByIdTournamentTeamAsync(int id, bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false);
-
-        Task<List<PlayerStatsDTO>> GetAllPlayerStatsByTournamentAsync(int id, bool includeDeleted = false, int currentPage = 1, int pageSize = 5, string sortColumn = "", bool ascendingOrder = false);
+     
+        Task<List<PlayerStats>> GetPlayerStats(int id, bool includeDeleted = false, string sortColumn = "", bool ascendingOrder = false);
+        Task<List<PlayerStats>> GetTeamStats(int id, bool includeDeleted = false, string sortColumn = "", bool ascendingOrder = false);
 
     }
 

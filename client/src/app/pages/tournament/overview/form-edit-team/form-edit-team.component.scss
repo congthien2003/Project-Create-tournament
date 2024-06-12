@@ -51,14 +51,17 @@
 		}
 	}
 	&--name {
+		width: 100%;
+
 		input {
+			width: 100%;
 			outline: none;
 			border-radius: 4px;
 			padding: 4px 8px;
 			border: 1px solid $primary-dark;
 
 			&:focus {
-				border-color: #2979ff;
+				border-color: $primary;
 			}
 		}
 	}

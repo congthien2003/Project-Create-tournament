@@ -19,20 +19,22 @@ import { FormEditInfoComponent } from "./form-edit-info/form-edit-info.component
 import { MatchService } from "src/app/core/services/match.service";
 import { ToastrService } from "ngx-toastr";
 import { AuthenticationService } from "src/app/core/services/auth/authentication.service";
+import { FormEditStatsComponent } from "./form-edit-stats/form-edit-stats.component";
+import { ViewResultComponent } from "./view-result/view-result.component";
 
 @Component({
 	selector: "bracket-card",
 	templateUrl: "./bracket-card.component.html",
 	styleUrls: ["./bracket-card.component.scss", "./form-edit.scss"],
 })
-export class BracketCardComponent implements OnInit, OnChanges, AfterViewInit {
+export class BracketCardComponent implements OnInit {
 	@Input() match: Match;
 	@Input() canEdit: boolean;
 
 	@Output() saveMatch = new EventEmitter<MatchResult>();
 
-	team1: Team;
-	team2: Team;
+	team1?: Team;
+	team2?: Team;
 	matchResult?: MatchResult;
 	constructor(
 		private teamService: TeamService,
@@ -41,7 +43,8 @@ export class BracketCardComponent implements OnInit, OnChanges, AfterViewInit {
 		private dialogRef: MatDialog,
 		private toastr: ToastrService
 	) {}
-	ngAfterViewInit(): void {
+	ngAfterViewInit(): void {}
+	ngOnInit(): void {
 		this.teamService.getById(this.match.idTeam1).subscribe({
 			next: (value) => {
 				this.team1 = value;
@@ -64,13 +67,32 @@ export class BracketCardComponent implements OnInit, OnChanges, AfterViewInit {
 			},
 		});
 	}
-	ngOnChanges(changes: SimpleChanges): void {}
-	ngOnInit(): void {}
 
 	openEditResult(): void {
 		const dialogRef = this.dialogRef.open(FormEditResultComponent, {
 			data: {
 				match: this.match,
+				matchResult: this.matchResult,
+				team1: this.team1,
+				team2: this.team2,
+			},
+		});
+		const subscribeDialog =
+			dialogRef.componentInstance.saveResult.subscribe((data) => {
+				this.matchResult = data;
+				this.saveMatch.emit(this.matchResult);
+			});
+
+		dialogRef.afterClosed().subscribe((result) => {
+			subscribeDialog.unsubscribe();
+		});
+	}
+
+	openEditStats(): void {
+		const dialogRef = this.dialogRef.open(FormEditStatsComponent, {
+			data: {
+				match: this.match,
+				matchResult: this.matchResult,
 				team1: this.team1,
 				team2: this.team2,
 			},
@@ -103,6 +125,17 @@ export class BracketCardComponent implements OnInit, OnChanges, AfterViewInit {
 
 		dialogRef.afterClosed().subscribe((result) => {
 			subscribeDialog.unsubscribe();
+		});
+	}
+
+	openViewResult(): void {
+		const dialogRef = this.dialogRef.open(ViewResultComponent, {
+			data: {
+				match: this.match,
+				matchResult: this.matchResult,
+				team1: this.team1,
+				team2: this.team2,
+			},
 		});
 	}
 

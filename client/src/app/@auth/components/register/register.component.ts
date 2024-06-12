@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { User } from "src/app/core/models/classes/User";
 import { AuthenticationService } from "src/app/core/services/auth/authentication.service";
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
 	constructor(
 		private service: AuthenticationService,
 		private toastr: ToastrService,
-		private loaderService: LoaderService
+		private loaderService: LoaderService,
+		private route: Router
 	) {}
 
 	ngOnInit(): void {
@@ -36,7 +38,8 @@ export class RegisterComponent implements OnInit {
 					this.loaderService.setLoading(false);
 
 					localStorage.setItem("token", data.token);
-					this.toastr.error("", "Đăng ký thành công !", {
+					this.route.navigate(["/pages"]);
+					this.toastr.success("", "Đăng ký thành công !", {
 						timeOut: 3000,
 					});
 				},

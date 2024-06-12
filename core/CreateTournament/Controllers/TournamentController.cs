@@ -23,13 +23,14 @@ namespace CreateTournament.Controllers
 
         [HttpGet("getall")]
         [AllowAnonymous]
-        public async Task<ActionResult> GetAll(string currentPage = "1", string pageSize = "5", string searchTerm = "", int idSportType = 0)
+        public async Task<ActionResult> GetAll(string currentPage = "1", string pageSize = "5", string searchTerm = "", string sortColumn = "", string asc = "true")
         {
             int _currentPage = int.Parse(currentPage);
             int _pageSize = int.Parse(pageSize);
+            bool _asc = bool.Parse(asc);
 
-            var list = await _tournamentService.GetList(_currentPage, _pageSize, searchTerm, idSportType, false);
-            var count = await _tournamentService.GetCountList(searchTerm, idSportType, false);
+            var list = await _tournamentService.GetList(_currentPage, _pageSize, searchTerm, sortColumn, _asc, false);
+            var count = await _tournamentService.GetCountList(searchTerm, false);
             var _totalPage = count % _pageSize == 0 ? count / _pageSize : count / _pageSize + 1;
             var result = new
             {
@@ -107,9 +108,9 @@ namespace CreateTournament.Controllers
 
         [HttpGet("search")]
         [AllowAnonymous]
-        public async Task<ActionResult> SearchTournaments(string searchTerm = "", int idSportType = 0)
+        public async Task<ActionResult> SearchTournaments(string searchTerm = "")
         {
-            var tournaments = await _tournamentService.SearchTournaments(searchTerm, idSportType);
+            var tournaments = await _tournamentService.SearchTournaments(searchTerm);
             return Ok(tournaments);
         }
 

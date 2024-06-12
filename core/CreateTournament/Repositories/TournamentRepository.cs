@@ -3,6 +3,7 @@ using CreateTournament.Data;
 using CreateTournament.Interfaces.IRepositories;
 using CreateTournament.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace CreateTournament.Repositories
 {
@@ -84,7 +85,20 @@ namespace CreateTournament.Repositories
             await _dataContext.SaveChangesAsync();
             return exists;
         }
-        public async Task<List<Tournament>> SearchTournaments(string searchTerm = "", int idSportType = 0, bool incluDeleted = false)
+
+        public Expression<Func<Tournament, object>> GetSortColumnExpression(string sortColumn)
+        {
+            switch (sortColumn)
+            {
+                case "view":
+                    return x => x.View;
+                case "startAt":
+                    return x => x.Created;
+                default:
+                    return x => x.Id;
+            }
+        }
+        public async Task<List<Tournament>> SearchTournaments(string searchTerm = "" ,bool incluDeleted = false)
         {
             var tournament = _dataContext.Tournaments.AsQueryable();
             if (!string.IsNullOrEmpty(searchTerm))
@@ -95,16 +109,13 @@ namespace CreateTournament.Repositories
             {
                 tournament = tournament.Where(t => t.IsDeleted == incluDeleted);
             }
-            if (idSportType != 0)
-            {
-                tournament = tournament.Where(t => t.SportTypeId == idSportType);
-            }
+            
             var searchTour = await tournament.ToListAsync();
             return searchTour;
         }
 
 
-        public Task<List<Tournament>> GetList(int currentPage = 1, int pageSize = 5, string searchTerm = "", int idSportType = -1, bool incluDeleted = false)
+        public Task<List<Tournament>> GetList(int currentPage = 1, int pageSize = 5, string searchTerm = "", string sortCol = "", bool ascSort = true, bool incluDeleted = false)
         {
             var tournament = _dataContext.Tournaments.AsQueryable();
             if (!string.IsNullOrEmpty(searchTerm))
@@ -115,15 +126,23 @@ namespace CreateTournament.Repositories
             {
                 tournament = tournament.Where(t => t.IsDeleted == incluDeleted);
             }
-            if (idSportType != 0)
+            if (!string.IsNullOrEmpty(sortCol))
             {
-                tournament = tournament.Where(t => t.SportTypeId == idSportType);
+                if (ascSort)
+                {
+                    tournament = tournament.OrderByDescending(GetSortColumnExpression(sortCol.ToLower()));
+                }
+                else
+                {
+                    tournament = tournament.OrderBy(GetSortColumnExpression(sortCol.ToLower()));
+
+                }
             }
             var list = tournament.Skip(currentPage * pageSize - pageSize).Take(pageSize).ToListAsync();
             return list;
         }
 
-        public async Task<int> GetCount(string searchTerm = "", int idSportType = 0, bool incluDeleted = false)
+        public async Task<int> GetCount(string searchTerm = "", bool incluDeleted = false)
         {
             var tournament = _dataContext.Tournaments.AsQueryable();
             if (!string.IsNullOrEmpty(searchTerm))
@@ -133,10 +152,6 @@ namespace CreateTournament.Repositories
             if (!incluDeleted)
             {
                 tournament = tournament.Where(t => t.IsDeleted == incluDeleted);
-            }
-            if (idSportType != 0)
-            {
-                tournament = tournament.Where(t => t.SportTypeId == idSportType);
             }
             var searchTour = await tournament.ToListAsync();
             return searchTour.Count();

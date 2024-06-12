@@ -8,10 +8,9 @@ import {
 } from "@angular/forms";
 import { AuthenticationService } from "src/app/core/services/auth/authentication.service";
 import { ToastrService } from "ngx-toastr";
-import { animate, style, transition, trigger } from "@angular/animations";
 import { Route, Router } from "@angular/router";
 import { LoaderService } from "src/app/shared/services/loader.service";
-
+import * as jwtdecode from "jwt-decode";
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
@@ -57,13 +56,8 @@ export class LoginComponent implements OnInit {
 						this.loaderService.setLoading(false);
 
 						localStorage.setItem("token", data.token);
-						console.log(this.service.getUserRoleFromToken());
 
-						if (this.service.getUserRoleFromToken() === 1) {
-							this.route.navigate(["/pages"]);
-						} else {
-							this.route.navigate(["/admin/dashboard"]);
-						}
+						this.route.navigate(["/admin/dashboard"]);
 					},
 					error: (error) => {
 						this.toastr.error("", "Đăng nhập không thành công !", {

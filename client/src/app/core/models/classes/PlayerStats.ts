@@ -5,14 +5,16 @@ export class PlayerStats implements IPlayerStats {
 	yellowCard: number;
 	redCard: number;
 	score: number;
-	assits: number;
+	assists: number;
 	playerId: number;
 	matchResultId: number;
 
-	constructor() {
+	constructor(playerId: number, matchResultId: number) {
 		this.yellowCard = 0;
 		this.redCard = 0;
 		this.score = 0;
-		this.assits = 0;
+		this.assists = 0;
+		this.playerId = playerId;
+		this.matchResultId = matchResultId;
 	}
 }

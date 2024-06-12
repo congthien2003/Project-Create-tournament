@@ -13,7 +13,7 @@ export class PlayerStatsService {
 	constructor(private master: MasterService) {}
 
 	create(data: PlayerStats): Observable<PlayerStats> {
-		return this.master.get(this.endpoints.getById, data);
+		return this.master.post(this.endpoints.getById, data);
 	}
 
 	// Get by idMatch & idPlayer
@@ -38,7 +38,7 @@ export class PlayerStatsService {
 	}
 
 	// Get by id MatchResult
-	getByIdMatchResult(idMatchResult: number): Observable<PlayerStats> {
+	getByIdMatchResult(idMatchResult: number): Observable<PlayerStats[]> {
 		const params = new HttpParams().set("idMatchResult", idMatchResult);
 		return this.master.get(`${this.endpoints.getByIdMatchResult}`, {
 			params,
@@ -84,6 +84,52 @@ export class PlayerStatsService {
 			.set("sortColumn", sortColumn)
 			.set("ascendingOrder", ascendingOrder);
 		return this.master.get(`${this.endpoints.getTopListByIdTour}`, {
+			params,
+		});
+	}
+
+	// Get tour stats by idTour
+	getTourStatsByIdTour(idTournament: number): Observable<any> {
+		const params = new HttpParams().set("idTournament", idTournament);
+		return this.master.get(`${this.endpoints.getTourStats}`, {
+			params,
+		});
+	}
+
+	// Get team stats by idTour
+	getTeamStatsByIdTournament(
+		idTournament: number,
+		currentPage: number = 1,
+		pageSize: number = 10,
+		sortColumn: string = "",
+		ascendingOrder: boolean = false
+	): Observable<any> {
+		const params = new HttpParams()
+			.set("idTournament", idTournament)
+			.set("currentPage", currentPage)
+			.set("pageSize", pageSize)
+			.set("sortColumn", sortColumn)
+			.set("ascendingOrder", ascendingOrder);
+		return this.master.get(`${this.endpoints.getTeamStats}`, {
+			params,
+		});
+	}
+
+	// Get player stats by idTour
+	getPlayerStatsByIdTournament(
+		idTournament: number,
+		currentPage: number = 1,
+		pageSize: number = 10,
+		sortColumn: string = "",
+		ascendingOrder: boolean = false
+	): Observable<any> {
+		const params = new HttpParams()
+			.set("idTournament", idTournament)
+			.set("currentPage", currentPage)
+			.set("pageSize", pageSize)
+			.set("sortColumn", sortColumn)
+			.set("ascendingOrder", ascendingOrder);
+		return this.master.get(`${this.endpoints.getPlayerStats}`, {
 			params,
 		});
 	}
