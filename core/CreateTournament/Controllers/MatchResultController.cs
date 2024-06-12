@@ -1,7 +1,7 @@
 ﻿using CreateTournament.DTOs;
 using CreateTournament.Interfaces.IServices;
 using CreateTournament.Services;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CreateTournament.Controllers

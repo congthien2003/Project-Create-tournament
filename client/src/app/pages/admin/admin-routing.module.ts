@@ -21,27 +21,22 @@ const routes: Routes = [
 			{
 				path: "dashboard",
 				component: DashboardComponent,
-				canActivateChild: [authGuard],
 			},
 			{
 				path: "user",
 				component: ManagementUserComponent,
-				canActivateChild: [authGuard],
 			},
 			{
 				path: "tournament",
 				component: ManagementTournamentComponent,
-				canActivateChild: [authGuard],
 			},
 			{
 				path: "formattype",
 				component: ManagementFormatTypeComponent,
-				canActivateChild: [authGuard],
 			},
 			{
 				path: "sporttype",
 				component: ManagementSportTypeComponent,
-				canActivateChild: [authGuard],
 			},
 		],
 	},
