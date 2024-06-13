@@ -18,8 +18,8 @@
 		align-items: center;
 		gap: 24px;
 		.team--img {
-			width: 80px;
-			height: 80px;
+			width: 90px;
+			height: 90px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -27,7 +27,7 @@
 			border: 1px solid #cece;
 			overflow: hidden;
 			img {
-				width: 100%;
+				width: 50%;
 				display: block;
 			}
 		}

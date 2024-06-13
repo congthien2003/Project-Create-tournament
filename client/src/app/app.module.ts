@@ -13,6 +13,7 @@ import { SharedModule } from "./shared/shared.module";
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireStorageModule } from "@angular/fire/compat/storage";
 import { environment } from "src/environments/environment.development";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @NgModule({
 	declarations: [AppComponent],

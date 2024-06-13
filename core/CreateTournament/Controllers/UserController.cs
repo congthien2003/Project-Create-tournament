@@ -10,7 +10,6 @@ namespace CreateTournament.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -20,6 +19,7 @@ namespace CreateTournament.Controllers
             
         }
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllAsync(string currentPage = "1", string pageSize = "5") {
 
             int _currentPage = int.Parse(currentPage);
@@ -42,6 +42,8 @@ namespace CreateTournament.Controllers
         }
 
         [HttpGet("getCount")]
+        [Authorize]
+
         public async Task<IActionResult> GetCount() {
             var count = await _userService.GetCountList();
             return Ok(count);
@@ -56,6 +58,7 @@ namespace CreateTournament.Controllers
         }
 
         [HttpPut("update")]
+
         public async Task<UserDTO> Update(UserDTO user)
         {
             var update = await _userService.Edit(user);
@@ -63,6 +66,8 @@ namespace CreateTournament.Controllers
         }
 
         [HttpDelete("delete/{id:int}")]
+        [Authorize]
+
         public async Task<ActionResult> Delete(int id)
         {
             var delete = await _userService.Delete(id);

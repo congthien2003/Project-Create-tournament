@@ -65,7 +65,6 @@ export class FormEditStatsComponent implements OnInit {
 				forkJoin(obser).subscribe({
 					next: (value) => {
 						this.listInputPlayerTeam1 = value;
-						console.log(this.listInputPlayerTeam2);
 					},
 				});
 			},
@@ -101,7 +100,6 @@ export class FormEditStatsComponent implements OnInit {
 				forkJoin(obser).subscribe({
 					next: (value) => {
 						this.listInputPlayerTeam2 = value;
-						console.log(this.listInputPlayerTeam2);
 					},
 				});
 			},
@@ -118,7 +116,6 @@ export class FormEditStatsComponent implements OnInit {
 				)
 				.subscribe({
 					next: (value) => {
-						console.log(value);
 						this.statsService
 							.updateById(value.id, item.playerStats)
 							.subscribe({
@@ -142,8 +139,6 @@ export class FormEditStatsComponent implements OnInit {
 				)
 				.subscribe({
 					next: (value) => {
-						console.log("UPDATE");
-
 						this.statsService
 							.updateById(value.id, item.playerStats)
 							.subscribe({
@@ -152,9 +147,6 @@ export class FormEditStatsComponent implements OnInit {
 							});
 					},
 					error: (error) => {
-						console.log("CREATE");
-						console.log(error);
-
 						this.statsService.create(item.playerStats).subscribe({
 							next: (value) => {
 								console.log(value);

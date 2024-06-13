@@ -1,0 +1,18 @@
+.modal.show {
+	display: block;
+}
+
+.modal {
+	&-header {
+		background-color: rgb(255, 75, 75);
+	}
+	&-title {
+		font-size: 20px;
+		font-weight: bolder;
+		margin-bottom: 0;
+		color: white;
+	}
+	&-body {
+		font-size: 18px;
+	}
+}

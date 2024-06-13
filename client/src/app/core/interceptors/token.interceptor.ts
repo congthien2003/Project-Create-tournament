@@ -18,11 +18,15 @@ export class TokenInterceptor implements HttpInterceptor {
 	): Observable<HttpEvent<unknown>> {
 		const localToken = localStorage.getItem("token");
 
-		const newHeader = new HttpHeaders({
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${localToken}`,
+		// const newHeader = new HttpHeaders({
+		// 	"Content-Type": "application/json",
+		// 	Authorization: `Bearer ${localToken}`,
+		// });
+		let clone = request.clone({
+			setHeaders: {
+				Authorization: `Bearer ${localToken}`,
+			},
 		});
-		let clone = request.clone({ headers: newHeader });
 		return next.handle(clone);
 	}
 }

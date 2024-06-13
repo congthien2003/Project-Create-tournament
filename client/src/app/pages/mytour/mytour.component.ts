@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Tournament } from "src/app/core/models/classes/Tournament";
 import { AuthenticationService } from "src/app/core/services/auth/authentication.service";
 import { TournamentService } from "src/app/core/services/tournament.service";
+import { ModalDeleteComponent } from "./modal-delete/modal-delete.component";
+import { MatDialog } from "@angular/material/dialog";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
 	selector: "app-mytour",
@@ -37,7 +40,9 @@ export class MytourComponent implements OnInit {
 	constructor(
 		private tourService: TournamentService,
 		private router: Router,
-		private authService: AuthenticationService
+		private authService: AuthenticationService,
+		public dialog: MatDialog,
+		private toastr: ToastrService
 	) {}
 	ngOnInit(): void {
 		this.id = this.authService.getUserIdFromToken();
@@ -57,5 +62,27 @@ export class MytourComponent implements OnInit {
 
 	deleteTour(id: any): void {
 		console.log(id);
+	}
+
+	openDeleteDialog(id: number): void {
+		const dialogRef = this.dialog.open(ModalDeleteComponent, {
+			data: { id: id },
+		});
+		dialogRef.afterClosed().subscribe((result) => {
+			if (result === true) {
+				this.tourService.deleteById(id).subscribe({
+					next: (value) => {
+						this.toastr.success("Success", "Deleted item.", {
+							timeOut: 3000,
+						});
+					},
+					error: (error) => {
+						this.toastr.error("Error", "Can't delete item.", {
+							timeOut: 3000,
+						});
+					},
+				});
+			}
+		});
 	}
 }

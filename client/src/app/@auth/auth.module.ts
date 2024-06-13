@@ -6,6 +6,7 @@ import { ChangePasswordComponent } from "./components/change-password/change-pas
 import { AuthRoutingModule } from "./auth-routing.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RestorePasswordComponent } from "./components/restore-password/restore-password.component";
+import { JwtModule, JwtHelperService } from "@auth0/angular-jwt";
 
 import { SharedModule } from "../shared/shared.module";
 @NgModule({
@@ -22,5 +23,6 @@ import { SharedModule } from "../shared/shared.module";
 		FormsModule,
 		ReactiveFormsModule,
 	],
+	providers: [],
 })
 export class AuthModule {}

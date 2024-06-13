@@ -46,28 +46,28 @@ export class LoginComponent implements OnInit {
 		const username = this.loginForm.get("username")?.value;
 		const password = this.loginForm.get("password")?.value;
 
+		console.log("Checking authentication status...");
 		if (this.service.isAuthenticated()) {
+			this.loaderService.setLoading(false);
+
 			this.route.navigate(["/pages"]);
 		} else {
 			this.service
 				.login(username ? username : "", password ? password : "")
 				.subscribe({
 					next: (data) => {
+						this.route.navigateByUrl("/pages");
 						this.loaderService.setLoading(false);
 
 						localStorage.setItem("token", data.token);
-
-						this.route.navigate(["/admin/dashboard"]);
 					},
 					error: (error) => {
 						this.toastr.error("", "Đăng nhập không thành công !", {
 							timeOut: 3000,
 						});
-						this.loaderService.setLoading(false);
 						this.initForm();
 					},
 				});
 		}
-		this.loaderService.setLoading(false);
 	}
 }
