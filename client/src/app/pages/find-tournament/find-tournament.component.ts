@@ -56,8 +56,6 @@ export class FindTournamentComponent implements OnInit {
 					this.totalPage = value[3] as number;
 					this.hasNext = value[5] as boolean;
 					this.hasPrev = value[6] as boolean;
-
-					console.log(this.listTour);
 				},
 			});
 	}

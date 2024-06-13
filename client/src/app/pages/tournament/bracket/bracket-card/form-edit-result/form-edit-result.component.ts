@@ -47,10 +47,6 @@ export class FormEditResultComponent implements OnInit, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges): void {}
 	ngOnInit(): void {
-		console.log("Form Edit");
-
-		console.log(this.data);
-
 		this.match = this.data.match;
 		this.idMatch = this.match.id;
 		this.team1 = this.data.team1;
@@ -86,8 +82,8 @@ export class FormEditResultComponent implements OnInit, OnChanges {
 			this.matchResultService
 				.updateById(this.matchResult.id, this.matchResult)
 				.subscribe({
-					next: () => {
-						this.saveResult.emit(this.matchResult);
+					next: (value) => {
+						this.saveResult.emit({ value, update: true });
 						this.toastr.success("", "Cập nhật thành công !", {
 							timeOut: 3000,
 						});
@@ -109,8 +105,8 @@ export class FormEditResultComponent implements OnInit, OnChanges {
 			newMatchResult.matchId = this.idMatch;
 			newMatchResult.idTeamWin = this.teamChoosed;
 			this.matchResultService.create(newMatchResult).subscribe({
-				next: () => {
-					this.saveResult.emit(newMatchResult);
+				next: (value) => {
+					this.saveResult.emit({ value, update: false });
 					this.toastr.success("", "Cập nhật thành công !", {
 						timeOut: 3000,
 					});

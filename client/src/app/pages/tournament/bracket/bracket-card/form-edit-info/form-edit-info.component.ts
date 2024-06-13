@@ -105,8 +105,6 @@ export class FormEditInfoComponent implements OnInit {
 		this.data.match.idTeam1 = this.team1Choosed;
 		this.data.match.idTeam2 = this.team2Choosed;
 
-		console.log(this.data.match);
-
 		// this.matchService
 		// 	.update(this.data.match.id, this.data.match)
 		// 	.subscribe({

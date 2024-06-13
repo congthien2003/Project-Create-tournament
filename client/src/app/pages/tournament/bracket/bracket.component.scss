@@ -16,6 +16,7 @@
 		font-size: 24px;
 		font-weight: bold;
 		text-align: center;
+		margin-bottom: 24px;
 	}
 
 	&--content {
@@ -31,17 +32,6 @@
 		display: grid;
 		grid-template-columns: auto auto auto;
 		gap: 24px;
-	}
-}
-
-.round-32 {
-	&--wrapper {
-	}
-	&--content {
-		display: grid;
-		grid-template-columns: auto auto auto auto;
-		grid-template-rows: 50% 50%;
-		gap: 12px;
 	}
 }
 

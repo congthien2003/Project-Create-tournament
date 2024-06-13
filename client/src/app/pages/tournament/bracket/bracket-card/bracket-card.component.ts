@@ -31,7 +31,7 @@ export class BracketCardComponent implements OnInit {
 	@Input() match: Match;
 	@Input() canEdit: boolean;
 
-	@Output() saveMatch = new EventEmitter<MatchResult>();
+	@Output() saveMatch = new EventEmitter<any>();
 
 	team1?: Team;
 	team2?: Team;
@@ -78,9 +78,19 @@ export class BracketCardComponent implements OnInit {
 			},
 		});
 		const subscribeDialog =
-			dialogRef.componentInstance.saveResult.subscribe((data) => {
-				this.matchResult = data;
-				this.saveMatch.emit(this.matchResult);
+			dialogRef.componentInstance.saveResult.subscribe({
+				next: (data: any) => {
+					this.matchResult = data.value;
+					const team =
+						this.matchResult?.idTeamWin === this.team1?.id
+							? this.team1
+							: this.team2;
+					this.saveMatch.emit({
+						data,
+						round: this.match.round,
+						team,
+					});
+				},
 			});
 
 		dialogRef.afterClosed().subscribe((result) => {
@@ -119,6 +129,7 @@ export class BracketCardComponent implements OnInit {
 		const subscribeDialog = dialogRef.componentInstance.saveInfo.subscribe(
 			(data) => {
 				this.match.startAt = data.date;
+				this.saveMatch.emit(this.matchResult);
 				this.updateMatch();
 			}
 		);

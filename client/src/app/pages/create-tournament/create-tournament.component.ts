@@ -83,23 +83,6 @@ export class CreateTournamentComponent implements OnInit {
 		this.tourService.create(this.newTour).subscribe({
 			next: (value) => {
 				const id = value.id;
-				this.teamService
-					.create(value.quantityTeam, value.id)
-					.subscribe({
-						next: (value) => {
-							console.log("Tạo team thành công");
-
-							this.mathService.createStart(id).subscribe({
-								next: (value) => {
-									console.log("Tạo giải thành công");
-								},
-							});
-						},
-						error: (errors) => {
-							console.log(errors);
-						},
-					});
-
 				this.toastr.success("", "Tạo giải đấu thành công !", {
 					timeOut: 3000,
 				});

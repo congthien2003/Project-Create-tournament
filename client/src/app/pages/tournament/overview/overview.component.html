@@ -3,7 +3,8 @@
 
 	<div class="overview--content">
 		<div class="row">
-			<div class="col-4">
+			<div class="col-1"></div>
+			<div class="col-5">
 				<div class="detail--tour mx-auto">
 					<div class="detail__header">
 						Chi tiết giải đấu
@@ -87,6 +88,66 @@
 			</div>
 			<div class="col-5">
 				<div class="detail--tour mx-auto">
+					<div class="detail__header">
+						Đội thi đấu
+						<!-- Button trigger modal -->
+						<button
+							mat-flat-button
+							color="basic"
+							aria-label="edit"
+							*ngIf="canEdit"
+							type="button"
+							class="btn-edit"
+							data-bs-toggle="modal"
+							data-bs-target="#modalEditTeam"
+							matTooltip="Chỉnh sửa thông tin đội">
+							<i class="fa-solid fa-edit"></i>
+						</button>
+
+						<!-- Modal -->
+						<div
+							class="modal fade"
+							id="modalEditTeam"
+							tabindex="-1"
+							aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<form-edit-team
+										[idTour]="this.idTour"
+										(save)="
+											reloadTeamData($event)
+										"></form-edit-team>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="detail__content">
+						<div class="team" *ngFor="let team of listTeams">
+							<div class="team--img">
+								<img
+									*ngIf="team.imageTeam"
+									src="{{ team.imageTeam }}"
+									alt="logo"
+									width="100%" />
+								<img
+									*ngIf="!team.imageTeam"
+									src="https://givetour-prod.s3.amazonaws.com/UploadFiles/AvatarPhoto/303e02e1-97c5-4ff5-ae78-22b17bb958ec.png"
+									alt="logo"
+									width="100%" />
+							</div>
+							<div class="team--name">
+								{{ team.name }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-1"></div>
+		</div>
+		<div class="row mt-4">
+			<div class="col-12">
+				<div class="detail--tour mx-auto">
 					<div class="detail__header">Lịch sử đấu</div>
 					<div class="detail__content">
 						<div
@@ -150,63 +211,6 @@
 										{{ matchResult.__team2.name }}
 									</div>
 								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-3">
-				<div class="detail--tour mx-auto">
-					<div class="detail__header">
-						Đội thi đấu
-						<!-- Button trigger modal -->
-						<button
-							mat-flat-button
-							color="basic"
-							aria-label="edit"
-							*ngIf="canEdit"
-							type="button"
-							class="btn-edit"
-							data-bs-toggle="modal"
-							data-bs-target="#modalEditTeam"
-							matTooltip="Chỉnh sửa thông tin đội">
-							<i class="fa-solid fa-edit"></i>
-						</button>
-
-						<!-- Modal -->
-						<div
-							class="modal fade"
-							id="modalEditTeam"
-							tabindex="-1"
-							aria-labelledby="exampleModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered">
-								<div class="modal-content">
-									<form-edit-team
-										[idTour]="this.idTour"
-										(save)="
-											reloadTeamData($event)
-										"></form-edit-team>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="detail__content">
-						<div class="team" *ngFor="let team of listTeams">
-							<div class="team--img">
-								<img
-									*ngIf="team.imageTeam"
-									src="{{ team.imageTeam }}"
-									alt="logo"
-									width="100%" />
-								<img
-									*ngIf="!team.imageTeam"
-									src="https://givetour-prod.s3.amazonaws.com/UploadFiles/AvatarPhoto/303e02e1-97c5-4ff5-ae78-22b17bb958ec.png"
-									alt="logo"
-									width="100%" />
-							</div>
-							<div class="team--name">
-								{{ team.name }}
 							</div>
 						</div>
 					</div>

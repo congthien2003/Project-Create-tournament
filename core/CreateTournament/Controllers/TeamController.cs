@@ -10,8 +10,7 @@ namespace CreateTournament.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
-
+    [AllowAnonymous]
     public class TeamController : ControllerBase
     {
         private readonly ITeamService _teamService;
@@ -41,7 +40,6 @@ namespace CreateTournament.Controllers
             
         }
         [HttpGet("all")]
-        [AllowAnonymous]
         public async Task<ActionResult> GetAllByIdTournament(int idTournament)
         {
             var teams = await _teamService.GetAllByIdTournamentAsync(idTournament);
@@ -53,7 +51,6 @@ namespace CreateTournament.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [AllowAnonymous]
 
         public async Task<ActionResult> GetById(int id)
         {
@@ -67,7 +64,7 @@ namespace CreateTournament.Controllers
         }
 
         [HttpPut("update")]
-        [Authorize]
+        
 
         public async Task<ActionResult> UpdateTeam(int id, string name)
         {
@@ -81,7 +78,6 @@ namespace CreateTournament.Controllers
         }
 
         [HttpPut("updateImage")]
-        [Authorize]
 
         public async Task<ActionResult> UpdateImage(int id, string path)
         {

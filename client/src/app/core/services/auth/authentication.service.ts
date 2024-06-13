@@ -4,6 +4,7 @@ import { AuthApi } from "src/app/@auth/auth.api";
 import { Observable } from "rxjs";
 import * as jwtdecode from "jwt-decode";
 import { User } from "../../models/classes/User";
+import { JwtHelperService } from "@auth0/angular-jwt";
 @Injectable({
 	providedIn: "root",
 })
@@ -18,7 +19,13 @@ export class AuthenticationService {
 		}
 		const tokendecode = jwtdecode.jwtDecode(token); // Giải mã token để lấy thông tin bên trong
 		const currentTime = Date.now() / 1000; // Thời gian hiện tại ở đơn vị giây
-		return tokendecode.exp! > currentTime;
+		return tokendecode.exp! > currentTime + 60;
+		// const token = localStorage.getItem("token");
+		// if (token !== null) {
+		// 	const decode = this.jwtHelper.decodeToken(token);
+		// 	console.log(decode);
+		// }
+		// return token !== null && token !== undefined;
 	}
 
 	getUsernameFromToken(): any {

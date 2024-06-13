@@ -23,6 +23,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { RolePipe } from "../core/utils/role.pipe";
 import { PaginationComponent } from "./components/pagination/pagination.component";
 import { MatSortModule } from "@angular/material/sort";
+import { CongratulationsComponent } from './components/congratulations/congratulations.component';
 const MatImport = [
 	MatTabsModule,
 	MatTableModule,
@@ -51,6 +52,7 @@ const MatImport = [
 		FormatTypePipe,
 		SportTypePipe,
 		RolePipe,
+  CongratulationsComponent,
 	],
 	imports: [CommonModule, PagesRoutingModule],
 	exports: [

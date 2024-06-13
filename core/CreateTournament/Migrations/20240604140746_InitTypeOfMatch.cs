@@ -8,13 +8,7 @@ namespace CreateTournament.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "View",
-                table: "Tournaments",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
+            
             migrationBuilder.AddColumn<bool>(
                 name: "Eliminated",
                 table: "Teams",
@@ -23,13 +17,6 @@ namespace CreateTournament.Migrations
 
             migrationBuilder.AddColumn<int>(
                 name: "STT",
-                table: "Matches",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "round",
                 table: "Matches",
                 type: "int",
                 nullable: false,

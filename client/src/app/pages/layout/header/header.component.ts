@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 	isLogin: boolean = false;
 	username: string = "";
 	id: number = 0;
+	role: number = 0;
 	constructor(
 		private router: Router,
 		private authService: AuthenticationService
@@ -28,6 +29,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 		this.isLogin = this.authService.isAuthenticated();
 		this.username = this.authService.getUsernameFromToken();
 		this.id = this.authService.getUserIdFromToken();
+		this.role = this.authService.getUserRoleFromToken();
 		this.activeIndex = 0;
 		this.bindActiveMenu(this.router.url);
 	}
@@ -88,6 +90,10 @@ export class HeaderComponent implements OnInit, OnChanges {
 
 	myTour() {
 		this.router.navigate([`/mytour/${this.id}`]);
+	}
+
+	adminPage() {
+		this.router.navigate([`/admin/dashboard`]);
 	}
 
 	logOut(): void {

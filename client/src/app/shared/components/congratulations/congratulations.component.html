@@ -1,0 +1,17 @@
+<div class="wrapper">
+	<!-- Modal -->
+	<div class="content" *ngIf="data">
+		<div class="img">
+			<div class="cup">
+				<img src="../../../../assets/images/cup.png" alt="" />
+			</div>
+		</div>
+		<p>CHÚC MỪNG NHÀ VÔ ĐỊCH GIẢI ĐẤU !</p>
+		<div class="team--info">
+			<div class="team-name">{{ data.team.name }}</div>
+			<div class="team-logo">
+				<img src="{{ data.team.imageTeam }}" alt="" />
+			</div>
+		</div>
+	</div>
+</div>

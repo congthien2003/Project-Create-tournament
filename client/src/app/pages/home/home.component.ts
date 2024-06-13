@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
 	onSearch(): void {
 		const search = this.search.nativeElement.value;
 
-		this.router.navigate(["/find"], {
+		this.router.navigate(["/pages/find"], {
 			queryParams: { searchInput: search },
 		});
 	}
