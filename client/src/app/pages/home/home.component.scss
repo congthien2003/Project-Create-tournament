@@ -85,15 +85,6 @@ h2 {
 			transition: all 0.2s ease-in-out;
 			padding: 24px;
 			height: 100%;
-			&__img {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-
-				img {
-					width: 100%;
-				}
-			}
 
 			&__info {
 				text-align: center;
