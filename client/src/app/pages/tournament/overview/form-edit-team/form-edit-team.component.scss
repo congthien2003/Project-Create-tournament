@@ -1,0 +1,68 @@
+@import "../form-edit.scss";
+
+.team {
+	width: 100%;
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	&--img {
+		width: 50px;
+		height: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		overflow: hidden;
+		border: 1px solid #cecece;
+		object-position: center;
+		position: relative;
+		img {
+			width: 100%;
+			display: block;
+		}
+
+		input {
+			width: 100%;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			opacity: 0;
+		}
+	}
+	&-input--img {
+		width: 60px;
+		height: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		overflow: hidden;
+		border: 1px solid #cecece;
+		object-position: center;
+		position: relative;
+		input {
+			width: 100%;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			opacity: 0;
+		}
+	}
+	&--name {
+		width: 100%;
+
+		input {
+			width: 100%;
+			outline: none;
+			border-radius: 4px;
+			padding: 4px 8px;
+			border: 1px solid $primary-dark;
+
+			&:focus {
+				border-color: $primary;
+			}
+		}
+	}
+}

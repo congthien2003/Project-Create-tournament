@@ -1,0 +1,17 @@
+<div class="dropdown">
+	<div class="dropdown--select" (click)="toggleListItem()">
+		<p *ngIf="value">{{ value }}</p>
+		<p *ngIf="!value">{{ title }}</p>
+
+		<p><i class="bx bxs-down-arrow"></i></p>
+	</div>
+
+	<ul class="dropdown--list" *ngIf="showItem">
+		<li
+			class="item"
+			*ngFor="let item of listItem; index as i"
+			(click)="chooseItem(i)">
+			{{ item }}
+		</li>
+	</ul>
+</div>

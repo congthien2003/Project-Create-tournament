@@ -6,12 +6,11 @@ import {
 	Validators,
 } from "@angular/forms";
 import { Route, Router } from "@angular/router";
-import { json } from "express";
 import { Toast, ToastrService } from "ngx-toastr";
 import { EMAIL_PATTERN, NUMBERS_PATTERN } from "src/app/@auth/constants";
 import { User } from "src/app/core/models/classes/User";
 import { AuthenticationService } from "src/app/core/services/auth/authentication.service";
-import { UserService } from "src/app/core/services/user/user.service";
+import { UserService } from "src/app/core/services/user.service";
 
 @Component({
 	selector: "app-user",
@@ -98,7 +97,7 @@ export class UserComponent {
 	save() {
 		const user: User = this.convertToUser(this.userForm.value);
 
-		this.userService.update(user).subscribe({
+		this.userService.update(user.id, user).subscribe({
 			next: (data) => {
 				this.toastr.success(
 					"Vui lòng đăng nhập lại",

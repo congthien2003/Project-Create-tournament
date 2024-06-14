@@ -1,0 +1,26 @@
+<div class="table__pagination">
+	<ul class="list__page">
+		<li
+			class="page__item item-actions"
+			[class.page__disable]="!_hasPrev"
+			(click)="onPageChange(currentPage - 1)">
+			<i class="fa fa-arrow-left"></i>
+		</li>
+
+		<li class="page__item" *ngFor="let page of totalPageArr; let i = index">
+			<button
+				class="page__item--btn"
+				(click)="onPageChange(page)"
+				[class.page__active]="page === currentPage">
+				{{ page }}
+			</button>
+		</li>
+
+		<li
+			[class.page__disable]="!_hasNext"
+			class="page__item item-actions"
+			(click)="onPageChange(currentPage + 1)">
+			<i class="fa fa-arrow-right"></i>
+		</li>
+	</ul>
+</div>

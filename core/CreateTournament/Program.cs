@@ -16,25 +16,40 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<DataContext>(options =>
+builder.Services.AddDbContextFactory<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-
-
 
 // add scoped services
 builder.Services.AddTransient<IJwtManager, JwtManager>();
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddTransient<IUserService, UserService>();
-
+builder.Services.AddTransient<IFormatTypeService, FormatTypeService>();
+builder.Services.AddTransient<ISportTypeService, SportTypeService>();
+builder.Services.AddTransient<ITournamentService, TournamentService>();
+builder.Services.AddTransient<ITeamService, TeamService>();
+builder.Services.AddTransient<IPlayerService, PlayerService>();
+builder.Services.AddTransient<IMatchService, MatchService>();
+builder.Services.AddTransient<IMatchResultService, MatchResultService>();
+builder.Services.AddTransient<IPlayerStatService, PlayerStatService>();
 
 // add scoped repository
 builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
+builder.Services.AddScoped<IFormatTypeRepository<FormatType>, FormatTypeRepository>();
+builder.Services.AddScoped<ISportTypeRepository<SportType>, SportTypeRepository>();
+builder.Services.AddScoped<ITournamentRepository<Tournament>, TournamentRepository>();
+builder.Services.AddScoped<IMatchRepository<Match>, MatchRepository>();
+builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
+builder.Services.AddScoped<ITeamRepository<Team>, TeamRepository>();
+builder.Services.AddScoped<IPlayerRepository<Player>, PlayerRepository>();
+builder.Services.AddScoped<IMatchResultRepository<MatchResult>, MatchResultRepository>();
+builder.Services.AddScoped<IPlayerStatRepository<PlayerStats>, PlayerStatRepository>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(opt =>

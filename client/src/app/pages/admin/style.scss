@@ -1,0 +1,96 @@
+@import "../../shared/variable.scss";
+
+@mixin layout {
+	.management--wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		width: 100%;
+		.header {
+			&--wrapper {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				width: 100%;
+				margin-bottom: 12px;
+			}
+
+			&--top {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 8px 24px;
+
+				h2 {
+					font-size: 32px;
+					font-weight: bolder;
+				}
+			}
+
+			&--action {
+				display: grid;
+				grid-template-columns: 89% 10%;
+				padding: 8px 24px;
+				gap: 12px;
+				input {
+					border-radius: 6px;
+					padding: 8px 8px;
+					outline: none;
+					border: 1px solid #cfcfcf;
+				}
+			}
+		}
+		.table--wrapper {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			padding: 12px 24px;
+			.table {
+				border: 1px solid #fefefe;
+				overflow-y: scroll;
+				height: 300px;
+			}
+		}
+	}
+}
+
+@mixin layout-form {
+	.form {
+		&--wrapper {
+			width: 200px;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+		}
+		&--header {
+			background-color: $primary;
+			color: white;
+			font-size: 20px;
+			font-weight: bold;
+			padding: 12px 12px;
+		}
+
+		&--input {
+			padding: 8px 12px;
+			input {
+				padding: 4px;
+			}
+		}
+
+		&--actions {
+			padding: 8px 12px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 8px;
+		}
+	}
+}
+
+.btn--bg-primary {
+	background-color: $primary;
+	color: white;
+}

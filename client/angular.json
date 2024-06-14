@@ -25,10 +25,10 @@
 						"inlineStyleLanguage": "scss",
 						"assets": ["src/favicon.ico", "src/assets"],
 						"styles": [
+							"@angular/material/prebuilt-themes/deeppurple-amber.css",
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"src/styles.scss",
-							"node_modules/ngx-toastr/toastr.css",
-							"node_modules/ngx-spinner/animations/ball-scale-multiple.css"
+							"node_modules/ngx-toastr/toastr.css"
 						],
 						"scripts": [
 							"node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
@@ -101,5 +101,8 @@
 				}
 			}
 		}
-	}
+  },
+  "cli": {
+    "analytics": "4b344d96-7508-4e20-97c2-52a9b2b0bb23"
+  }
 }

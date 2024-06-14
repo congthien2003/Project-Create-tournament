@@ -4,6 +4,7 @@ import { AuthApi } from "src/app/@auth/auth.api";
 import { Observable } from "rxjs";
 import * as jwtdecode from "jwt-decode";
 import { User } from "../../models/classes/User";
+import { JwtHelperService } from "@auth0/angular-jwt";
 @Injectable({
 	providedIn: "root",
 })
@@ -18,7 +19,13 @@ export class AuthenticationService {
 		}
 		const tokendecode = jwtdecode.jwtDecode(token); // Giải mã token để lấy thông tin bên trong
 		const currentTime = Date.now() / 1000; // Thời gian hiện tại ở đơn vị giây
-		return tokendecode.exp! > currentTime;
+		return tokendecode.exp! > currentTime + 60;
+		// const token = localStorage.getItem("token");
+		// if (token !== null) {
+		// 	const decode = this.jwtHelper.decodeToken(token);
+		// 	console.log(decode);
+		// }
+		// return token !== null && token !== undefined;
 	}
 
 	getUsernameFromToken(): any {
@@ -32,6 +39,32 @@ export class AuthenticationService {
 			return tokenPayload["Username"]; // Trả về username nếu có
 		} else {
 			return null; // Trả về null nếu không tìm thấy username trong token
+		}
+	}
+
+	getUserRoleFromToken(): any {
+		const token = localStorage.getItem("token"); // Lấy token từ local storage hoặc nơi lưu trữ khác
+		if (!token) {
+			return null;
+		}
+		const tokenPayload = jwtdecode.jwtDecode(token);
+		if ("Role" in tokenPayload) {
+			return tokenPayload["Role"];
+		} else {
+			return null;
+		}
+	}
+
+	getUserIdFromToken(): any {
+		const token = localStorage.getItem("token"); // Lấy token từ local storage hoặc nơi lưu trữ khác
+		if (!token) {
+			return null;
+		}
+		const tokenPayload = jwtdecode.jwtDecode(token);
+		if ("Id" in tokenPayload) {
+			return tokenPayload["Id"];
+		} else {
+			return null;
 		}
 	}
 

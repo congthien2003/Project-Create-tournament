@@ -1,0 +1,52 @@
+<form [formGroup]="editTour" class="form-edit">
+	<div class="form-edit__header">
+		<h4>Chỉnh sửa thông tin giải đấu</h4>
+		<button
+			type="button"
+			class="btn-close btn-close-white"
+			data-bs-dismiss="modal"
+			aria-label="Close"></button>
+	</div>
+	<div class="form-edit__main">
+		<div class="form-group">
+			<div class="text-field">
+				<label for="name">Tên giải đấu</label>
+				<input
+					autocomplete="off"
+					type="text"
+					id="name"
+					placeholder="Nhập tên giải đấu"
+					[formControl]="this.editTour.controls.name" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="text-field">
+				<label for="location">Địa chỉ</label>
+				<input
+					autocomplete="off"
+					type="text"
+					id="location"
+					placeholder="Địa chỉ"
+					[formControl]="this.editTour.controls.location" />
+			</div>
+		</div>
+	</div>
+	<div class="form-edit__actions">
+		<button
+			mat-raised-button
+			type="button"
+			class="btn btn-secondary-custom"
+			data-bs-dismiss="modal">
+			Hủy
+		</button>
+		<button
+			mat-button
+			type="button"
+			class="btn-primary-custom text-white"
+			(click)="handleSave()"
+			data-bs-dismiss="modal"
+			[disabled]="!editTour.valid">
+			Lưu
+		</button>
+	</div>
+</form>

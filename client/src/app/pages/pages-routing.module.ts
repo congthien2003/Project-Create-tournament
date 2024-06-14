@@ -1,11 +1,15 @@
-import { RouterModule, Routes, RouterOutlet } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { HomeComponent } from "./home/home.component";
 import { CreateTournamentComponent } from "./create-tournament/create-tournament.component";
 import { authGuard } from "../@auth/guards/auth.guard";
+import { FindTournamentComponent } from "./find-tournament/find-tournament.component";
+import { roleGuard } from "../@auth/guards/role.guard";
+import { MytourComponent } from "./mytour/mytour.component";
 import { UserComponent } from "./user/user.component";
 
 const routes: Routes = [
+	{ path: "", redirectTo: "/pages", pathMatch: "full" },
 	{
 		path: "",
 		component: HomeComponent,
@@ -14,18 +18,15 @@ const routes: Routes = [
 		path: "create",
 		component: CreateTournamentComponent,
 		canActivate: [authGuard],
-		data: {
-			role: "admin",
-		},
-	},
-	{
-		path: "user",
-		component: UserComponent,
-		canActivate: [authGuard],
 	},
 	{
 		path: "find",
-		component: HomeComponent,
+		component: FindTournamentComponent,
+	},
+	{
+		path: "mytour/:id",
+		component: MytourComponent,
+		canActivate: [authGuard],
 	},
 ];
 

@@ -1,0 +1,57 @@
+<div class="form-edit">
+	<div class="form-edit__header">
+		<h4>Thông tin đội tham gia</h4>
+		<button
+			type="button"
+			class="btn-close btn-close-white"
+			data-bs-dismiss="modal"
+			aria-label="Close"></button>
+	</div>
+	<div class="form-edit__main">
+		<div class="team" *ngFor="let team of listTeams; index as index">
+			<div class="team--img" *ngIf="team.imageTeam">
+				<img
+					*ngIf="team.imageTeam"
+					src="{{ team.imageTeam }}"
+					alt="Team Image" />
+				<input type="file" (change)="onChangeFile($event, team.id)" />
+			</div>
+			<div class="team-input--img" *ngIf="!team.imageTeam">
+				<i class="bx bxs-image-add text-black d-block fs-3"></i>
+				<input type="file" (change)="onChangeFile($event, team.id)" />
+			</div>
+
+			<div class="team--name">
+				<input
+					type="text"
+					[value]="team.name"
+					[(ngModel)]="team.name" />
+			</div>
+		</div>
+	</div>
+	<div class="form-edit__actions">
+		<button
+			mat-raised-button
+			type="button"
+			class="btn-secondary-custom"
+			data-bs-dismiss="modal">
+			Hủy
+		</button>
+		<button
+			mat-stroked-button
+			type="button"
+			class="btn-primary-custom text-white"
+			(click)="handleSave()"
+			data-bs-dismiss="modal">
+			Lưu
+		</button>
+		<button
+			mat-stroked-button
+			type="button"
+			class="btn-primary-custom text-white"
+			(click)="teamDetail()"
+			data-bs-dismiss="modal">
+			Xem chi tiết
+		</button>
+	</div>
+</div>

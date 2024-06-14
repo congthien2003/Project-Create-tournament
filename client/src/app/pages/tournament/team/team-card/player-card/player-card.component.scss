@@ -1,0 +1,27 @@
+@import "../../../../../shared/variable.scss";
+
+.player {
+	&--card {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid #cecece;
+		gap: 24px;
+		padding: 12px 8px;
+
+		&:hover {
+			background-color: #f0f0f0;
+		}
+	}
+
+	&--info {
+		flex: 1;
+		.name {
+			font-size: 16px;
+			font-weight: bold;
+		}
+	}
+	&--action {
+		flex: 1;
+	}
+}

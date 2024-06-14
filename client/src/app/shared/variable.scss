@@ -1,17 +1,167 @@
-$primary-dark: #5722ea;
-$primary: #7c4dff;
-$primary-medium: #5e2fdf;
-$primary-light: #9873fd;
-$primary-ultra-light: #bea6ff;
-$primary-active: #14b8e1;
-
+$primary-dark: #00004b;
+$primary: #363683;
+$primary-medium: #61619f;
+$primary-light: rgb(99, 120, 141);
+$primary-blue: rgb(92, 138, 255);
+$white-smoke: rgb(244, 244, 244);
 $text-size: 16px;
+
+// $primary-dark: #8a6d2f;
+$primary-yellow: #fac960;
+// $primary-medium: #8a6d2f;
+// $primary-light: white;
+
 * {
 	text-decoration: none;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
 ul,
 ol {
 	margin: 0;
 	padding: 0;
 	list-style: none;
+}
+
+body {
+	background-color: white;
+}
+
+// Animation search input
+.input-focus-effect {
+	position: relative;
+	display: flex;
+	flex-direction: column-reverse;
+}
+
+.input-focus-effect input {
+	padding: 25px 10px 10px;
+	border: 1px solid $primary-medium;
+	border-right-width: 0px;
+	display: block;
+	width: 100%;
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+	transition: border 0.25s linear;
+	background-color: transparent;
+	outline: none;
+	color: white;
+	font-size: 14px;
+}
+
+.input-focus-effect input:focus {
+	border-color: $primary-dark;
+}
+
+.input-focus-effect input:focus + label,
+.input-focus-effect input:not(:placeholder-shown) + label {
+	transform: translateY(-25px);
+	background-color: $primary;
+
+	top: 10px;
+}
+
+.input-focus-effect label {
+	position: absolute;
+	top: 50%;
+	left: 10px;
+	transform: translateY(-50%);
+	pointer-events: none;
+	color: white;
+	transition: 0.25s linear;
+	font-size: 16px;
+	padding: 2px 4px;
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(45);
+	}
+	25% {
+		transform: rotate(90);
+	}
+	50% {
+		transform: rotate(135);
+	}
+	75% {
+		transform: rotate(175);
+	}
+	100% {
+		transform: rotate(360);
+	}
+}
+
+// Animation
+@keyframes showToptoBot {
+	0% {
+		height: 0%;
+	}
+	10% {
+		height: 10%;
+	}
+	25% {
+		height: 20%;
+	}
+	40% {
+		height: 30%;
+	}
+	50% {
+		height: 40%;
+	}
+	75% {
+		height: 50%;
+	}
+	100% {
+		height: 100%;
+	}
+}
+
+@keyframes leftToRight {
+	0% {
+		width: 0;
+	}
+	25% {
+		width: 25%;
+	}
+	50% {
+		width: 50%;
+	}
+	75% {
+		width: 75%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+
+@mixin img-team {
+	.team {
+		&--img {
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			overflow: hidden;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			img {
+				width: 100%;
+				display: block;
+			}
+		}
+	}
+}
+
+@mixin bg-gradient {
+	background: rgb(104, 117, 182);
+	background: radial-gradient(
+		circle,
+		rgba(104, 117, 182, 1) 0%,
+		rgba(51, 62, 191, 1) 100%
+	);
 }

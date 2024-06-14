@@ -42,7 +42,18 @@
 					<li class="dropdown--item" (click)="detailUser()">
 						Thông tin tài khoản
 					</li>
-					<li class="dropdown--item">Giải đấu của tôi</li>
+					<li
+						class="dropdown--item"
+						*ngIf="role == 0"
+						(click)="adminPage()">
+						Trang quản lý
+					</li>
+					<li
+						class="dropdown--item"
+						*ngIf="role == 1"
+						(click)="myTour()">
+						Giải đấu của tôi
+					</li>
 					<li class="dropdown--item" (click)="logOut()">Đăng xuất</li>
 				</ul>
 			</div>

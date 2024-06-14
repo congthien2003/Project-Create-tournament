@@ -1,0 +1,55 @@
+@import "../../variable.scss";
+
+.tour {
+	&-card {
+		background-color: white;
+		padding: 24px;
+		border-radius: 8px;
+		transition: 0.2s ease-in;
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		cursor: pointer;
+		&:hover {
+			background-color: $primary-blue;
+			transform: scale(102%);
+		}
+		&:hover {
+			.tour--des {
+				color: white;
+			}
+		}
+	}
+
+	&--img {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		img {
+			display: block;
+			width: 30%;
+		}
+	}
+
+	&--des {
+		color: $primary-dark;
+		text-align: center;
+		margin-top: 12px;
+	}
+
+	&--name {
+		font-size: 22px;
+		font-weight: bold;
+	}
+
+	&--info {
+		font-size: 14px;
+		font-weight: 450;
+	}
+	&--footer {
+		margin-top: 12px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 24px;
+	}
+}

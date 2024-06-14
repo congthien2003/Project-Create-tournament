@@ -1,0 +1,70 @@
+<div class="match" *ngIf="match">
+	<div class="match--header">
+		<div class="match--date">
+			{{ match.startAt | date }}
+		</div>
+		<div class="match--action">
+			<i
+				(click)="openViewResult()"
+				class="fa-solid fa-eye fs-6 action--icon"
+				matTooltip="Xem kết quả"></i>
+			<i
+				(click)="openEditMatch()"
+				*ngIf="this.canEdit"
+				class="fa-solid fa-calendar fs-6 action--icon"
+				matTooltip="Chỉnh sửa ngày thi đấu"></i>
+
+			<i
+				(click)="openEditResult()"
+				*ngIf="this.canEdit"
+				class="fa-solid fa-edit fs-6 action--icon"
+				matTooltip="Thêm kết quả trận đấu"></i>
+			<i
+				*ngIf="matchResult !== undefined && this.canEdit"
+				(click)="openEditStats()"
+				class="fa-solid fa-file-pen fs-6 action--icon"
+				matTooltip="Thêm thông số cầu thủ"></i>
+		</div>
+	</div>
+	<div class="match--content">
+		<div class="match--info">
+			<div
+				class="team--left team"
+				[class.win]="this.team1?.id == this.matchResult?.idTeamWin">
+				<div class="team--img" *ngIf="this.team1?.imageTeam">
+					<img src="{{ this.team1?.imageTeam }}" alt="logo" />
+				</div>
+
+				<div class="team--img" *ngIf="!this.team1?.imageTeam">
+					<img
+						src="../../../../../assets/images/logo.png"
+						alt="logo" />
+				</div>
+				<p class="team--name">
+					{{ this.team1?.name }}
+				</p>
+				<p class="team--result">
+					{{ this.matchResult?.scoreT1 ?? 0 }}
+				</p>
+			</div>
+			<div
+				class="team--right team"
+				[class.win]="this.team2?.id == this.matchResult?.idTeamWin">
+				<div class="team--img" *ngIf="this.team2?.imageTeam">
+					<img src="{{ this.team2?.imageTeam }}" alt="logo" />
+				</div>
+				<div class="team--img" *ngIf="!this.team2?.imageTeam">
+					<img
+						src="../../../../../assets/images/logo.png"
+						alt="logo" />
+				</div>
+				<p class="team--name">
+					{{ this.team2?.name }}
+				</p>
+				<p class="team--result">
+					{{ this.matchResult?.scoreT2 ?? 0 }}
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

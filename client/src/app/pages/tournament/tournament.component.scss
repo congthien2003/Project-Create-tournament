@@ -1,0 +1,31 @@
+@import "../../shared/variable.scss";
+
+.tour {
+	&--wrapper {
+		margin-top: 76px;
+		padding: 48px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: $primary-dark;
+	}
+
+	&--info {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 24px;
+	}
+
+	&--img {
+		width: 100px;
+	}
+
+	&--name {
+		margin-left: 48px;
+		font-size: 28px;
+		font-weight: bold;
+		color: white;
+		margin: 0;
+	}
+}

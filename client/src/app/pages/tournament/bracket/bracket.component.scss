@@ -1,0 +1,47 @@
+@import "../../../shared/variable.scss";
+
+.bracket {
+	&--wrapper {
+		background-color: $white-smoke;
+		padding: 24px 48px;
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	&--header {
+		color: $primary-dark;
+		padding: 12px 48px;
+		font-size: 24px;
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 24px;
+	}
+
+	&--content {
+		height: calc(100% - 60px);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-evenly;
+		gap: 48px;
+	}
+
+	&--main {
+		display: grid;
+		grid-template-columns: auto auto auto;
+		gap: 24px;
+	}
+}
+
+.round-16 {
+	&--wrapper {
+	}
+	&--content {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		grid-template-rows: auto auto auto auto;
+		gap: 24px;
+	}
+}

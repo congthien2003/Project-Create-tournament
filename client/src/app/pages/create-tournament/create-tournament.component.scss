@@ -1,0 +1,128 @@
+@import "../../shared/variable.scss";
+
+.create {
+	&--wrapper {
+		padding-top: 38px;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		position: relative;
+		&::after {
+			width: 40%;
+			height: 100%;
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 50%;
+			background-image: url(../../../assets/images/logo.png);
+			background-repeat: no-repeat;
+			z-index: 1;
+			opacity: 0.6;
+			transform: scale(60%);
+		}
+
+		&::before {
+			width: 40%;
+			height: 50%;
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 0;
+			background-image: url(../../../assets/images/logo.png);
+			background-repeat: no-repeat;
+			z-index: 1;
+			opacity: 0.9;
+		}
+	}
+
+	&--form {
+		min-height: 500px;
+		padding: 36px;
+		color: white;
+		background-color: $primary;
+		border-radius: 8px;
+		z-index: 3;
+		box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+			rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+			rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+		.validator-message-error {
+			display: block;
+			margin-top: 8px;
+			font-size: 14px;
+			color: rgb(255, 103, 103);
+			font-weight: bold;
+		}
+	}
+
+	&--info {
+	}
+
+	&--input-name {
+		.text-field {
+			position: relative;
+		}
+
+		.text-field label {
+			display: inline-block;
+			font-weight: 600;
+			cursor: pointer;
+			position: absolute;
+			top: 0;
+			left: 10px;
+			background-color: $primary;
+			padding: 1px 5px;
+			font-size: 16px;
+			transform: translateY(-50%);
+			color: white;
+		}
+
+		.text-field input {
+			padding: 15px;
+			display: block;
+			width: 100%;
+			font-size: 14px;
+			border: 1px solid white;
+			border-radius: 4px;
+			background-color: transparent;
+			color: white;
+			outline: none;
+		}
+	}
+
+	&--header {
+		text-align: center;
+		text-transform: uppercase;
+
+		h3 {
+			font-size: 24px;
+			font-weight: 450;
+		}
+	}
+
+	&--select {
+		width: 500px;
+	}
+
+	&--submit {
+		width: 100%;
+		text-align: center;
+		padding: 8px 16px;
+		font-weight: 500;
+		border-radius: 8px;
+		cursor: pointer;
+		border: 1px solid $primary;
+		background-color: white;
+		color: $primary-dark;
+		overflow: hidden;
+		&:hover {
+			color: white;
+			background-color: $primary-yellow;
+		}
+		&:disabled {
+			opacity: 0.9;
+			color: $primary-light;
+		}
+	}
+}

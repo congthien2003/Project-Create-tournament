@@ -1,0 +1,102 @@
+@import "../../shared/variable.scss";
+
+.find-tour {
+	&--wrapper {
+		padding-top: 76px;
+		box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+		padding-left: 0;
+		padding-right: 0;
+		font-size: 16px;
+		background-color: $white-smoke;
+
+		.find--actions {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			background-color: whitesmoke;
+
+			padding: 12px 24px;
+			height: 80px;
+		}
+
+		.find--input {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			.text-field {
+				position: relative;
+				min-width: 300px;
+				height: 40px;
+			}
+
+			.text-field label {
+				display: inline-block;
+				font-weight: 600;
+				cursor: pointer;
+				position: absolute;
+				top: 0;
+				left: 10px;
+				background-color: whitesmoke;
+
+				padding: 1px 5px;
+				font-size: 12px;
+				transform: translateY(-50%);
+				color: $primary-dark;
+			}
+
+			.text-field input {
+				padding: 8px 12px;
+				display: block;
+				width: 100%;
+				font-size: 14px;
+				border: 1px solid rgb(154, 154, 154);
+				border-right-width: 0px;
+				height: 40px;
+				background-color: transparent;
+				color: $primary-dark;
+				outline: none;
+			}
+			.find-btn {
+				padding: 4px 16px;
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				height: 40px;
+				border-top-right-radius: 4px;
+				border-bottom-right-radius: 4px;
+				background-color: $primary;
+				cursor: pointer;
+				i {
+					color: white;
+					font-size: 16px;
+				}
+			}
+		}
+
+		.find--filter {
+		}
+
+		.list--tour {
+			padding: 24px 12px;
+			height: 1000px;
+			background-color: whitesmoke;
+
+			display: flex;
+			justify-content: space-between;
+			flex-direction: column;
+
+			&__header {
+				color: $primary-dark;
+			}
+
+			&__container {
+				flex: 10;
+			}
+
+			&__pagi {
+				flex: 1;
+			}
+		}
+	}
+}

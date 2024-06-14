@@ -19,15 +19,19 @@ export class HeaderComponent implements OnInit, OnChanges {
 	isUserMenu: boolean = false;
 	isLogin: boolean = false;
 	username: string = "";
+	id: number = 0;
+	role: number = 0;
 	constructor(
 		private router: Router,
 		private authService: AuthenticationService
-	) {
-		this.bindActiveMenu(this.router.url);
-	}
+	) {}
 	ngOnInit(): void {
 		this.isLogin = this.authService.isAuthenticated();
 		this.username = this.authService.getUsernameFromToken();
+		this.id = this.authService.getUserIdFromToken();
+		this.role = this.authService.getUserRoleFromToken();
+		this.activeIndex = 0;
+		this.bindActiveMenu(this.router.url);
 	}
 	ngOnChanges(changes: SimpleChanges): void {
 		this.isLogin = this.authService.isAuthenticated();
@@ -81,7 +85,15 @@ export class HeaderComponent implements OnInit, OnChanges {
 	}
 
 	detailUser() {
-		this.router.navigate(["/pages/user"]);
+		this.router.navigate([`/user/${this.id}`]);
+	}
+
+	myTour() {
+		this.router.navigate([`/mytour/${this.id}`]);
+	}
+
+	adminPage() {
+		this.router.navigate([`/admin/dashboard`]);
 	}
 
 	logOut(): void {
@@ -89,7 +101,7 @@ export class HeaderComponent implements OnInit, OnChanges {
 		setTimeout(() => {
 			this.router.navigate(["/auth/login"]).then(() => {
 				// Sau khi chuyển hướng, chuyển hướng lại đến '/pages', sẽ gây ra reload trang
-				this.router.navigate(["/pages/home"]);
+				this.router.navigate(["/pages"]);
 			});
 		}, 1000);
 	}

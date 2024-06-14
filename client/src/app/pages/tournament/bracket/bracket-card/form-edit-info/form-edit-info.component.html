@@ -1,0 +1,43 @@
+<form [formGroup]="editMatch" class="form-edit">
+	<div class="form-edit__header">
+		<h4>Chỉnh sửa ngày thi đấu</h4>
+		<button
+			type="button"
+			class="btn-close"
+			aria-label="Close"
+			mat-dialog-close></button>
+	</div>
+	<div class="form-edit__main">
+		<div class="form-group">
+			<mat-form-field class="w-100">
+				<mat-label>Choose a date</mat-label>
+				<input
+					matInput
+					[matDatepicker]="picker"
+					[formControl]="this.editMatch.controls.date" />
+				<mat-hint>MM/DD/YYYY</mat-hint>
+				<mat-datepicker-toggle
+					matIconSuffix
+					[for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="form-edit__actions">
+		<button
+			mat-button
+			type="button"
+			class="btn-outline-primary-custom"
+			mat-dialog-close>
+			Hủy
+		</button>
+		<button
+			mat-button
+			type="button"
+			class="btn-primary-custom"
+			(click)="saveMatch()"
+			[disabled]="!editMatch.valid">
+			Lưu
+		</button>
+	</div>
+</form>

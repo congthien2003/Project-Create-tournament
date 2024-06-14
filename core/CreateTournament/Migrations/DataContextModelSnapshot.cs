@@ -63,15 +63,21 @@ namespace CreateTournament.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("STT")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TouramentId")
+                    b.Property<int>("TournamentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("round")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TouramentId");
+                    b.HasIndex("TournamentId");
 
                     b.ToTable("Matches");
                 });
@@ -145,7 +151,7 @@ namespace CreateTournament.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Assits")
+                    b.Property<int>("Assists")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -204,6 +210,9 @@ namespace CreateTournament.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<bool?>("Eliminated")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ImageTeam")
                         .HasColumnType("nvarchar(max)");
 
@@ -213,6 +222,9 @@ namespace CreateTournament.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Point")
+                        .HasColumnType("int");
 
                     b.Property<int>("TournamentId")
                         .HasColumnType("int");
@@ -233,6 +245,9 @@ namespace CreateTournament.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FinishAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("FormatTypeId")
@@ -259,6 +274,9 @@ namespace CreateTournament.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("View")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FormatTypeId");
@@ -268,6 +286,26 @@ namespace CreateTournament.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Tournaments");
+                });
+
+            modelBuilder.Entity("CreateTournament.Models.TypeOfMatch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeOfMatches");
                 });
 
             modelBuilder.Entity("CreateTournament.Models.User", b =>
@@ -308,7 +346,7 @@ namespace CreateTournament.Migrations
                 {
                     b.HasOne("CreateTournament.Models.Tournament", "Tournament")
                         .WithMany()
-                        .HasForeignKey("TouramentId")
+                        .HasForeignKey("TournamentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

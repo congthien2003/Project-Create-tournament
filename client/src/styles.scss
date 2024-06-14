@@ -1,10 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "./app/shared/breakpoints";
+@import "./app/shared/variable.scss";
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 html,
 body {
 	height: 100%;
 }
 body {
 	margin: 0;
-	font-family: "Roboto", "Helvetica Neue", sans-serif;
+	font-family: "Poppins";
+}
+body::-webkit-scrollbar {
+	width: 4px;
+}
+
+body::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: $primary;
 }

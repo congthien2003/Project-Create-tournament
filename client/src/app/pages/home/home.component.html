@@ -1,32 +1,254 @@
 <app-header></app-header>
 
-<div class="home--wrapper container">
-	<div class="home--video">
-		<iframe
-			width="763"
-			height="430"
-			src="https://www.youtube.com/embed/spNOT-7HyM4"
-			title="Score7 - Tournament Generator - Tutorial"
-			frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-			referrerpolicy="strict-origin-when-cross-origin"
-			allowfullscreen></iframe>
+<div class="home--wrapper">
+	<div class="home--introduce">
+		<h3>Tạo và quản lý giải đấu của bạn một cách đơn giản!</h3>
+		<p>
+			create-tour.com giúp bạn quản lý giải đấu của mình một cách đơn giản
+			và tiết kiệm thời gian.
+		</p>
+		<p>Hãy tham gia với chúng tôi ngày bây giờ.</p>
+		<div class="search">
+			<div class="input-focus-effect">
+				<input
+					for="search"
+					name="search"
+					id="search"
+					type="text"
+					placeholder=" "
+					#searchTour />
+				<label for="search">Find Tour</label>
+			</div>
+			<button
+				type="button"
+				class="search-btn"
+				aria-label="search"
+				(click)="onSearch()">
+				<i class="bx bx-search-alt-2"></i>
+			</button>
+		</div>
 	</div>
 
-	<div class="home--info">
+	<div class="home--info container">
 		<h2>Giới thiệu</h2>
 		<div class="list--card">
 			<div class="row">
-				<div
-					class="col-lg-4 col-md-6 col-sm-12 mt-4"
-					*ngFor="let item of ListCardInfo">
-					<app-card-info
-						[title]="item.title"
-						[content]="item.content"
-						[classIcon]="item.classIcon"></app-card-info>
+				<div class="col-lg-4 col-md-6 col-sm-12 mt-4">
+					<div class="intro--card">
+						<div class="intro--card__img">
+							<img
+								src="../../../assets/images/machine-vision-svgrepo-com.svg"
+								alt="" />
+						</div>
+						<div class="intro--card__info">
+							<h4>Dễ dàng quản lý</h4>
+							<p>
+								CreateTour giúp bạn quản lý giải đấu bóng đá một
+								cách dễ dàng với giao diện trực quan.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-6 col-sm-12 mt-4">
+					<div class="intro--card">
+						<div class="intro--card__img">
+							<img
+								src="../../../assets/images/host-record-svgrepo-com.svg"
+								alt="" />
+						</div>
+						<div class="intro--card__info">
+							<h4>Đa dạng hình thức thi đấu</h4>
+							<p>
+								CreateTour cung cấp nhiều thể thức thi đấu như
+								vòng tròn, đấu loại trực tiếp, và kết hợp, phù
+								hợp với mọi quy mô và nhu cầu của giải đấu.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-6 col-sm-12 mt-4">
+					<div class="intro--card">
+						<div class="intro--card__img">
+							<img
+								src="../../../assets/images/mobile-app-svgrepo-com.svg"
+								alt="" />
+						</div>
+						<div class="intro--card__info">
+							<h4>Chia sẻ cho nhiều người theo dõi</h4>
+							<p>
+								CreateTour cho phép bạn dễ dàng chia sẻ thông
+								tin giải đấu, giúp người hâm mộ theo dõi diễn
+								biến.
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div class="home--guide container">
+		<h2>Hướng dẫn</h2>
+		<div class="list--guide">
+			<div class="guide--card">
+				<div class="guide--card__header">
+					<h4>1</h4>
+					<span
+						><i
+							class="fa fa-arrow-right fs-3"
+							aria-hidden="true"></i
+					></span>
+				</div>
+				<div class="guide--card__info">
+					<p>Chọn loại môn và thể thức thi đấu</p>
+				</div>
+			</div>
+
+			<div class="guide--card">
+				<div class="guide--card__header">
+					<h4>2</h4>
+					<span
+						><i
+							class="fa fa-arrow-right fs-3"
+							aria-hidden="true"></i
+					></span>
+				</div>
+				<div class="guide--card__info">
+					<p>Chọn số lượng đội tham gia giải</p>
+				</div>
+			</div>
+
+			<div class="guide--card">
+				<div class="guide--card__header">
+					<h4>3</h4>
+					<span
+						><i
+							class="fa fa-arrow-right fs-3"
+							aria-hidden="true"></i
+					></span>
+				</div>
+				<div class="guide--card__info">
+					<p>Tùy chỉnh tên đội, thành viên trong đội</p>
+				</div>
+			</div>
+
+			<div class="guide--card">
+				<div class="guide--card__header">
+					<h4>4</h4>
+					<span
+						><i
+							class="fa fa-arrow-right fs-3"
+							aria-hidden="true"></i
+					></span>
+				</div>
+				<div class="guide--card__info">
+					<p>Lên lịch thi đấu cho các trận</p>
+				</div>
+			</div>
+
+			<div class="guide--card">
+				<div class="guide--card__header">
+					<h4>5</h4>
+					<span
+						><i class="fa fa-arrow-down fs-3" aria-hidden="true"></i
+					></span>
+				</div>
+				<div class="guide--card__info">
+					<p>Chia sẻ thông tin giải đấu với bạn bè</p>
+				</div>
+			</div>
+		</div>
+		<div class="guide--button">
+			<a [routerLink]="['/pages/create']"
+				>Tạo giải đấu của riêng bạn
+				<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+			</a>
+		</div>
+	</div>
+
+	<div class="home--tour-list container">
+		<h2>Giải đấu đang diễn ra</h2>
+		<div class="mat-elevation-z8 mt-4" *ngIf="data.length != 0">
+			<table mat-table [dataSource]="dataSource">
+				<!-- Position Column -->
+				<ng-container matColumnDef="name">
+					<th mat-header-cell *matHeaderCellDef>Tên giải đấu</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.name }}
+					</td>
+				</ng-container>
+
+				<!-- Name Column -->
+				<ng-container matColumnDef="sportType">
+					<th mat-header-cell *matHeaderCellDef>Môn thi đấu</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.sportTypeId | sportName }}
+					</td>
+				</ng-container>
+
+				<!-- Weight Column -->
+				<ng-container matColumnDef="formatType">
+					<th mat-header-cell *matHeaderCellDef>Thể loại thi đấu</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.formatTypeId | formatName }}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="quantity">
+					<th mat-header-cell *matHeaderCellDef>Số đội thi đấu</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.quantityTeam }}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="location">
+					<th mat-header-cell *matHeaderCellDef>Địa chỉ</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.location }}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="startAt">
+					<th mat-header-cell *matHeaderCellDef>Ngày bắt đầu</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.finishAt ?? "-" | date }}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="views">
+					<th mat-header-cell *matHeaderCellDef>Lượt xem</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.view }}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="actions">
+					<th
+						mat-header-cell
+						*matHeaderCellDef
+						aria-label="row actions"></th>
+					<td mat-cell *matCellDef="let element">
+						<button
+							(click)="onViewDetail(element.id)"
+							mat-stroked-button
+							aria-label="View"
+							matTooltip="Xem chi tiết">
+							<i class="fa-solid fa-eye" aria-hidden="true"></i>
+						</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr
+					mat-row
+					*matRowDef="let row; columns: displayedColumns"></tr>
+			</table>
+		</div>
+		<h4 class="text-center text-black" *ngIf="data.length == 0">
+			Không có giải đấu nào ở hiện tại
+		</h4>
 	</div>
 </div>
 <app-footer></app-footer>

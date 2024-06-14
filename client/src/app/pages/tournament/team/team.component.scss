@@ -1,0 +1,9 @@
+@import "../../../shared/variable.scss";
+
+.overview-team--wrapper {
+	display: grid;
+	grid-template-columns: auto auto;
+	padding: 24px 48px;
+	gap: 40px;
+	background-color: whitesmoke;
+}

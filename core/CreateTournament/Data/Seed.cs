@@ -34,6 +34,10 @@ namespace CreateTournament.Data
                         new FormatType()
                         {
                             Name = "Knock Out"
+                        },
+                        new FormatType()
+                        {
+                            Name = "Long Distance"
                         }
                     });
                     context.SaveChanges();
@@ -45,8 +49,24 @@ namespace CreateTournament.Data
                     {
                         new SportType()
                         {
-                            Name = "Football"
-                        }
+                            Name = "FootBall"
+                        },
+                        new SportType()
+                        {
+                            Name = "Basketball"
+                        },
+                        new SportType()
+                        {
+                            Name = "FC Online"
+                        },
+                        new SportType()
+                        {
+                            Name = "Volleyball"
+                        },
+                        new SportType()
+                        {
+                            Name = "Billards"
+                        },
                     });
                     context.SaveChanges();
                 }
@@ -69,7 +89,7 @@ namespace CreateTournament.Data
                     });
                     context.SaveChanges();
                 }
-                var touramentId = context.Tournaments.Where(obj => obj.Name.Equals("Champion League")).Select(obj =>obj.Id).FirstOrDefault();
+                var tournamentId = context.Tournaments.Where(obj => obj.Name.Equals("Champion League")).Select(obj =>obj.Id).FirstOrDefault();
                 if (!context.Teams.Any())
                 {
                     context.Teams.AddRange(new List<Team>
@@ -77,26 +97,30 @@ namespace CreateTournament.Data
                         new Team()
                         {
                             Name = "Real Madrid",
-                            TournamentId = touramentId,
-                            IsDeleted =false
+                            TournamentId = tournamentId,
+                            IsDeleted =false,
+                            Eliminated = false,
                         },
                         new Team()
                         {
                             Name = "PSG",
-                            TournamentId = touramentId,
-                            IsDeleted =false
+                            TournamentId = tournamentId,
+                            IsDeleted =false,
+                            Eliminated = false,
                         },
                         new Team()
                         {
                             Name = "Bayern Munich",
-                            TournamentId = touramentId,
-                            IsDeleted =false
+                            TournamentId = tournamentId,
+                            IsDeleted =false,
+                            Eliminated = false
                         },
                         new Team()
                         {
                             Name = "DortMund",
-                            TournamentId = touramentId,
-                            IsDeleted =false
+                            TournamentId = tournamentId,
+                            IsDeleted =false,
+                            Eliminated = false
                         }
                     });
                     context.SaveChanges();
@@ -168,7 +192,7 @@ namespace CreateTournament.Data
                         {
                             IdTeam1 = IdTeam1,
                             IdTeam2 = IdTeam3,
-                            TouramentId = touramentId,
+                            TournamentId = tournamentId,
                             StartAt = DateTime.Now,
                             Created = DateTime.Now,
                             IsDeleted = false
@@ -178,7 +202,7 @@ namespace CreateTournament.Data
                         {
                             IdTeam1 = IdTeam2,
                             IdTeam2 = IdTeam4,
-                            TouramentId = touramentId,
+                            TournamentId = tournamentId,
                             StartAt = DateTime.Now,
                             Created = DateTime.Now,
                             IsDeleted = false
@@ -187,7 +211,7 @@ namespace CreateTournament.Data
                         {
                             IdTeam1 = IdTeam1,
                             IdTeam2 = IdTeam4,
-                            TouramentId = touramentId,
+                            TournamentId = tournamentId,
                             StartAt = DateTime.Now,
                             Created = DateTime.Now,
                             IsDeleted = false
@@ -238,7 +262,7 @@ namespace CreateTournament.Data
                             MatchResultId = 1,
                             PlayerId = IdPlayer1,
                             Score = 2,
-                            Assits = 1,
+                            Assists = 1,
                             RedCard = 0,
                             YellowCard = 0,
                         },
@@ -247,7 +271,7 @@ namespace CreateTournament.Data
                             MatchResultId = 1,
                             PlayerId = IdPlayer2,
                             Score = 1,
-                            Assits = 2,
+                            Assists = 2,
                             RedCard = 0,
                             YellowCard = 1,
                         },
@@ -256,7 +280,7 @@ namespace CreateTournament.Data
                             MatchResultId = 1,
                             PlayerId = IdPlayer5,
                             Score = 2,
-                            Assits = 0,
+                            Assists = 0,
                             RedCard = 0,
                             YellowCard = 0,
                         },
@@ -265,7 +289,7 @@ namespace CreateTournament.Data
                             MatchResultId = 1,
                             PlayerId = IdPlayer6,
                             Score = 0,
-                            Assits = 2,
+                            Assists = 2,
                             RedCard = 0,
                             YellowCard = 0,
                         },
@@ -274,7 +298,7 @@ namespace CreateTournament.Data
                             MatchResultId = 2,
                             PlayerId = IdPlayer3,
                             Score = 0,
-                            Assits = 0,
+                            Assists = 0,
                             RedCard = 0,
                             YellowCard = 1,
                         },
@@ -283,7 +307,7 @@ namespace CreateTournament.Data
                             MatchResultId = 2,
                             PlayerId = IdPlayer4,
                             Score = 0,
-                            Assits = 0,
+                            Assists = 0,
                             RedCard = 0,
                             YellowCard = 0,
                         },
@@ -292,7 +316,7 @@ namespace CreateTournament.Data
                             MatchResultId = 2,
                             PlayerId = IdPlayer7,
                             Score = 2,
-                            Assits = 0,
+                            Assists = 0,
                             RedCard = 0,
                             YellowCard = 0,
                         },
@@ -301,7 +325,7 @@ namespace CreateTournament.Data
                             MatchResultId = 2,
                             PlayerId = IdPlayer8,
                             Score = 0,
-                            Assits = 2,
+                            Assists = 2,
                             RedCard = 0,
                             YellowCard = 0,
                         },
@@ -310,7 +334,7 @@ namespace CreateTournament.Data
                             MatchResultId = 3,
                             PlayerId = IdPlayer1,
                             Score = 1,
-                            Assits = 2,
+                            Assists = 2,
                             RedCard = 0,
                             YellowCard = 0,
                         },
@@ -319,7 +343,7 @@ namespace CreateTournament.Data
                             MatchResultId = 3,
                             PlayerId = IdPlayer2,
                             Score = 2,
-                            Assits = 1,
+                            Assists = 1,
                             RedCard = 0,
                             YellowCard = 0,
                         },
@@ -328,7 +352,7 @@ namespace CreateTournament.Data
                             MatchResultId = 3,
                             PlayerId = IdPlayer8,
                             Score = 1,
-                            Assits = 0,
+                            Assists = 0,
                             RedCard = 0,
                             YellowCard = 0,
                         },
@@ -337,10 +361,41 @@ namespace CreateTournament.Data
                             MatchResultId = 3,
                             PlayerId = IdPlayer8,
                             Score = 0,
-                            Assits = 1,
+                            Assists = 1,
                             RedCard = 0,
                             YellowCard = 0,
                         },
+                    });
+                    context.SaveChanges();
+                }
+                if (!context.TypeOfMatches.Any())
+                {
+                    context.TypeOfMatches.AddRange(new List<TypeOfMatch>
+                    {
+                        new TypeOfMatch()
+                        {
+                            Name = "Round 32"
+                        },
+                        new TypeOfMatch()
+                        {
+                            Name = "Round 16"
+                        },
+                        new TypeOfMatch()
+                        {
+                            Name = "Quarter-Final"
+                        },
+                        new TypeOfMatch()
+                        {
+                            Name = "Semi-Final"
+                        },
+                        new TypeOfMatch()
+                        {
+                            Name = "Final"
+                        },
+                        new TypeOfMatch()
+                        {
+                            Name = "League"
+                        }
                     });
                     context.SaveChanges();
                 }

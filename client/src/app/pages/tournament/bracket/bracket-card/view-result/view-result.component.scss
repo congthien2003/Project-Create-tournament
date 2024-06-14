@@ -1,0 +1,101 @@
+@import "../../../../../shared/variable.scss";
+
+.result {
+	&--wrapper {
+		background-color: white;
+		min-width: 600px;
+		overflow: hidden;
+	}
+
+	&--header {
+		background-color: $primary;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 8px 12px;
+
+		h4 {
+			color: white;
+			font-weight: 450;
+		}
+		.btn-close {
+			color: white;
+		}
+	}
+
+	&--info {
+		background-color: white;
+		.date {
+			text-align: center;
+			color: $primary;
+			padding: 12px;
+			border-bottom: 1px solid $primary-medium;
+		}
+		.team--wrapper {
+			padding: 24px 4px;
+
+			display: grid;
+			align-items: center;
+			grid-template-columns: 40% 15% 40%;
+			justify-content: center;
+			.team {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 12px;
+
+				&--name {
+					font-size: 20px;
+					font-weight: bold;
+				}
+			}
+
+			@include img-team;
+		}
+		.score {
+			text-align: center;
+			font-size: 20px;
+
+			span {
+				font-weight: bold;
+			}
+		}
+		.goal--wrapper {
+			width: 100%;
+			padding: 12px 4px;
+			display: grid;
+			align-items: center;
+			grid-template-columns: 45% 5% 45%;
+			justify-content: center;
+			gap: 12px;
+			.goal {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				gap: 8px;
+				.player {
+					display: grid;
+					grid-template-columns: 50% 50%;
+					gap: 12px;
+					width: 100%;
+					.icon {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						gap: 4px;
+						i {
+							font-size: 20px;
+						}
+					}
+
+					.name {
+						font-size: 16px;
+						font-weight: bold;
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}
