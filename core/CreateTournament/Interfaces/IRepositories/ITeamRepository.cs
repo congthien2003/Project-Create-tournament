@@ -12,5 +12,8 @@ namespace CreateTournament.Interfaces.IRepositories
         Task<TTeam> GetTeamByIdAsync (int Id, bool includeDeleted = false);
         Task<TTeam> FindByIdAsync(int Id, bool includeDeleted = false);
         Task<List<TTeam>> CreateListTeamAsync(int quantity, int idTournament);
+        Task<List<TTeam>> GetListTeamSwap(int idTournament, int round);
+
+        
     }
 }

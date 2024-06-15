@@ -3,6 +3,7 @@ using CreateTournament.DTOs;
 using CreateTournament.Interfaces.IRepositories;
 using CreateTournament.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CreateTournament.Repositories
 {
@@ -107,6 +108,27 @@ namespace CreateTournament.Repositories
             await _context.AddRangeAsync(teams);
             await _context.SaveChangesAsync();
             return teams;
+        }
+
+        public async Task<List<Team>> GetListTeamSwap(int idTournament, int round)
+        {
+            var list = new List<int>();
+
+            var listTeam = await _context.Teams.Where(x => x.TournamentId == idTournament).ToListAsync();
+
+            var matchs = await _context.Matches.Where(x => x.TournamentId == idTournament && x.round == round).ToListAsync();
+
+            matchs.ForEach((match) =>
+            {
+                var exists = _context.MatchResults.FirstOrDefault(x => x.MatchId == match.Id);
+                if (exists != null)
+                {
+                    listTeam = listTeam.Where(x => x.Id != match.IdTeam1).ToList();
+                    listTeam = listTeam.Where(x => x.Id != match.IdTeam2).ToList();
+                }
+            });
+
+            return listTeam;
         }
     }
 }

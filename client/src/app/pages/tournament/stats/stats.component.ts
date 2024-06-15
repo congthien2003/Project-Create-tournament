@@ -126,14 +126,27 @@ export class StatsComponent implements OnInit {
 		asc: true,
 	};
 
+	tablePlayerStats = {
+		totalPage: 5,
+		totalRecords: 0,
+		currentPage: 1,
+		pageSize: 10,
+		hasNext: true,
+		hasPrev: false,
+		sortColumn: "score",
+		asc: true,
+	};
+
 	sortIndex = 0;
 
-	onChangePage(currentPage: number): void {
-		this.tableTeamStats.currentPage = currentPage;
-		this.loadTeamStats();
+	onChangePagePlayerStats(currentPage: number): void {
+		console.log(currentPage);
+
+		this.tablePlayerStats.currentPage = currentPage;
+		this.loadPlayerStats();
 	}
 
-	onSort($event: any): void {
+	onSortTeamStats($event: any): void {
 		switch ($event) {
 			case 0: {
 				if (this.tableTeamStats.sortColumn === "score") {
@@ -162,6 +175,37 @@ export class StatsComponent implements OnInit {
 		}
 		this.loadTeamStats();
 	}
+	onSortPlayerStats($event: any): void {
+		switch ($event) {
+			case 0: {
+				if (this.tablePlayerStats.sortColumn === "score") {
+					this.tablePlayerStats.asc = !this.tablePlayerStats.asc;
+				}
+				this.tablePlayerStats.sortColumn = "score";
+				this.sortIndex = 0;
+				break;
+			}
+			case 1: {
+				if (this.tablePlayerStats.sortColumn === "yellowcard") {
+					this.tablePlayerStats.asc = !this.tablePlayerStats.asc;
+				}
+				this.tablePlayerStats.sortColumn = "yellowcard";
+				this.sortIndex = 1;
+				break;
+			}
+			case 2: {
+				if (this.tablePlayerStats.sortColumn === "redcard") {
+					this.tablePlayerStats.asc = !this.tablePlayerStats.asc;
+				}
+				this.tablePlayerStats.sortColumn = "redcard";
+				this.sortIndex = 2;
+				break;
+			}
+		}
+		this.loadPlayerStats();
+	}
+
+	arrayTeam: Array<any>;
 
 	loadTeamStats(): void {
 		// * Team Stats
@@ -177,9 +221,9 @@ export class StatsComponent implements OnInit {
 				next: (res) => {
 					const value = Object.values(res);
 
-					let arrayTeam = value[0] as Array<any>;
+					this.arrayTeam = value[0] as Array<any>;
 
-					const observables = arrayTeam.map((element) => {
+					const observables = this.arrayTeam.map((element) => {
 						const idTeam = element.idteam;
 						return this.teamService.getById(idTeam).pipe(
 							map((team) => ({
@@ -190,63 +234,64 @@ export class StatsComponent implements OnInit {
 					});
 
 					forkJoin(observables).subscribe((results) => {
-						arrayTeam = results;
+						this.arrayTeam = results;
 						this.teamStatsSource = results;
-						this.teamStats = arrayTeam;
+						this.teamStats = this.arrayTeam;
+					});
+					this.loadPlayerStats();
+				},
+			});
+	}
 
-						// Player Stats
-						this.playerStatsService
-							.getPlayerStatsByIdTournament(
-								this.Tour.id,
-								1,
-								10,
-								"score"
-							)
-							.subscribe({
-								next: (res) => {
-									const value = Object.values(res);
+	loadPlayerStats(): void {
+		this.playerStatsService
+			.getPlayerStatsByIdTournament(
+				this.Tour.id,
+				this.tablePlayerStats.currentPage,
+				this.tablePlayerStats.pageSize,
+				this.tablePlayerStats.sortColumn,
+				this.tablePlayerStats.asc
+			)
+			.subscribe({
+				next: (res) => {
+					const value = Object.values(res);
 
-									let array = value[0] as Array<any>;
+					let array = value[0] as Array<any>;
+					this.tablePlayerStats.currentPage = value[1] as number;
+					this.tablePlayerStats.pageSize = value[2] as number;
+					this.tablePlayerStats.asc = value[3] as boolean;
+					this.tablePlayerStats.totalPage = value[4] as number;
+					this.tablePlayerStats.totalRecords = value[5] as number;
+					this.tablePlayerStats.hasPrev = value[6] as boolean;
+					this.tablePlayerStats.hasNext = value[7] as boolean;
 
-									const observables = array.map((element) => {
-										const playerStatsId =
-											element.playerStatsId;
-										return this.playerService
-											.getById(playerStatsId)
-											.pipe(
-												map((player) => {
-													const teamObject =
-														arrayTeam.find((x) => {
-															return (
-																x.team.id ==
-																player.teamId
-															);
-														});
+					const observables = array.map((element) => {
+						const playerStatsId = element.playerStatsId;
+						return this.playerService.getById(playerStatsId).pipe(
+							map((player) => {
+								const teamObject = this.arrayTeam.find((x) => {
+									return x.team.id == player.teamId;
+								});
 
-													return {
-														team: teamObject.team,
-														player: player,
-														stats: element,
-													};
-												})
-											);
-									});
+								return {
+									team: teamObject.team,
+									player: player,
+									stats: element,
+								};
+							})
+						);
+					});
 
-									forkJoin(observables).subscribe(
-										(result) => {
-											array = result;
-											let max = 0;
-											array.forEach((element) => {
-												if (element.stats.score > max) {
-													max = element.stats.score;
-													this.topScore = element;
-												}
-											});
-											this.playerStats = array;
-										}
-									);
-								},
-							});
+					forkJoin(observables).subscribe((result) => {
+						array = result;
+						let max = 0;
+						array.forEach((element) => {
+							if (element.stats.score > max) {
+								max = element.stats.score;
+								this.topScore = element;
+							}
+						});
+						this.playerStats = array;
 					});
 				},
 			});

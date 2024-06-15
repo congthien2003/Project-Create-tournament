@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
-import { Subscription } from "rxjs";
+import { Subscription, filter, map } from "rxjs";
 import { Match } from "src/app/core/models/classes/Match";
 import { Team } from "src/app/core/models/classes/Team";
 import { MatchService } from "src/app/core/services/match.service";
@@ -30,10 +30,8 @@ export class FormEditInfoComponent implements OnInit {
 	listTeam1: Team[] = [];
 	listTeam2: Team[] = [];
 
-	listTeamName1: string[] = [];
-	listTeamName2: string[] = [];
-	team1Choosed: any;
-	team2Choosed: any;
+	team1Choosed: Team;
+	team2Choosed: Team;
 	teamChoosedTemp: any = 0;
 
 	constructor(
@@ -48,45 +46,37 @@ export class FormEditInfoComponent implements OnInit {
 		}
 	) {}
 	ngOnInit(): void {
-		this.team1Choosed = this.data.match.idTeam1;
-		this.team2Choosed = this.data.match.idTeam2;
+		this.team1Choosed = this.data.team1;
+		this.team2Choosed = this.data.team2;
 		this.teamChoosedTemp = 0;
 		this.subscription = this.idloaderService.currentId$.subscribe({
 			next: (value) => {
 				this.idTour = value ?? 0;
-				this.teamService.getAll(this.idTour).subscribe({
-					next: (value) => {
-						this.listTeam = value;
-						this.loadDropdown();
-					},
-				});
+				this.teamService
+					.getListTeamSwap(this.idTour, this.data.match.round)
+					.subscribe({
+						next: (value) => {
+							this.listTeam = value;
+							this.loadDropdown();
+						},
+					});
 			},
 		});
-		console.log(this.team1Choosed);
-		console.log(this.team2Choosed);
 	}
 
 	loadDropdown(): void {
-		console.log("Loaded dropdown");
-
 		this.listTeam1 = this.listTeam.filter(
 			(x) =>
-				x.id !== this.team1Choosed &&
-				x.id !== this.team2Choosed &&
+				x.id !== this.team1Choosed.id &&
+				x.id !== this.team2Choosed.id &&
 				x.id !== this.teamChoosedTemp
 		);
 		this.listTeam2 = this.listTeam.filter(
 			(x) =>
-				x.id !== this.team1Choosed &&
-				x.id !== this.team2Choosed &&
+				x.id !== this.team1Choosed.id &&
+				x.id !== this.team2Choosed.id &&
 				x.id !== this.teamChoosedTemp
 		);
-
-		this.listTeamName1 = this.listTeam1.map((team) => team.name);
-		this.listTeamName2 = this.listTeam2.map((team) => team.name);
-
-		console.log(this.team1Choosed);
-		console.log(this.team2Choosed);
 	}
 
 	@Output() saveInfo = new EventEmitter<any>();
@@ -98,18 +88,13 @@ export class FormEditInfoComponent implements OnInit {
 	saveMatch(): void {
 		const date = this.editMatch.get("date")?.value;
 
+		this.data.match.idTeam1 = this.team1Choosed.id;
+		this.data.match.idTeam2 = this.team2Choosed.id;
+
 		this.saveInfo.emit({
 			date,
+			match: this.data.match,
 		});
-
-		this.data.match.idTeam1 = this.team1Choosed;
-		this.data.match.idTeam2 = this.team2Choosed;
-
-		// this.matchService
-		// 	.update(this.data.match.id, this.data.match)
-		// 	.subscribe({
-		// 		next: (value) => {},
-		// 	});
 	}
 
 	changeTeam($event: any, num: number) {
@@ -117,16 +102,12 @@ export class FormEditInfoComponent implements OnInit {
 
 		if (num === 1) {
 			this.teamChoosedTemp = this.team1Choosed;
-			this.team1Choosed = this.listTeam1[$event].id;
+			this.team1Choosed.id = this.listTeam1[$event].id;
 		} else {
 			this.teamChoosedTemp = this.team2Choosed;
 
-			this.team2Choosed = this.listTeam2[$event].id;
+			this.team2Choosed.id = this.listTeam2[$event].id;
 		}
-
-		console.log(this.team1Choosed);
-		console.log(this.team2Choosed);
-
 		this.loadDropdown();
 	}
 }

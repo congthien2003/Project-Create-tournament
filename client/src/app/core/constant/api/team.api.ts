@@ -4,4 +4,5 @@ export const TeamApi = {
 	update: "Team/update",
 	updateImg: "Team/updateImage",
 	getById: "Team",
+	getListTeamSwap: "Team/GetListTeamSwap",
 };

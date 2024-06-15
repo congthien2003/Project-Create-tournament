@@ -16,7 +16,6 @@ import { TournamentModule } from "./tournament/tournament.module";
 import { MatMenuModule } from "@angular/material/menu";
 import { MytourComponent } from "./mytour/mytour.component";
 import { ModalDeleteComponent } from "./mytour/modal-delete/modal-delete.component";
-import { JwtHelperService, JwtModule } from "@auth0/angular-jwt";
 const MatModule = [
 	MatCommonModule,
 	MatTableModule,
@@ -42,6 +41,6 @@ const MatModule = [
 		TournamentModule,
 		...MatModule,
 	],
-	providers: [JwtHelperService],
+	providers: [],
 })
 export class PagesModule {}

@@ -23,7 +23,8 @@ import { MatMenuModule } from "@angular/material/menu";
 import { RolePipe } from "../core/utils/role.pipe";
 import { PaginationComponent } from "./components/pagination/pagination.component";
 import { MatSortModule } from "@angular/material/sort";
-import { CongratulationsComponent } from './components/congratulations/congratulations.component';
+import { CongratulationsComponent } from "./components/congratulations/congratulations.component";
+import { MatSelectModule } from "@angular/material/select";
 const MatImport = [
 	MatTabsModule,
 	MatTableModule,
@@ -39,6 +40,7 @@ const MatImport = [
 	MatNativeDateModule,
 	MatMenuModule,
 	MatSortModule,
+	MatSelectModule,
 ];
 
 @NgModule({
@@ -52,7 +54,7 @@ const MatImport = [
 		FormatTypePipe,
 		SportTypePipe,
 		RolePipe,
-  CongratulationsComponent,
+		CongratulationsComponent,
 	],
 	imports: [CommonModule, PagesRoutingModule],
 	exports: [

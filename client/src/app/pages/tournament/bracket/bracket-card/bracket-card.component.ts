@@ -45,6 +45,10 @@ export class BracketCardComponent implements OnInit {
 	) {}
 	ngAfterViewInit(): void {}
 	ngOnInit(): void {
+		this.loadBracketCard();
+	}
+
+	loadBracketCard(): void {
 		this.teamService.getById(this.match.idTeam1).subscribe({
 			next: (value) => {
 				this.team1 = value;
@@ -128,8 +132,8 @@ export class BracketCardComponent implements OnInit {
 		});
 		const subscribeDialog = dialogRef.componentInstance.saveInfo.subscribe(
 			(data) => {
+				this.match = data.match;
 				this.match.startAt = data.date;
-				this.saveMatch.emit(this.matchResult);
 				this.updateMatch();
 			}
 		);
@@ -154,6 +158,12 @@ export class BracketCardComponent implements OnInit {
 		this.matchService.update(this.match.id, this.match).subscribe({
 			next: (value) => {
 				this.toastr.success("", "Cập nhật thành công !", {
+					timeOut: 3000,
+				});
+				this.loadBracketCard();
+			},
+			error: (error) => {
+				this.toastr.error(error.error, "Cập nhật không thành công !", {
 					timeOut: 3000,
 				});
 			},

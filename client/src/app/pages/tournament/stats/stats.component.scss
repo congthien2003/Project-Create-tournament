@@ -131,6 +131,8 @@
 		}
 
 		.players-stats {
+			display: flex;
+			flex-direction: column;
 		}
 
 		.history {
@@ -191,4 +193,11 @@
 			transform: translateX(0%);
 		}
 	}
+}
+
+.table--pagination {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
