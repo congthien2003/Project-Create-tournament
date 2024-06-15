@@ -6,6 +6,7 @@ using CreateTournament.Models;
 using CreateTournament.Repositories;
 using CreateTournament.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -106,7 +107,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
     policy =>
     {
-        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("http://localhost:4200", "https://create-tournament-v1.vercel.app").AllowAnyMethod().AllowAnyHeader();
     }));
 
 // add automapper
@@ -120,6 +121,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 //Seed Method
 if (args.Length == 1 && args[0].ToLower() == "seeddata")
 {
@@ -136,3 +138,14 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+/*
+        Host.CreateDefaultBuilder()
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseIISIntegration(); // Integrate with IIS
+                webBuilder.UseKestrel(options =>
+                {
+                    options.AddServerHeader = false; // Optional: Hide Kestrel server header
+                });
+            }).Build().Run();*/

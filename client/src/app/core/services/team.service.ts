@@ -21,6 +21,13 @@ export class TeamService {
 		return this.master.get(`${this.endpoints.getById}/${idTeam}`);
 	}
 
+	getListTeamSwap(idTournament: number, round: number): Observable<Team[]> {
+		const params = new HttpParams()
+			.set("idTournament", idTournament)
+			.set("round", round);
+		return this.master.get(`${this.endpoints.getListTeamSwap}`, { params });
+	}
+
 	create(quantity: number, idTournament: number): Observable<Team[]> {
 		const params = new HttpParams()
 			.set("quantity", quantity)

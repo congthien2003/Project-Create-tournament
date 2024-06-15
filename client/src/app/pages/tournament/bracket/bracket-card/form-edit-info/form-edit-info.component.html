@@ -1,6 +1,6 @@
 <form [formGroup]="editMatch" class="form-edit">
 	<div class="form-edit__header">
-		<h4>Chỉnh sửa ngày thi đấu</h4>
+		<h4>Chỉnh sửa thông tin trận đấu</h4>
 		<button
 			type="button"
 			class="btn-close"
@@ -21,6 +21,33 @@
 					[for]="picker"></mat-datepicker-toggle>
 				<mat-datepicker #picker></mat-datepicker>
 			</mat-form-field>
+		</div>
+		<div class="swap-team">
+			<div class="team">
+				<mat-form-field>
+					<mat-label>{{ this.team1Choosed.name }}</mat-label>
+					<mat-select [(value)]="team1Choosed.id">
+						<mat-option
+							*ngFor="let item of listTeam1"
+							value="{{ item.id }}"
+							>{{ item.name }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+			</div>
+			<div>VS</div>
+			<div class="team">
+				<mat-form-field>
+					<mat-label>{{ this.team2Choosed.name }}</mat-label>
+					<mat-select [(value)]="team2Choosed.id">
+						<mat-option
+							*ngFor="let item of listTeam2"
+							value="{{ item.id }}"
+							>{{ item.name }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+			</div>
 		</div>
 	</div>
 	<div class="form-edit__actions">

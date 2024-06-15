@@ -10,9 +10,9 @@
 				matTooltip="Xem kết quả"></i>
 			<i
 				(click)="openEditMatch()"
-				*ngIf="this.canEdit"
+				*ngIf="this.canEdit && !this.matchResult"
 				class="fa-solid fa-calendar fs-6 action--icon"
-				matTooltip="Chỉnh sửa ngày thi đấu"></i>
+				matTooltip="Chỉnh sửa thông tin trận đấu"></i>
 
 			<i
 				(click)="openEditResult()"

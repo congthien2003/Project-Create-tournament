@@ -51,7 +51,6 @@ namespace CreateTournament.Controllers
         }
 
         [HttpGet("{id:int}")]
-
         public async Task<ActionResult> GetById(int id)
         {
 
@@ -63,9 +62,15 @@ namespace CreateTournament.Controllers
             return Ok(team);
         }
 
-        [HttpPut("update")]
-        
+        [HttpGet("GetListTeamSwap")]
+        public async Task<ActionResult> GetListTeamSwap(int idTournament, int round)
+        {
 
+            var listIdTeam = await _teamService.GetListTeamSwap(idTournament, round);
+            return Ok(listIdTeam);
+        }
+
+        [HttpPut("update")]
         public async Task<ActionResult> UpdateTeam(int id, string name)
         {
 
@@ -78,7 +83,6 @@ namespace CreateTournament.Controllers
         }
 
         [HttpPut("updateImage")]
-
         public async Task<ActionResult> UpdateImage(int id, string path)
         {
 
@@ -89,5 +93,7 @@ namespace CreateTournament.Controllers
             }
             return Ok(team);
         }
+
+
     }
 }

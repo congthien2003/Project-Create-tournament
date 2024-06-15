@@ -385,14 +385,14 @@ namespace CreateTournament.Controllers
         }
 
         [HttpGet("playerStats")]
-        public async Task<ActionResult> GetPlayerStatsByIdTour(int idTournament, string pageNumber = "1", string pageSize = "5", string? sortColumn = "", string ascendingOrder = "true")
+        public async Task<ActionResult> GetPlayerStatsByIdTour(int idTournament, string currentPage = "1", string pageSize = "5", string? sortColumn = "", string ascendingOrder = "true")
         {
             var tour = await _tournamentService.GetByIdTournament(idTournament);
             if (tour == null)
             {
                 return BadRequest("Không tìm thấy giải đấu");
             }
-            int _currentPage = int.Parse(pageNumber);
+            int _currentPage = int.Parse(currentPage);
             int _pageSize = int.Parse(pageSize);
             bool _ascendingOrder = ascendingOrder == "true";
 
@@ -401,7 +401,7 @@ namespace CreateTournament.Controllers
             {
                 return Ok(new { idTour = tour.Id, playerStats = new List<object>() });
             }
-            var playerStatsDTOs = playerStats
+            var playerStatsList = playerStats
                 .GroupBy(ps => ps.PlayerId)
                 .Select(group => new
                 {
@@ -411,11 +411,76 @@ namespace CreateTournament.Controllers
                     YellowCard = group.Sum(ps => ps.YellowCard),
                     RedCard = group.Sum(ps => ps.RedCard)
                 })
-                .ToList();
+                .AsQueryable();
+
+            var totalRecords = playerStatsList.ToList().Count();
+            int totalPage = totalRecords % _pageSize != 0 ? (totalRecords / _pageSize + 1) : (totalRecords / _pageSize);
+
+
+            switch (sortColumn.ToLower())
+            {
+                case "score":
+                    {
+                        if (_ascendingOrder)
+                        {
+                            playerStatsList = playerStatsList.OrderByDescending(x => x.Score);
+                        }
+                        else
+                        {
+                            playerStatsList = playerStatsList.OrderBy(x => x.Score);
+                        }
+                        break;
+                    }
+                case "yellowcard":
+                    {
+                        if (_ascendingOrder)
+                        {
+                            playerStatsList = playerStatsList.OrderByDescending(x => x.YellowCard);
+                        }
+                        else
+                        {
+                            playerStatsList = playerStatsList.OrderBy(x => x.YellowCard);
+                        }
+                        break;
+                    }
+                case "redcard":
+                    {
+                        if (_ascendingOrder)
+                        {
+                            playerStatsList = playerStatsList.OrderByDescending(x => x.RedCard);
+                        }
+                        else
+                        {
+                            playerStatsList = playerStatsList.OrderBy(x => x.RedCard);
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        if (_ascendingOrder)
+                        {
+                            playerStatsList = playerStatsList.OrderByDescending(x => x.Score);
+                        }
+                        else
+                        {
+                            playerStatsList = playerStatsList.OrderBy(x => x.Score);
+                        }
+                        break;
+                    }
+            }
+
+
 
             var result = new
             {
-                listplayerStats = playerStatsDTOs.Skip(_pageSize * _currentPage - _pageSize).Take(_pageSize)
+                listplayerStats = playerStatsList.Skip(_pageSize * _currentPage - _pageSize).Take(_pageSize),
+                _currentPage,
+                _pageSize,
+                _ascendingOrder,
+                totalPage,
+                totalRecords,
+                hasPrevious = _currentPage > 1,
+                hasNext = _currentPage < totalPage,
             };
 
             return Ok(result);

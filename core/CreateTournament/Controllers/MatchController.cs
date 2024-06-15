@@ -47,6 +47,7 @@ namespace CreateTournament.Controllers
             }
             return Ok(match);
         }
+
         [HttpGet("all")]
         public async Task<ActionResult> GetAllByIdTournament(int idTournament)
         {
@@ -64,11 +65,15 @@ namespace CreateTournament.Controllers
             {
                 return BadRequest("ID truyền vô không hợp lệ");
             }
+
+            if (matchDTO.IdTeam1 == matchDTO.IdTeam2)
+            {
+                return BadRequest("2 Team không thể trùng nhau");
+            }
+
             var team1 = await _teamService.FindTeamByIdAsync(matchDTO.IdTeam1);
             var team2 = await _teamService.FindTeamByIdAsync(matchDTO.IdTeam2);
-            if (team1 == null || team2 == null || team1 == team2) { return BadRequest("Team 1, Team 2 không tồn tại hoặc 2 team trùng nhau"); }
-
-            var matchExists = await _matchService.GetMatchByIdAsync(id);
+            if (team1 == null || team2 == null) { return BadRequest("Team 1, Team 2 không tồn tại"); }
 
             var match = await _matchService.UpdateMatchAsync(id, matchDTO);
             if (match == null)
